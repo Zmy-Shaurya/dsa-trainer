@@ -6,3 +6,13 @@ public/content
 test-results
 
 content/companies/
+
+# deploy, reports, local files
+.vercel
+playwright-report
+.env
+.env.*
+.DS_Store
+Thumbs.db
+*.log
+.claude/settings.local.json
