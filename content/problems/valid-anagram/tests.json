@@ -1,0 +1,11 @@
+{
+  "cases": [
+    { "args": { "s": "anagram", "t": "nagaram" }, "expected": true },
+    { "args": { "s": "rat", "t": "car" }, "expected": false },
+    { "args": { "s": "a", "t": "a" }, "expected": true },
+    { "args": { "s": "ab", "t": "a" }, "expected": false },
+    { "args": { "s": "aabb", "t": "bbaa" }, "expected": true },
+    { "args": { "s": "abc", "t": "abd" }, "expected": false },
+    { "args": { "s": "aab", "t": "abb" }, "expected": false }
+  ]
+}

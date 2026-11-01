@@ -1,0 +1,12 @@
+{
+  "app": "dsa-studio", "schemaVersion": 1, "exportedAt": "2026-10-01T08:00:00.000Z", "deviceId": "dev-old", "contentVersion": "2026-10-01-aaaaaa",
+  "data": {
+    "settings": [{ "key": "theme", "value": "dark" }],
+    "progress": [{ "problemId": "two-sum", "status": "solved", "confidence": "cleared", "solveMode": "alone", "firstSolvedAt": "2026-09-30T10:00:00.000Z", "lastAttemptAt": "2026-09-30T10:00:00.000Z", "attempts": 1, "totalTimeSec": 600, "bestTimeSec": 600, "mistakeTags": [], "resurface": { "stage": 0, "nextAt": null }, "starred": false, "source": "manual", "updatedAt": "2026-09-30T10:00:00.000Z" }],
+    "attempts": [{ "id": "a1", "problemId": "two-sum", "at": "2026-09-30T10:00:00.000Z", "outcome": "solved", "mode": "alone", "durationSec": 600, "mistakeTags": [] }],
+    "notes": [{ "id": "n:problem:two-sum", "scope": "problem", "refId": "two-sum", "body": "Use a hash map.", "createdAt": "2026-09-30T10:05:00.000Z", "updatedAt": "2026-09-30T10:05:00.000Z" }],
+    "cards": [], "reviewLogs": [], "activityDays": [],
+    "quizResults": [{ "id": "q1", "kind": "complexity", "itemId": "cq:1", "correct": true, "answer": "O(n)", "durationMs": 900, "at": "2026-09-30T11:00:00.000Z" }],
+    "customSheets": [], "pathState": [], "conceptState": [], "dailyPlans": [], "bookmarks": [], "friendSnapshots": []
+  }
+}

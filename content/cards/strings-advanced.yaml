@@ -1,0 +1,8 @@
+concept: strings-advanced
+cards:
+  - {id: 1, type: basic, front: "How does expand-around-centre find the longest palindromic substring?", back: "For each centre (and each between-pair gap), expand while characters match; keep the longest."}
+  - {id: 2, type: complexity, prompt: "Time of expand-around-centre?", answer: "O(n^2)"}
+  - {id: 3, type: cloze, text: "KMP precomputes a {{c1::failure (prefix) function}} to avoid re-comparing characters, giving O(n + m) search."}
+  - {id: 4, type: basic, front: "Repeated Substring Pattern: quick trick?", back: "s is built from a repeat iff s appears inside (s + s) with the first and last characters removed."}
+  - {id: 5, type: trap, prompt: "Why can this be slower than it looks?", code: {java: "for (...) if (s.substring(i, i + k).equals(t)) ...", cpp: "if (s.substr(i, k) == t) ..."}, answer: "substring/substr copies k characters each time, making it O(n*k). Compare in place when possible."}
+  - {id: 6, type: basic, front: "Why verify a rolling-hash match?", back: "Different strings can collide on the same hash, so confirm by direct comparison."}

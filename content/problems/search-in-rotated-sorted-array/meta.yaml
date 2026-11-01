@@ -1,0 +1,49 @@
+id: search-in-rotated-sorted-array
+platform: leetcode
+lcNumber: 33
+title: Search in Rotated Sorted Array
+url: https://leetcode.com/problems/search-in-rotated-sorted-array/
+difficulty: medium
+tier: 1
+topics: [arrays, binary-search]
+patterns: [binary-search]
+concepts: [binary-search]
+insight: "At every midpoint one half is still sorted; check whether the target lies in that half and discard the other."
+tells:
+  - "Sorted array rotated at an unknown pivot"
+  - "Distinct values, O(log n) wanted"
+hints:
+  - "After picking mid, which half is guaranteed to be in order?"
+  - "How can you test if the target falls inside the sorted half?"
+traps:
+  both:
+    - "Use nums[lo] <= nums[mid] (with equality) so a one-element left half counts as sorted"
+    - "Range checks must be inclusive on the sorted side and exclusive on the far end"
+signature:
+  name: search
+  params: [{ name: nums, type: "int[]" }, { name: target, type: int }]
+  returns: int
+  compare: exact
+approaches:
+  - id: linear
+    name: Linear scan
+    idea: "Check every element until the target is found."
+    time: "O(n)"
+    space: "O(1)"
+    preferWhen: "n is tiny"
+    files: { java: approaches/1-linear.java, cpp: approaches/1-linear.cpp }
+  - id: find-pivot
+    name: Find the pivot, then binary search
+    unlock: "Finding the smallest element splits the array into two sorted runs."
+    idea: "Binary search for the minimum's index, then binary search the run that could hold the target."
+    time: "O(log n)"
+    space: "O(1)"
+    files: { java: approaches/2-find-pivot.java, cpp: approaches/2-find-pivot.cpp }
+  - id: one-pass
+    name: Single modified binary search
+    unlock: "You never need the pivot: one half around mid is always sorted, so test membership there."
+    idea: "Identify the sorted half, check if the target is inside it, and shrink toward the correct side."
+    time: "O(log n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/3-one-pass.java, cpp: approaches/3-one-pass.cpp }

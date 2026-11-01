@@ -1,0 +1,41 @@
+id: best-time-to-buy-and-sell-stock
+platform: leetcode
+lcNumber: 121
+title: Best Time to Buy and Sell Stock
+url: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+difficulty: easy
+tier: 1
+topics: [arrays, greedy]
+patterns: [greedy, two-pointers]
+concepts: [arrays-strings, greedy]
+insight: "Track the cheapest price so far; the best sale today is today's price minus that minimum."
+tells:
+  - "Best single buy-then-sell profit"
+  - "Order matters: buy must come before sell"
+hints:
+  - "For a fixed sell day, which buy day is best?"
+  - "Can you keep that best buy price as you scan?"
+traps:
+  both:
+    - "Return 0, not a negative number, when prices only fall"
+signature:
+  name: maxProfit
+  params: [{ name: prices, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: brute
+    name: Try every buy/sell pair
+    idea: "For each buy day, scan later days for the best sell price."
+    time: "O(n^2)"
+    space: "O(1)"
+    preferWhen: "n is tiny and you want the obvious proof of correctness"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: one-pass
+    name: One pass with running minimum
+    unlock: "The best buy for any sell day is just the minimum price seen before it."
+    idea: "Scan once keeping the lowest price so far; update the best profit with price - minimum."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-one-pass.java, cpp: approaches/2-one-pass.cpp }

@@ -1,0 +1,37 @@
+id: dfs
+title: Depth-First Search
+track: graphs
+order: 29
+prereqs: [graph-basics, recursion-basics, stack]
+visualizers: [dfs-graph]
+coreProblems: [number-of-islands, max-area-of-island, pacific-atlantic-water-flow, surrounded-regions]
+card:
+  idea: "Go as deep as possible along one path, then backtrack."
+  useWhen:
+    - "Connected components, flood fill"
+    - "Reachability or cycle detection"
+    - "Exploring every path or option"
+  complexity:
+    time: "O(V + E)"
+    space: "O(V) recursion in the worst case"
+  template:
+    java: |
+      void dfs(int u) {
+          seen[u] = true;
+          for (int v : g.get(u))
+              if (!seen[v]) dfs(v);
+      }
+      for (int i = 0; i < n; i++)
+          if (!seen[i]) { dfs(i); components++; }
+    cpp: |
+      function<void(int)> dfs = [&](int u) {
+          seen[u] = true;
+          for (int v : g[u])
+              if (!seen[v]) dfs(v);
+      };
+      for (int i = 0; i < n; i++)
+          if (!seen[i]) { dfs(i); components++; }
+  pitfalls:
+    - "Recursion can overflow on 10^5 nodes; use an explicit stack."
+    - "Directed cycle detection needs three states, not just visited."
+    - "Mark visited on entry so a node is never expanded twice."

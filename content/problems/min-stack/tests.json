@@ -1,0 +1,10 @@
+{
+  "cases": [
+    { "ops": ["MinStack","push","push","push","getMin","pop","top","getMin"], "args": [[],[-2],[0],[-3],[],[],[],[]], "expected": [null,null,null,null,-3,null,0,-2] },
+    { "ops": ["MinStack","push","getMin","top"], "args": [[],[5],[],[]], "expected": [null,null,5,5] },
+    { "ops": ["MinStack","push","push","getMin","pop","getMin"], "args": [[],[2],[2],[],[],[]], "expected": [null,null,null,2,null,2] },
+    { "ops": ["MinStack","push","push","push","pop","getMin","top"], "args": [[],[3],[1],[2],[],[],[]], "expected": [null,null,null,null,null,1,1] },
+    { "ops": ["MinStack","push","push","pop","push","getMin"], "args": [[],[1],[5],[],[4],[]], "expected": [null,null,null,null,null,1] },
+    { "ops": ["MinStack","push","push","push","pop","pop","getMin"], "args": [[],[0],[-1],[-5],[],[],[]], "expected": [null,null,null,null,null,null,0] }
+  ]
+}

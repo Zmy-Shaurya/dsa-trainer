@@ -1,0 +1,49 @@
+id: house-robber
+platform: leetcode
+lcNumber: 198
+title: House Robber
+url: https://leetcode.com/problems/house-robber/
+difficulty: medium
+tier: 1
+topics: [dp, arrays]
+patterns: [dp-1d]
+concepts: [dp-1d]
+insight: "At each house choose max(skip it, rob it plus the best from two houses back): best[i] = max(best[i-1], best[i-2] + nums[i])."
+tells:
+  - "Pick items so no two neighbours are chosen"
+  - "Best total up to position i depends on i-1 and i-2"
+hints:
+  - "For the last house, what are your two choices?"
+  - "Which two earlier results does each choice need?"
+traps:
+  both:
+    - "Greedily taking every other house fails: [2,1,1,2] needs the two ends"
+    - "Handle length 1 and 2 before indexing i - 2"
+signature:
+  name: rob
+  params: [{ name: nums, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: brute
+    name: Recursive choices
+    idea: "At house i either skip it or rob it and jump to i + 2; return the better total."
+    time: "O(2^n)"
+    space: "O(n)"
+    preferWhen: "only to derive the recurrence"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: dp-array
+    name: Bottom-up table
+    unlock: "The recursion only needs best[i-1] and best[i-2]; compute them once in order."
+    idea: "best[i] = max(best[i-1], best[i-2] + nums[i]); the answer is the last entry."
+    time: "O(n)"
+    space: "O(n)"
+    files: { java: approaches/2-dp-array.java, cpp: approaches/2-dp-array.cpp }
+  - id: two-vars
+    name: Two rolling variables
+    unlock: "Each entry reads only the previous two, so the table collapses to two numbers."
+    idea: "Keep the best total excluding and including the previous house, and roll them forward."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/3-two-vars.java, cpp: approaches/3-two-vars.cpp }

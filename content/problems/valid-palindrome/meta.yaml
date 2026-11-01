@@ -1,0 +1,45 @@
+id: valid-palindrome
+platform: leetcode
+lcNumber: 125
+title: Valid Palindrome
+url: https://leetcode.com/problems/valid-palindrome/
+difficulty: easy
+tier: 1
+topics: [strings, two-pointers]
+patterns: [two-pointers]
+concepts: [two-pointers, arrays-strings]
+insight: "Walk inward from both ends, skipping non-alphanumerics, and compare letters ignoring case."
+tells:
+  - "Reads the same forwards and backwards"
+  - "Ignore punctuation and case"
+hints:
+  - "Which two characters must match first?"
+  - "Do you really need a cleaned copy of the string?"
+traps:
+  java:
+    - "Use Character.isLetterOrDigit and Character.toLowerCase, not manual ASCII ranges"
+  cpp:
+    - "isalnum/tolower expect unsigned char values; cast chars before calling"
+  both:
+    - "An empty or all-punctuation string counts as a palindrome"
+signature:
+  name: isPalindrome
+  params: [{ name: s, type: string }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: clean-reverse
+    name: Clean, reverse, compare
+    idea: "Build a lowercase alphanumeric copy and compare it with its reverse."
+    time: "O(n)"
+    space: "O(n)"
+    preferWhen: "clarity matters more than the extra copy"
+    files: { java: approaches/1-clean-reverse.java, cpp: approaches/1-clean-reverse.cpp }
+  - id: two-pointers
+    name: Two pointers in place
+    unlock: "A palindrome is symmetric, so compare ends moving inward instead of building a copy."
+    idea: "Move left and right pointers toward each other, skipping non-alphanumerics, comparing lowercase letters."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-two-pointers.java, cpp: approaches/2-two-pointers.cpp }

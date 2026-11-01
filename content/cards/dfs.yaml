@@ -1,0 +1,8 @@
+concept: dfs
+cards:
+  - {id: 1, type: basic, front: "What is DFS?", back: "Explore as deep as possible along each path before backtracking, using recursion or a stack."}
+  - {id: 2, type: basic, front: "How do you detect a cycle in a directed graph with DFS?", back: "Track three states: unvisited, in the current path, done. Reaching an in-path node means a cycle."}
+  - {id: 3, type: complexity, prompt: "Time of DFS on adjacency lists?", answer: "O(V + E)"}
+  - {id: 4, type: cloze, text: "Mark a node visited {{c1::on entry}} so it is never expanded twice."}
+  - {id: 5, type: basic, front: "Why might recursive DFS fail on large graphs?", back: "Call-stack depth can reach V and overflow; use an explicit stack."}
+  - {id: 6, type: basic, front: "Pacific Atlantic Water Flow: what is the efficient idea?", back: "Flood fill uphill from each ocean's border; the answer is cells reached from both."}

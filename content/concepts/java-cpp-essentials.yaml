@@ -1,0 +1,31 @@
+id: java-cpp-essentials
+title: Java and C++ Essentials
+track: foundations
+order: 2
+prereqs: []
+quizOnly: true
+coreProblems: []
+card:
+  idea: "Know the few language behaviours that silently change answers."
+  useWhen:
+    - "Switching between Java and C++ mid-practice"
+    - "A solution passes small tests but fails on large ones"
+    - "Choosing the right collection for the job"
+  complexity:
+    time: "HashMap/unordered_map O(1) avg; TreeMap/map O(log n)"
+    space: "O(n) for the container"
+  template:
+    java: |
+      long big = (long) a * b;           // widen before multiplying
+      int mid = lo + (hi - lo) / 2;      // overflow-safe midpoint
+      Arrays.sort(arr);                  // int[] is not Integer[]
+      s.equals(t);                       // never == for strings
+    cpp: |
+      long long big = 1LL * a * b;       // widen before multiplying
+      int mid = lo + (hi - lo) / 2;      // overflow-safe midpoint
+      sort(v.begin(), v.end());
+      s == t;                            // std::string compares by value
+  pitfalls:
+    - "Java int overflows silently; C++ signed overflow is undefined behaviour."
+    - "Java integer division and % round toward zero, so -7 / 2 is -3."
+    - "C++ vector<bool> and operator[] on maps have surprising semantics."

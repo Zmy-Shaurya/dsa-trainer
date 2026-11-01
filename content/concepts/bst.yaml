@@ -1,0 +1,35 @@
+id: bst
+title: Binary Search Trees
+track: trees
+order: 23
+prereqs: [binary-trees, binary-search]
+visualizers: [bst-insert-search-delete]
+coreProblems: [validate-binary-search-tree, lowest-common-ancestor-of-a-binary-search-tree, kth-smallest-element-in-a-bst]
+card:
+  idea: "Left < node < right everywhere, so search and inorder are ordered."
+  useWhen:
+    - "Ordered insert, search or delete in O(h)"
+    - "kth smallest or sorted output from a tree"
+    - "Validity depends on ancestors, not just parents"
+  complexity:
+    time: "O(h): log n balanced, n skewed"
+    space: "O(h)"
+  template:
+    java: |
+      boolean valid(TreeNode n, long lo, long hi) {
+          if (n == null) return true;
+          if (n.val <= lo || n.val >= hi) return false;
+          return valid(n.left, lo, n.val) && valid(n.right, n.val, hi);
+      }
+      // call: valid(root, Long.MIN_VALUE, Long.MAX_VALUE)
+    cpp: |
+      bool valid(TreeNode* n, long long lo, long long hi) {
+          if (!n) return true;
+          if (n->val <= lo || n->val >= hi) return false;
+          return valid(n->left, lo, n->val) && valid(n->right, n->val, hi);
+      }
+      // call: valid(root, LLONG_MIN, LLONG_MAX)
+  pitfalls:
+    - "Checking only parent-child pairs misses a deep node on the wrong side."
+    - "Using int bounds fails when a node holds Integer.MIN_VALUE."
+    - "Decide how duplicates are handled before you code."

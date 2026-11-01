@@ -1,0 +1,42 @@
+id: container-with-most-water
+platform: leetcode
+lcNumber: 11
+title: Container With Most Water
+url: https://leetcode.com/problems/container-with-most-water/
+difficulty: medium
+tier: 1
+topics: [arrays, two-pointers, greedy]
+patterns: [two-pointers, greedy]
+concepts: [two-pointers, arrays-strings]
+insight: "Start with the widest pair and always move the shorter wall inward; moving the taller one cannot help."
+tells:
+  - "Maximise area from two array positions"
+  - "Area depends on the shorter of two ends"
+hints:
+  - "What limits the water height for a pair of walls?"
+  - "Starting at the widest pair, which wall is worth moving?"
+traps:
+  both:
+    - "Area uses min(height) times distance; do not multiply by the taller wall"
+    - "Use long if heights and width can make the product overflow int"
+signature:
+  name: maxArea
+  params: [{ name: height, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: brute
+    name: Check every pair
+    idea: "For every pair of walls compute min(height) * distance and keep the maximum."
+    time: "O(n^2)"
+    space: "O(1)"
+    preferWhen: "n is small and you only need a reference answer"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: two-pointers
+    name: Two pointers, move the shorter wall
+    unlock: "Narrowing width only helps if you replace the shorter wall, so discard it."
+    idea: "Begin with the outermost walls; compute the area, then advance the pointer at the shorter wall."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-two-pointers.java, cpp: approaches/2-two-pointers.cpp }

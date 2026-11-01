@@ -1,0 +1,41 @@
+id: maximum-subarray
+platform: leetcode
+lcNumber: 53
+title: Maximum Subarray
+url: https://leetcode.com/problems/maximum-subarray/
+difficulty: medium
+tier: 1
+topics: [arrays, dp]
+patterns: [dp-1d, greedy]
+concepts: [dp-1d, greedy]
+insight: "At each element either extend the best subarray ending before it or start fresh; keep the best seen."
+tells:
+  - "Largest sum of a contiguous subarray"
+  - "Negative numbers are allowed"
+hints:
+  - "What is the best subarray that ends exactly at index i?"
+  - "When is the running sum worse than starting over?"
+traps:
+  both:
+    - "Initialise the best to nums[0], not 0, or an all-negative array returns 0"
+signature:
+  name: maxSubArray
+  params: [{ name: nums, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: brute
+    name: "Try every subarray"
+    idea: "Extend each start index to the right, tracking the running sum."
+    time: "O(n^2)"
+    space: "O(1)"
+    preferWhen: "n is tiny"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: kadane
+    name: "Kadane's algorithm"
+    unlock: "The best subarray ending at i only depends on the best ending at i-1."
+    idea: "cur = max(x, cur + x); best = max(best, cur)."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-kadane.java, cpp: approaches/2-kadane.cpp }

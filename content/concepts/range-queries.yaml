@@ -1,0 +1,36 @@
+id: range-queries
+title: Range Queries
+track: trees
+order: 26
+prereqs: [binary-trees, prefix-sums]
+coreProblems: [range-sum-query-mutable, count-of-smaller-numbers-after-self]
+card:
+  idea: "Use a Fenwick or segment tree for range answers with point updates."
+  useWhen:
+    - "Range sum or min with updates in between"
+    - "Counting items smaller than x as you sweep"
+    - "Prefix sums are too slow because the array changes"
+  complexity:
+    time: "O(log n) update and query"
+    space: "O(n)"
+  template:
+    java: |
+      int[] bit = new int[n + 1];
+      void add(int i, int d) { for (i++; i <= n; i += i & -i) bit[i] += d; }
+      int sum(int i) {          // sum of a[0..i]
+          int s = 0;
+          for (i++; i > 0; i -= i & -i) s += bit[i];
+          return s;
+      }
+    cpp: |
+      vector<int> bit(n + 1);
+      void add(int i, int d) { for (i++; i <= n; i += i & -i) bit[i] += d; }
+      int sum(int i) {          // sum of a[0..i]
+          int s = 0;
+          for (i++; i > 0; i -= i & -i) s += bit[i];
+          return s;
+      }
+  pitfalls:
+    - "Fenwick trees are 1-indexed; shift your indices."
+    - "update(i, newValue) needs a delta: newValue minus the old value."
+    - "Compress coordinates when values are large but few."

@@ -1,0 +1,42 @@
+id: linked-list-cycle
+platform: leetcode
+lcNumber: 141
+title: Linked List Cycle
+url: https://leetcode.com/problems/linked-list-cycle/
+difficulty: easy
+tier: 1
+topics: [linked-list, two-pointers]
+patterns: [fast-slow-pointers]
+concepts: [linked-lists, two-pointers]
+insight: "A fast pointer moving two steps per slow step must eventually meet the slow pointer if, and only if, a cycle exists."
+tells:
+  - "Detect a loop in a list or sequence"
+  - "O(1) extra memory requested"
+hints:
+  - "How could you tell you have visited a node before?"
+  - "What happens if two runners move at different speeds on a loop?"
+traps:
+  both:
+    - "Check fast and fast.next for null before moving two steps"
+    - "Compare node identity (reference or pointer), never node values"
+signature:
+  name: hasCycle
+  params: [{ name: head, type: ListNode }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: visited-set
+    name: Remember visited nodes
+    idea: "Add every node to a set; seeing one again means a cycle, reaching null means none."
+    time: "O(n)"
+    space: "O(n)"
+    preferWhen: "you also need to know which node starts the cycle and memory is fine"
+    files: { java: approaches/1-visited-set.java, cpp: approaches/1-visited-set.cpp }
+  - id: floyd
+    name: Fast and slow pointers
+    unlock: "A faster runner laps a slower one on any loop, so no memory is needed to notice."
+    idea: "Move slow by 1 and fast by 2; if they ever point to the same node there is a cycle."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-floyd.java, cpp: approaches/2-floyd.cpp }

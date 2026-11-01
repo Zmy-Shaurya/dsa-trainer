@@ -1,0 +1,46 @@
+id: validate-binary-search-tree
+platform: leetcode
+lcNumber: 98
+title: Validate Binary Search Tree
+url: https://leetcode.com/problems/validate-binary-search-tree/
+difficulty: medium
+tier: 1
+topics: [tree, dfs, bst]
+patterns: [bst-property, tree-dfs]
+concepts: [bst, binary-trees]
+insight: "Every node must lie strictly inside the open range set by its ancestors; checking only parent and child misses violations deeper down."
+tells:
+  - "Is this tree a valid BST?"
+  - "Rule applies to the whole subtree, not just children"
+  - "Inorder of a BST is strictly increasing"
+hints:
+  - "Is comparing a node with its parent enough?"
+  - "What bounds does each node inherit as you go down?"
+traps:
+  java:
+    - "Use long (or null) bounds; Integer.MIN_VALUE and MAX_VALUE are legal node values"
+  cpp:
+    - "Use long long bounds for the same reason as Java"
+  both:
+    - "Duplicates are invalid: use strict comparisons on both sides"
+signature:
+  name: isValidBST
+  params: [{ name: root, type: TreeNode }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: bounds
+    name: Recursion with (low, high) bounds
+    unlock: "A valid BST node must fit inside the open interval inherited from all its ancestors."
+    idea: "Pass the allowed range down; narrow high on the left and low on the right; fail if a value escapes."
+    time: "O(n)"
+    space: "O(h)"
+    isOptimal: true
+    files: { java: approaches/1-bounds.java, cpp: approaches/1-bounds.cpp }
+  - id: inorder
+    name: Inorder traversal stays increasing
+    unlock: "A BST's inorder sequence is strictly increasing, so only compare with the previous value."
+    idea: "Walk left, node, right and keep the previously visited value; any value not larger than it is invalid."
+    time: "O(n)"
+    space: "O(h)"
+    files: { java: approaches/2-inorder.java, cpp: approaches/2-inorder.cpp }

@@ -1,0 +1,33 @@
+id: complexity-basics
+title: Complexity Basics
+track: foundations
+order: 1
+prereqs: []
+quizOnly: true
+coreProblems: []
+card:
+  idea: "Count how work grows with input size n; ignore constants."
+  useWhen:
+    - "Choosing between two approaches before coding"
+    - "Checking a limit like n <= 10^5 against your plan"
+    - "Explaining your solution's cost in an interview"
+  complexity:
+    time: "O(1) < O(log n) < O(n) < O(n log n) < O(n^2) < O(2^n)"
+    space: "Count extra memory, not the input"
+  template:
+    java: |
+      // n <= 10^5  -> O(n log n) or better
+      // n <= 5000  -> O(n^2) is fine
+      // n <= 20    -> O(2^n) is fine
+      for (int i = 0; i < n; i++)        // O(n)
+          for (int j = i; j < n; j++) {} // O(n^2) total
+    cpp: |
+      // n <= 10^5  -> O(n log n) or better
+      // n <= 5000  -> O(n^2) is fine
+      // n <= 20    -> O(2^n) is fine
+      for (int i = 0; i < n; i++)        // O(n)
+          for (int j = i; j < n; j++) {} // O(n^2) total
+  pitfalls:
+    - "Recursion depth counts as space: a depth-n recursion is O(n) memory."
+    - "Nested loops are not always O(n^2); a loop that halves is O(log n)."
+    - "Amortized O(1) is an average over many calls, not every call."

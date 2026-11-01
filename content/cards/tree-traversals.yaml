@@ -1,0 +1,8 @@
+concept: tree-traversals
+cards:
+  - {id: 1, type: basic, front: "Name the three DFS orders.", back: "Preorder (node, left, right), inorder (left, node, right), postorder (left, right, node)."}
+  - {id: 2, type: basic, front: "How do you do a level-order traversal?", back: "BFS with a queue, processing exactly q.size() nodes per level."}
+  - {id: 3, type: cloze, text: "The inorder traversal of a BST visits values in {{c1::sorted}} order."}
+  - {id: 4, type: basic, front: "How do preorder and inorder rebuild a tree?", back: "The first preorder item is the root; find it in inorder to split left and right subtrees; recurse."}
+  - {id: 5, type: complexity, prompt: "Space of BFS on a tree?", answer: "O(w), the maximum width of a level"}
+  - {id: 6, type: basic, front: "Right Side View: what do you keep per level?", back: "The last node processed on each level in BFS (or the first visited in a right-first DFS)."}

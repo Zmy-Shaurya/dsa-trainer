@@ -1,0 +1,49 @@
+id: two-sum
+platform: leetcode
+lcNumber: 1
+title: Two Sum
+url: https://leetcode.com/problems/two-sum/
+difficulty: easy
+tier: 1
+topics: [arrays, hashing]
+patterns: [hashing-complement]
+concepts: [hashing, arrays-strings]
+insight: "For each x, ask whether target - x was already seen."
+tells:
+  - "Find a pair with a given sum"
+  - "Unsorted input, indices required"
+  - "One pass beats checking every pair"
+hints:
+  - "What must be true about the other number?"
+  - "Could you remember the numbers you already passed?"
+traps:
+  java:
+    - "map.get returns Integer; unboxing null throws NPE, so test for null first"
+  cpp:
+    - "unordered_map::operator[] inserts a default 0; use find()"
+  both:
+    - "Look up the complement before inserting, so an element never pairs with itself"
+followups: [two-sum-ii-input-array-is-sorted, 3sum]
+signature:
+  name: twoSum
+  params: [{ name: nums, type: "int[]" }, { name: target, type: int }]
+  returns: "int[]"
+  compare: unordered
+approaches:
+  - id: brute
+    name: Brute force
+    idea: "Check every pair (i, j) until the sum matches."
+    time: "O(n^2)"
+    space: "O(1)"
+    preferWhen: "n is tiny and memory is extremely tight"
+    visualizer: two-sum-brute
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: hashmap
+    name: Hash map, one pass
+    unlock: "Remember each value's index so the complement lookup is O(1)."
+    idea: "Scan once; look up target - x in a map of seen values, then insert x."
+    time: "O(n)"
+    space: "O(n)"
+    isOptimal: true
+    visualizer: two-sum-hash
+    files: { java: approaches/2-hashmap.java, cpp: approaches/2-hashmap.cpp }

@@ -1,0 +1,29 @@
+id: sorting
+title: Sorting
+track: arrays-strings
+order: 11
+prereqs: [arrays-strings, complexity-basics, recursion-basics]
+visualizers: [bubble-sort, selection-sort, insertion-sort, merge-sort, quick-sort, heap-sort, counting-sort, quickselect]
+coreProblems: [sort-colors, sort-an-array, kth-largest-element-in-an-array, merge-intervals]
+card:
+  idea: "Sort first so equal or adjacent items reveal the answer."
+  useWhen:
+    - "Duplicates, overlaps or closest pairs matter"
+    - "Order is free and a greedy pass follows"
+    - "Two pointers or binary search needs sorted input"
+  complexity:
+    time: "O(n log n) comparison sorts"
+    space: "O(1) to O(n) depending on the algorithm"
+  template:
+    java: |
+      Arrays.sort(intervals, (x, y) -> Integer.compare(x[0], y[0]));
+      List<Integer> list = new ArrayList<>(nums);
+      Collections.sort(list, Collections.reverseOrder());
+    cpp: |
+      sort(intervals.begin(), intervals.end(),
+           [](auto& x, auto& y) { return x[0] < y[0]; });
+      sort(v.begin(), v.end(), greater<int>());
+  pitfalls:
+    - "Never subtract in a comparator; x[0] - y[0] overflows."
+    - "Java sorts int[] with a non-stable quicksort; objects use stable merge."
+    - "C++ comparators must be strict (< not <=) or sort can crash."

@@ -1,0 +1,45 @@
+id: 3sum
+platform: leetcode
+lcNumber: 15
+title: 3Sum
+url: https://leetcode.com/problems/3sum/
+difficulty: medium
+tier: 1
+topics: [arrays, two-pointers, sorting]
+patterns: [two-pointers]
+concepts: [two-pointers, arrays-strings]
+insight: "Sort, fix one number, then solve a sorted two-sum with two pointers; skip duplicates to avoid repeated triplets."
+tells:
+  - "Find all unique triplets with a target sum"
+  - "Result must not contain duplicates"
+  - "Sorting makes duplicates adjacent"
+hints:
+  - "If you fix one value, what smaller problem remains?"
+  - "On a sorted array, how can two pointers find a pair with a given sum?"
+  - "When can you skip a value to avoid duplicate triplets?"
+traps:
+  java:
+    - "Compare boxed values with equals(); Integer == fails outside -128..127"
+  both:
+    - "Skip duplicates for the fixed index and for both pointers after a hit"
+signature:
+  name: threeSum
+  params: [{ name: nums, type: "int[]" }]
+  returns: "int[][]"
+  compare: unordered-nested
+approaches:
+  - id: brute
+    name: Triple loop with a set
+    idea: "Try all triples; store each sorted triple in a set to drop duplicates."
+    time: "O(n^3)"
+    space: "O(n)"
+    preferWhen: "n is tiny and you want a reference answer"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: two-pointers
+    name: Sort + two pointers
+    unlock: "After sorting, a fixed first value reduces the rest to a sorted two-sum."
+    idea: "Sort; for each i, move left and right inward to find pairs summing to -nums[i], skipping duplicates."
+    time: "O(n^2)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-two-pointers.java, cpp: approaches/2-two-pointers.cpp }

@@ -1,0 +1,34 @@
+id: graph-basics
+title: Graph Basics
+track: graphs
+order: 27
+prereqs: [hashing, queue-deque]
+visualizers: [bfs-graph, dfs-graph]
+coreProblems: [clone-graph, number-of-provinces]
+card:
+  idea: "Model items as nodes and relations as edges, usually an adjacency list."
+  useWhen:
+    - "Entities with pairwise relationships"
+    - "Counting connected groups"
+    - "A problem hides a graph, like words differing by one letter"
+  complexity:
+    time: "O(V + E) to traverse"
+    space: "O(V + E) adjacency list"
+  template:
+    java: |
+      List<List<Integer>> g = new ArrayList<>();
+      for (int i = 0; i < n; i++) g.add(new ArrayList<>());
+      for (int[] e : edges) {
+          g.get(e[0]).add(e[1]);
+          g.get(e[1]).add(e[0]);      // omit for directed graphs
+      }
+    cpp: |
+      vector<vector<int>> g(n);
+      for (auto& e : edges) {
+          g[e[0]].push_back(e[1]);
+          g[e[1]].push_back(e[0]);    // omit for directed graphs
+      }
+  pitfalls:
+    - "Undirected edges go in both lists; directed ones only in one."
+    - "Without a visited set, a cycle loops forever."
+    - "Graphs may be disconnected; start a traversal from every unvisited node."

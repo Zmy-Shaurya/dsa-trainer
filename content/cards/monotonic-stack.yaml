@@ -1,0 +1,8 @@
+concept: monotonic-stack
+cards:
+  - {id: 1, type: basic, front: "What is a monotonic stack?", back: "A stack whose values stay sorted (increasing or decreasing); you pop items that break the order."}
+  - {id: 2, type: basic, front: "Daily Temperatures: what do you pop and record?", back: "While today is warmer than the top's day, pop it and set its answer to today's index minus its index."}
+  - {id: 3, type: complexity, prompt: "Time of a monotonic-stack pass?", answer: "O(n): each item is pushed and popped at most once"}
+  - {id: 4, type: cloze, text: "For the next greater element to the right, keep a stack of {{c1::decreasing}} values."}
+  - {id: 5, type: basic, front: "Largest Rectangle in Histogram: what happens when a bar is shorter than the top?", back: "Pop the top as the height; its width runs from the new top + 1 to the current index - 1."}
+  - {id: 6, type: basic, front: "Why store indices instead of values?", back: "You need positions for distances and widths; the value is recoverable from the index."}

@@ -1,0 +1,8 @@
+concept: binary-search
+cards:
+  - {id: 1, type: basic, front: "Why write mid as lo + (hi - lo) / 2?", back: "It avoids int overflow of lo + hi."}
+  - {id: 2, type: cloze, text: "Binary search needs the search space to be {{c1::monotonic}} in the condition."}
+  - {id: 3, type: code, prompt: "Fill the blank: move the left boundary when a[mid] < target.", code: {java: "if (a[mid] < target) lo = ____;", cpp: "if (a[mid] < target) lo = ____;"}, answer: "mid + 1"}
+  - {id: 4, type: complexity, prompt: "Time to binary search a sorted array of n items?", answer: "O(log n)"}
+  - {id: 5, type: basic, front: "How do you binary search on the answer (Koko Eating Bananas)?", back: "Search the speed range 1..max; find the smallest speed for which a feasibility check passes."}
+  - {id: 6, type: basic, front: "In a rotated sorted array, how do you decide which half is sorted?", back: "Compare a[lo] with a[mid]: if a[lo] <= a[mid] the left half is sorted; otherwise the right half is."}

@@ -1,0 +1,8 @@
+concept: two-pointers
+cards:
+  - {id: 1, type: basic, front: "When does the opposite-ends two-pointer technique work on pair sums?", back: "When the array is sorted: if the sum is too small move left up, if too big move right down."}
+  - {id: 2, type: complexity, prompt: "Time of 3Sum with sorting and two pointers?", answer: "O(n^2)"}
+  - {id: 3, type: basic, front: "Container With Most Water: which pointer do you move and why?", back: "The shorter side. Moving the taller one can't increase the area."}
+  - {id: 4, type: cloze, text: "In 3Sum, skip {{c1::duplicate values}} for the fixed element and for both pointers to avoid repeated triplets."}
+  - {id: 5, type: code, prompt: "Fill the loop condition for pair-finding with two pointers.", code: {java: "while (l ____ r) {", cpp: "while (l ____ r) {"}, answer: "<"}
+  - {id: 6, type: basic, front: "How does the two-pointer palindrome check handle punctuation?", back: "Skip non-alphanumeric characters on either side, then compare case-insensitively."}

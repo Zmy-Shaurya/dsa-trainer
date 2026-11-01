@@ -1,0 +1,8 @@
+concept: grid-graphs
+cards:
+  - {id: 1, type: basic, front: "How is a grid a graph?", back: "Each cell is a node connected to its 4 (or 8) neighbours."}
+  - {id: 2, type: code, prompt: "Bounds check before using a neighbour:", code: {java: "if (r < 0 || c < 0 || r >= ____ || c >= g[0].length) return;", cpp: "if (r < 0 || c < 0 || r >= ____ || c >= (int)g[0].size()) return;"}, answer: "g.length (g.size() in C++)"}
+  - {id: 3, type: basic, front: "Number of Islands: algorithm?", back: "Scan cells; on each unvisited land cell, count one island and flood-fill all connected land."}
+  - {id: 4, type: cloze, text: "Use {{c1::BFS}} for the shortest path in a grid; DFS does not guarantee it."}
+  - {id: 5, type: complexity, prompt: "Time of flood-filling an R x C grid?", answer: "O(R * C)"}
+  - {id: 6, type: basic, front: "When is mutating the input grid as 'visited' fine?", back: "When the problem allows modifying input, or you restore it. Otherwise use a separate visited array."}

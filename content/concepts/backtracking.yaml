@@ -1,0 +1,39 @@
+id: backtracking
+title: Backtracking
+track: recursion-dp
+order: 35
+prereqs: [recursion-basics]
+visualizers: [subsets, permutations, n-queens, combination-sum]
+coreProblems: [subsets, permutations, combination-sum, word-search, palindrome-partitioning, letter-combinations-of-a-phone-number, n-queens]
+card:
+  idea: "Build a candidate step by step; undo each choice after exploring it."
+  useWhen:
+    - "Generate all subsets, permutations or combinations"
+    - "Constraint puzzles like N-Queens or Sudoku"
+    - "Search with pruning when a partial answer is already invalid"
+  complexity:
+    time: "Exponential: O(2^n) subsets, O(n!) permutations"
+    space: "O(depth) plus the output"
+  template:
+    java: |
+      void go(int start, List<Integer> cur) {
+          out.add(new ArrayList<>(cur));         // copy, not the live list
+          for (int i = start; i < nums.length; i++) {
+              cur.add(nums[i]);                  // choose
+              go(i + 1, cur);                    // explore
+              cur.remove(cur.size() - 1);        // undo
+          }
+      }
+    cpp: |
+      void go(int start, vector<int>& cur) {
+          out.push_back(cur);
+          for (int i = start; i < (int)nums.size(); i++) {
+              cur.push_back(nums[i]);            // choose
+              go(i + 1, cur);                    // explore
+              cur.pop_back();                    // undo
+          }
+      }
+  pitfalls:
+    - "Add a copy of the list to the output, not the list you keep mutating."
+    - "Skip duplicates by sorting and skipping equal neighbours at the same level."
+    - "Prune early; check constraints before recursing, not after."

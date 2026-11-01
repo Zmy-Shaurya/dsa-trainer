@@ -1,0 +1,49 @@
+id: climbing-stairs
+platform: leetcode
+lcNumber: 70
+title: Climbing Stairs
+url: https://leetcode.com/problems/climbing-stairs/
+difficulty: easy
+tier: 1
+topics: [dp, math]
+patterns: [dp-1d]
+concepts: [dp-1d, recursion-basics]
+insight: "The last move was a 1-step or a 2-step, so ways(n) = ways(n-1) + ways(n-2): the Fibonacci recurrence."
+tells:
+  - "Count the ways to reach a target using small steps"
+  - "Each state depends on the previous couple of states"
+hints:
+  - "How could you have arrived at step n?"
+  - "Which earlier answers do you reuse again and again?"
+traps:
+  both:
+    - "Plain recursion repeats subproblems and takes exponential time"
+    - "Base cases are ways(1) = 1 and ways(2) = 2; ways(0) = 1 also works"
+signature:
+  name: climbStairs
+  params: [{ name: n, type: int }]
+  returns: int
+  compare: exact
+approaches:
+  - id: brute
+    name: Plain recursion
+    idea: "ways(n) = ways(n - 1) + ways(n - 2), recomputed from scratch each time."
+    time: "O(2^n)"
+    space: "O(n)"
+    preferWhen: "only as a stepping stone to memoization"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: memo
+    name: Memoized recursion
+    unlock: "The same n recurs many times, so cache each answer the first time it is computed."
+    idea: "Same recurrence, but store ways(k) in an array so each k is computed once."
+    time: "O(n)"
+    space: "O(n)"
+    files: { java: approaches/2-memo.java, cpp: approaches/2-memo.cpp }
+  - id: two-vars
+    name: Bottom-up with two variables
+    unlock: "Only the last two answers matter, so keep two numbers instead of a table."
+    idea: "Iterate from 3 to n, rolling prev and cur forward."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/3-two-vars.java, cpp: approaches/3-two-vars.cpp }

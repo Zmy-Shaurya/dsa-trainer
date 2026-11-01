@@ -1,0 +1,45 @@
+id: group-anagrams
+platform: leetcode
+lcNumber: 49
+title: Group Anagrams
+url: https://leetcode.com/problems/group-anagrams/
+difficulty: medium
+tier: 1
+topics: [strings, hashing]
+patterns: [frequency-map]
+concepts: [hashing, arrays-strings]
+insight: "Anagrams share a canonical form (sorted letters or letter counts); use it as a map key."
+tells:
+  - "Group items that are 'the same up to order'"
+  - "Need a key that ignores letter order"
+hints:
+  - "What single value is identical for every word in a group?"
+  - "Can you build that key without comparing every pair of words?"
+traps:
+  java:
+    - "int[] has identity hashCode; turn counts into a String before using it as a key"
+  cpp:
+    - "vector<int> is a valid map key but not for unordered_map; build a string key"
+  both:
+    - "The empty string is a valid word and forms its own group"
+signature:
+  name: groupAnagrams
+  params: [{ name: strs, type: "string[]" }]
+  returns: "string[][]"
+  compare: unordered-nested
+approaches:
+  - id: sorted-key
+    name: Sorted word as key
+    idea: "Sort each word's letters and group words that produce the same sorted string."
+    time: "O(n * k log k)"
+    space: "O(n * k)"
+    preferWhen: "words are short or the alphabet is not just a-z"
+    files: { java: approaches/1-sorted-key.java, cpp: approaches/1-sorted-key.cpp }
+  - id: count-key
+    name: Letter-count key
+    unlock: "Counting letters is linear, so skip the sort and key on the 26 counts."
+    idea: "Build a 26-entry count signature per word and use it as the hash key."
+    time: "O(n * k)"
+    space: "O(n * k)"
+    isOptimal: true
+    files: { java: approaches/2-count-key.java, cpp: approaches/2-count-key.cpp }

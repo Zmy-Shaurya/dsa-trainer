@@ -1,0 +1,51 @@
+id: beginner-to-intermediate
+name: Beginner to intermediate in 45 days
+description: Easy problems first, then mediums once the idea is familiar. One review day a week.
+language: any
+hoursPerDay: 1
+days:
+  - { day: 1, title: Complexity and arrays, concepts: [complexity-basics, arrays-strings], problems: [contains-duplicate, plus-one], quizzes: [complexity] }
+  - { day: 2, title: Arrays, concepts: [arrays-strings], problems: [best-time-to-buy-and-sell-stock, move-zeroes, majority-element] }
+  - { day: 3, title: Hashing, concepts: [hashing], problems: [valid-anagram, two-sum] }
+  - { day: 4, title: Hashing, concepts: [hashing], problems: [group-anagrams, top-k-frequent-elements] }
+  - { day: 5, title: Prefix sums, concepts: [prefix-sums], problems: [longest-consecutive-sequence, product-of-array-except-self] }
+  - { day: 6, title: Two pointers, concepts: [two-pointers], problems: [valid-palindrome, two-sum-ii-input-array-is-sorted] }
+  - { day: 7, title: Review week 1, review: true }
+  - { day: 8, title: Two pointers, concepts: [two-pointers], problems: [3sum, container-with-most-water] }
+  - { day: 9, title: Sliding window, concepts: [sliding-window], problems: [longest-substring-without-repeating-characters, permutation-in-string] }
+  - { day: 10, title: Stacks, concepts: [stack], problems: [valid-parentheses, min-stack] }
+  - { day: 11, title: Stacks and queues, concepts: [stack, queue-deque], problems: [evaluate-reverse-polish-notation, implement-queue-using-stacks] }
+  - { day: 12, title: Sorting and binary search, concepts: [sorting, binary-search], problems: [binary-search, sort-colors] }
+  - { day: 13, title: Binary search, concepts: [binary-search], problems: [search-a-2d-matrix, koko-eating-bananas] }
+  - { day: 14, title: Review week 2, review: true }
+  - { day: 15, title: Recursion, concepts: [recursion-basics], problems: [fibonacci-number, pow-x-n] }
+  - { day: 16, title: Linked lists, concepts: [linked-lists], problems: [reverse-linked-list, merge-two-sorted-lists] }
+  - { day: 17, title: Linked lists, concepts: [linked-lists], problems: [linked-list-cycle, remove-nth-node-from-end-of-list] }
+  - { day: 18, title: Binary trees, concepts: [binary-trees], problems: [invert-binary-tree, maximum-depth-of-binary-tree] }
+  - { day: 19, title: Binary trees, concepts: [binary-trees], problems: [same-tree, subtree-of-another-tree, balanced-binary-tree], optional: [balanced-binary-tree] }
+  - { day: 20, title: Traversals, concepts: [tree-traversals], problems: [binary-tree-level-order-traversal, binary-tree-right-side-view] }
+  - { day: 21, title: Review week 3, review: true }
+  - { day: 22, title: Binary search trees, concepts: [bst], problems: [validate-binary-search-tree, kth-smallest-element-in-a-bst] }
+  - { day: 23, title: Heaps, concepts: [heaps], problems: [last-stone-weight, kth-largest-element-in-a-stream] }
+  - { day: 24, title: Heaps, concepts: [heaps], problems: [k-closest-points-to-origin, kth-largest-element-in-an-array] }
+  - { day: 25, title: Grids, concepts: [graph-basics, grid-graphs], problems: [number-of-islands, max-area-of-island] }
+  - { day: 26, title: Breadth-first search, concepts: [bfs], problems: [rotting-oranges, clone-graph] }
+  - { day: 27, title: Depth-first search, concepts: [dfs], problems: [pacific-atlantic-water-flow, surrounded-regions], optional: [surrounded-regions] }
+  - { day: 28, title: Review week 4, review: true }
+  - { day: 29, title: Topological sort, concepts: [topological-sort], problems: [course-schedule, course-schedule-ii] }
+  - { day: 30, title: Backtracking, concepts: [backtracking], problems: [subsets, permutations] }
+  - { day: 31, title: Backtracking, concepts: [backtracking], problems: [combination-sum, letter-combinations-of-a-phone-number] }
+  - { day: 32, title: Dynamic programming, concepts: [dp-1d], problems: [climbing-stairs, min-cost-climbing-stairs] }
+  - { day: 33, title: Dynamic programming, concepts: [dp-1d], problems: [house-robber, coin-change] }
+  - { day: 34, title: Dynamic programming, concepts: [dp-1d], problems: [word-break, longest-increasing-subsequence] }
+  - { day: 35, title: Review week 5, review: true }
+  - { day: 36, title: Dynamic programming, concepts: [dp-1d], problems: [decode-ways, maximum-product-subarray] }
+  - { day: 37, title: Two-dimensional DP, concepts: [dp-2d], problems: [unique-paths, longest-common-subsequence] }
+  - { day: 38, title: Greedy, concepts: [greedy], problems: [maximum-subarray, jump-game] }
+  - { day: 39, title: Intervals, concepts: [intervals], problems: [merge-intervals, insert-interval] }
+  - { day: 40, title: Intervals, concepts: [intervals], problems: [non-overlapping-intervals, meeting-rooms] }
+  - { day: 41, title: Bits, concepts: [bit-manipulation], problems: [single-number, number-of-1-bits, counting-bits] }
+  - { day: 42, title: Review week 6, review: true }
+  - { day: 43, title: Mixed practice, problems: [happy-number, missing-number], quizzes: [pattern] }
+  - { day: 44, title: Weak spots, quizzes: [complexity, pattern], focus: "Redo the three problems you found hardest" }
+  - { day: 45, title: Final review, review: true, focus: "Skim your notes and flashcards" }

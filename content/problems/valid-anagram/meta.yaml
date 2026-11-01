@@ -1,0 +1,43 @@
+id: valid-anagram
+platform: leetcode
+lcNumber: 242
+title: Valid Anagram
+url: https://leetcode.com/problems/valid-anagram/
+difficulty: easy
+tier: 1
+topics: [strings, hashing]
+patterns: [frequency-map]
+concepts: [hashing, arrays-strings]
+insight: "Two strings are anagrams exactly when every letter has the same count."
+tells:
+  - "Same letters, any order"
+  - "Compare two strings by character counts"
+hints:
+  - "What stays the same when letters are rearranged?"
+  - "Only 26 letters exist; a fixed-size table is enough."
+traps:
+  java:
+    - "Use toCharArray(); String has no in-place sort"
+  both:
+    - "Different lengths can never be anagrams; check that first"
+signature:
+  name: isAnagram
+  params: [{ name: s, type: string }, { name: t, type: string }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: sort
+    name: Sort both strings
+    idea: "Sort the characters of both strings; they are anagrams iff the results are equal."
+    time: "O(n log n)"
+    space: "O(n)"
+    preferWhen: "the alphabet is large or unknown (Unicode)"
+    files: { java: approaches/1-sort.java, cpp: approaches/1-sort.cpp }
+  - id: count
+    name: Count letters
+    unlock: "Order is irrelevant, so compare frequency tables instead of sorting."
+    idea: "Add 1 for each letter of s and subtract 1 for each letter of t; all counts must end at 0."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-count.java, cpp: approaches/2-count.cpp }

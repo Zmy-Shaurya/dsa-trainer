@@ -1,0 +1,35 @@
+id: dp-knapsack
+title: Knapsack DP
+track: recursion-dp
+order: 40
+prereqs: [dp-1d]
+visualizers: [knapsack-01]
+coreProblems: [partition-equal-subset-sum, target-sum, coin-change-ii]
+card:
+  idea: "For each item decide take or skip, over a capacity dimension."
+  useWhen:
+    - "Choose items to hit a target sum"
+    - "Count combinations that reach an amount"
+    - "Each item may be used once (0/1) or unlimited times"
+  complexity:
+    time: "O(items * capacity)"
+    space: "O(capacity)"
+  template:
+    java: |
+      boolean[] dp = new boolean[target + 1];
+      dp[0] = true;
+      for (int x : nums)
+          for (int s = target; s >= x; s--)      // backwards: each item once
+              dp[s] |= dp[s - x];
+      return dp[target];
+    cpp: |
+      vector<bool> dp(target + 1);
+      dp[0] = true;
+      for (int x : nums)
+          for (int s = target; s >= x; s--)      // backwards: each item once
+              dp[s] = dp[s] || dp[s - x];
+      return dp[target];
+  pitfalls:
+    - "0/1 knapsack loops capacity downward; unbounded loops it upward."
+    - "To count combinations, loop items outside; for permutations, capacity outside."
+    - "Check the total is even before trying to split it in half."

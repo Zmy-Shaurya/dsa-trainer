@@ -1,0 +1,8 @@
+concept: bit-manipulation
+cards:
+  - {id: 1, type: code, prompt: "Clear the lowest set bit of x.", code: {java: "x = x & ____;", cpp: "x = x & ____;"}, answer: "(x - 1)"}
+  - {id: 2, type: code, prompt: "Isolate the lowest set bit of x.", code: {java: "int low = x & ____;", cpp: "int low = x & ____;"}, answer: "-x"}
+  - {id: 3, type: basic, front: "What is a ^ a, and a ^ 0?", back: "a ^ a = 0 and a ^ 0 = a. XOR of all items cancels pairs, leaving the single one."}
+  - {id: 4, type: cloze, text: "Java's {{c1::>>>}} shifts right filling with zeros; >> keeps the sign bit."}
+  - {id: 5, type: trap, prompt: "What is wrong with building a 40-bit mask this way?", code: {java: "long mask = 1 << 40;", cpp: "long long mask = 1 << 40;"}, answer: "1 is an int, so the shift overflows. Use 1L << 40 (Java) or 1LL << 40 (C++)."}
+  - {id: 6, type: basic, front: "How do you test whether n is a power of two?", back: "n > 0 && (n & (n - 1)) == 0"}

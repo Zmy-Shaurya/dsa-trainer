@@ -1,0 +1,40 @@
+id: single-number
+platform: leetcode
+lcNumber: 136
+title: Single Number
+url: https://leetcode.com/problems/single-number/
+difficulty: easy
+tier: 1
+topics: [arrays, bit-manipulation]
+patterns: [bit-manipulation]
+concepts: [arrays-strings, bit-manipulation]
+insight: "XOR cancels equal pairs, so XOR-ing everything leaves the value that appears once."
+tells:
+  - "Every element appears twice except one"
+  - "Linear time and constant extra space"
+hints:
+  - "What does x ^ x equal?"
+  - "Does the order of XOR matter?"
+traps:
+  both:
+    - "A hash map works but breaks the O(1) space requirement"
+signature:
+  name: singleNumber
+  params: [{ name: nums, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: hashmap
+    name: "Count in a hash map"
+    idea: "Count occurrences and return the key whose count is 1."
+    time: "O(n)"
+    space: "O(n)"
+    files: { java: approaches/1-hashmap.java, cpp: approaches/1-hashmap.cpp }
+  - id: xor
+    name: "XOR everything"
+    unlock: "Equal pairs cancel under XOR and order does not matter."
+    idea: "Fold all values with ^; the survivor is the answer."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-xor.java, cpp: approaches/2-xor.cpp }

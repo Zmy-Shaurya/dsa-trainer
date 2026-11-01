@@ -1,0 +1,45 @@
+id: reverse-linked-list
+platform: leetcode
+lcNumber: 206
+title: Reverse Linked List
+url: https://leetcode.com/problems/reverse-linked-list/
+difficulty: easy
+tier: 1
+topics: [linked-list]
+patterns: [linked-list-reversal]
+concepts: [linked-lists]
+insight: "Walk the list once, pointing each node back at the node you just left; remember next before you overwrite it."
+tells:
+  - "Reverse a singly linked list in place"
+  - "Rewire next pointers, not values"
+hints:
+  - "What must you save before you change cur.next?"
+  - "What do prev and cur hold when the loop ends?"
+traps:
+  java:
+    - "Return prev, not head; head now points at the tail"
+  cpp:
+    - "No node is freed or allocated here; you only rewire pointers"
+  both:
+    - "Handle the empty and single-node lists without special cases"
+signature:
+  name: reverseList
+  params: [{ name: head, type: ListNode }]
+  returns: ListNode
+  compare: exact
+approaches:
+  - id: iterative
+    name: Iterative pointer reversal
+    unlock: "Each node only needs to point at its predecessor, so one pass with prev/cur is enough."
+    idea: "Keep prev and cur; for each node save next, point cur.next at prev, then advance both."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/1-iterative.java, cpp: approaches/1-iterative.cpp }
+  - id: recursive
+    name: Recursion
+    idea: "Reverse the rest of the list, then attach the current head after it and cut its next pointer."
+    time: "O(n)"
+    space: "O(n)"
+    preferWhen: "the list is short and you want the recursive structure"
+    files: { java: approaches/2-recursive.java, cpp: approaches/2-recursive.cpp }

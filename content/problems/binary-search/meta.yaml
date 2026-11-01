@@ -1,0 +1,52 @@
+id: binary-search
+platform: leetcode
+lcNumber: 704
+title: Binary Search
+url: https://leetcode.com/problems/binary-search/
+difficulty: easy
+tier: 1
+topics: [arrays, binary-search]
+patterns: [binary-search]
+concepts: [binary-search]
+insight: "On sorted data, compare with the middle and discard the half that cannot contain the target."
+tells:
+  - "Sorted array, find a value"
+  - "O(log n) is required"
+hints:
+  - "What does one comparison with the middle element rule out?"
+  - "How do you keep the search range correct after each step?"
+traps:
+  both:
+    - "Compute mid = lo + (hi - lo) / 2 to avoid int overflow of lo + hi"
+    - "Pick one interval convention ([lo, hi] or [lo, hi)) and keep the loop and updates consistent"
+signature:
+  name: search
+  params: [{ name: nums, type: "int[]" }, { name: target, type: int }]
+  returns: int
+  compare: exact
+approaches:
+  - id: linear
+    name: Linear scan
+    idea: "Check each element from the left until the target is found."
+    time: "O(n)"
+    space: "O(1)"
+    preferWhen: "the array is unsorted or tiny"
+    visualizer: linear-search
+    files: { java: approaches/1-linear.java, cpp: approaches/1-linear.cpp }
+  - id: closed
+    name: Binary search on [lo, hi]
+    unlock: "The array is sorted, so each probe can discard half of the remaining range."
+    idea: "Keep lo and hi inclusive; test mid, then set lo = mid + 1 or hi = mid - 1."
+    time: "O(log n)"
+    space: "O(1)"
+    isOptimal: true
+    visualizer: binary-search
+    files: { java: approaches/2-closed.java, cpp: approaches/2-closed.cpp }
+  - id: half-open
+    name: Lower-bound style on [lo, hi)
+    unlock: "A half-open range avoids off-by-one: find the first index not smaller than the target."
+    idea: "Shrink [lo, hi) until lo == hi, then check whether nums[lo] is the target."
+    time: "O(log n)"
+    space: "O(1)"
+    preferWhen: "you reuse the same template for first/last occurrence problems"
+    files: { java: approaches/3-half-open.java, cpp: approaches/3-half-open.cpp }

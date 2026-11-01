@@ -1,0 +1,36 @@
+id: placement-30
+name: Placement in 30 days
+description: Core patterns for campus placements, about 1.5 hours a day with a review day each week.
+language: any
+hoursPerDay: 1.5
+days:
+  - { day: 1, title: Complexity and arrays, concepts: [complexity-basics, arrays-strings], problems: [contains-duplicate, best-time-to-buy-and-sell-stock], quizzes: [complexity], focus: "Big-O quiz x5, read the arrays card" }
+  - { day: 2, title: Hashing, concepts: [hashing], problems: [valid-anagram, two-sum, group-anagrams] }
+  - { day: 3, title: Hashing, concepts: [hashing], problems: [top-k-frequent-elements, longest-consecutive-sequence] }
+  - { day: 4, title: Prefix sums, concepts: [prefix-sums], problems: [product-of-array-except-self] }
+  - { day: 5, title: Two pointers, concepts: [two-pointers], problems: [valid-palindrome, 3sum] }
+  - { day: 6, title: Two pointers, concepts: [two-pointers], problems: [container-with-most-water], quizzes: [pattern] }
+  - { day: 7, title: Review week 1, review: true, focus: "Resurfaced items and weak spots" }
+  - { day: 8, title: Sliding window, concepts: [sliding-window], problems: [longest-substring-without-repeating-characters] }
+  - { day: 9, title: Sliding window, concepts: [sliding-window], problems: [minimum-window-substring], optional: [minimum-window-substring], quizzes: [pattern] }
+  - { day: 10, title: Stacks, concepts: [stack, monotonic-stack], problems: [valid-parentheses, min-stack, daily-temperatures] }
+  - { day: 11, title: Sorting and binary search, concepts: [sorting, binary-search], problems: [binary-search, search-in-rotated-sorted-array] }
+  - { day: 12, title: Binary search, concepts: [binary-search], problems: [find-minimum-in-rotated-sorted-array, koko-eating-bananas] }
+  - { day: 13, title: Linked lists, concepts: [linked-lists], problems: [reverse-linked-list, merge-two-sorted-lists, linked-list-cycle] }
+  - { day: 14, title: Review week 2, review: true, focus: "Resurfaced items and weak spots" }
+  - { day: 15, title: Recursion and trees, concepts: [recursion-basics, binary-trees], problems: [invert-binary-tree, maximum-depth-of-binary-tree] }
+  - { day: 16, title: Traversals and BSTs, concepts: [tree-traversals, bst], problems: [binary-tree-level-order-traversal, validate-binary-search-tree] }
+  - { day: 17, title: BSTs, concepts: [bst], problems: [lowest-common-ancestor-of-a-binary-search-tree] }
+  - { day: 18, title: Heaps, concepts: [heaps], problems: [kth-largest-element-in-an-array, find-median-from-data-stream], optional: [find-median-from-data-stream] }
+  - { day: 19, title: Graph basics, concepts: [graph-basics, dfs, grid-graphs], problems: [number-of-islands] }
+  - { day: 20, title: Graphs, concepts: [bfs, topological-sort], problems: [clone-graph, course-schedule] }
+  - { day: 21, title: Review week 3, review: true, focus: "Resurfaced items and weak spots" }
+  - { day: 22, title: Backtracking, concepts: [backtracking], problems: [subsets, permutations] }
+  - { day: 23, title: Backtracking, concepts: [backtracking], problems: [combination-sum] }
+  - { day: 24, title: Dynamic programming, concepts: [dp-1d], problems: [climbing-stairs, house-robber] }
+  - { day: 25, title: Dynamic programming, concepts: [dp-1d], problems: [coin-change] }
+  - { day: 26, title: Dynamic programming, concepts: [dp-1d], problems: [longest-increasing-subsequence, word-break] }
+  - { day: 27, title: Intervals and greedy, concepts: [intervals, greedy], problems: [merge-intervals] }
+  - { day: 28, title: Timed practice, problems: [maximum-subarray, rotting-oranges, permutation-in-string], quizzes: [pattern], focus: "Timed set of 3 mixed problems: 45 minutes, no hints" }
+  - { day: 29, title: Weak spots, quizzes: [complexity], focus: "Redo the core problems of your weakest concept from the skill tree" }
+  - { day: 30, title: Final review, review: true, focus: "Mock set and final review" }

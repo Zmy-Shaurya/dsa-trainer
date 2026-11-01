@@ -1,0 +1,8 @@
+concept: sliding-window
+cards:
+  - {id: 1, type: basic, front: "What is the sliding window pattern?", back: "Extend the right end every step; shrink from the left while the window is invalid."}
+  - {id: 2, type: complexity, prompt: "Time of a variable sliding window over n items?", answer: "O(n): each index enters and leaves the window at most once"}
+  - {id: 3, type: cloze, text: "Window length is {{c1::r - l + 1}} when both ends are inclusive."}
+  - {id: 4, type: basic, front: "Why do negative numbers break the shrink-while-too-big window?", back: "Adding an element can lower the sum, so a window's validity is no longer monotonic."}
+  - {id: 5, type: basic, front: "Longest Substring Without Repeating: what does the window state hold?", back: "A count (or last index) per character, shrinking until the new character appears once."}
+  - {id: 6, type: basic, front: "Which structure gives a fixed-size window maximum in O(n)?", back: "A monotonic deque of indices with decreasing values."}

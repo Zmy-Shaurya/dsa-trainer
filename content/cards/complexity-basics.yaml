@@ -1,0 +1,9 @@
+concept: complexity-basics
+cards:
+  - {id: 1, type: basic, front: "What does Big-O describe?", back: "How the work (or memory) grows as input size n grows, ignoring constants and lower-order terms."}
+  - {id: 2, type: cloze, text: "A loop that doubles i each step (i *= 2) runs {{c1::O(log n)}} times."}
+  - {id: 3, type: complexity, prompt: "Time of two nested loops over n, where the inner loop runs from i to n?", answer: "O(n^2)"}
+  - {id: 4, type: basic, front: "For n up to 10^5, which time complexities are safe in about a second?", back: "O(n) and O(n log n). O(n^2) is about 10^10 steps and too slow."}
+  - {id: 5, type: cloze, text: "Recursion depth counts toward {{c1::space}} complexity because of the call stack."}
+  - {id: 6, type: basic, front: "What does amortized O(1) mean?", back: "Averaged over a sequence of operations, each costs O(1), even if a single one is occasionally expensive (like a resize)."}
+  - {id: 7, type: complexity, prompt: "Time to sort n items with a comparison sort?", answer: "O(n log n)"}

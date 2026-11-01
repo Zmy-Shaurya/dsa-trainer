@@ -1,0 +1,8 @@
+concept: prefix-sums
+cards:
+  - {id: 1, type: basic, front: "How do you get the sum of a[l..r] with a prefix array?", back: "pre[r + 1] - pre[l], where pre[0] = 0 and pre[i + 1] = pre[i] + a[i]."}
+  - {id: 2, type: complexity, prompt: "Build time and per-query time of a prefix sum array?", answer: "O(n) build, O(1) per query"}
+  - {id: 3, type: cloze, text: "Counting subarrays that sum to k: look up {{c1::pre - k}} in a hash map of earlier prefix counts."}
+  - {id: 4, type: basic, front: "Why seed the prefix-count map with {0: 1}?", back: "So subarrays that start at index 0 are counted."}
+  - {id: 5, type: basic, front: "How does Product of Array Except Self use prefix ideas?", back: "A left-product pass, then a right-product pass; each answer is left[i] * right[i]."}
+  - {id: 6, type: trap, prompt: "What can go wrong here?", code: {java: "int[] pre = new int[n + 1];  // values up to 10^9", cpp: "vector<int> pre(n + 1);  // values up to 10^9"}, answer: "Sums can exceed 2^31. Use long (Java) or long long (C++)."}

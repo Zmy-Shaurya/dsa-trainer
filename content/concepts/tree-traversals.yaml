@@ -1,0 +1,41 @@
+id: tree-traversals
+title: Tree Traversals
+track: trees
+order: 22
+prereqs: [binary-trees, stack, queue-deque]
+visualizers: [tree-traversals]
+coreProblems: [binary-tree-level-order-traversal, binary-tree-right-side-view, count-good-nodes-in-binary-tree, construct-binary-tree-from-preorder-and-inorder-traversal, serialize-and-deserialize-binary-tree]
+card:
+  idea: "Visit nodes by depth (DFS orders) or by level (BFS)."
+  useWhen:
+    - "Output must be level by level"
+    - "Preorder, inorder or postorder defines the answer"
+    - "Rebuilding a tree from two traversals"
+  complexity:
+    time: "O(n)"
+    space: "O(w) for BFS width, O(h) for DFS"
+  template:
+    java: |
+      Queue<TreeNode> q = new ArrayDeque<>();
+      q.offer(root);
+      while (!q.isEmpty()) {
+          for (int i = q.size(); i > 0; i--) {   // one level
+              TreeNode n = q.poll();
+              if (n.left != null) q.offer(n.left);
+              if (n.right != null) q.offer(n.right);
+          }
+      }
+    cpp: |
+      queue<TreeNode*> q;
+      q.push(root);
+      while (!q.empty()) {
+          for (int i = q.size(); i > 0; i--) {   // one level
+              TreeNode* n = q.front(); q.pop();
+              if (n->left) q.push(n->left);
+              if (n->right) q.push(n->right);
+          }
+      }
+  pitfalls:
+    - "Capture q.size() before the inner loop; it changes as you push."
+    - "Guard against a null root before the first offer."
+    - "Inorder of a BST is sorted; preorder alone doesn't determine a tree."

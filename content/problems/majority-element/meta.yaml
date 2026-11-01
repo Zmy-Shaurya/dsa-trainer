@@ -1,0 +1,40 @@
+id: majority-element
+platform: leetcode
+lcNumber: 169
+title: Majority Element
+url: https://leetcode.com/problems/majority-element/
+difficulty: easy
+tier: 1
+topics: [arrays, hashing]
+patterns: [frequency-map, greedy]
+concepts: [arrays-strings, hashing]
+insight: "A true majority outlasts every other value combined, so cancelling pairs of different values leaves it standing."
+tells:
+  - "An element appears more than n/2 times"
+  - "O(1) extra space follow-up"
+hints:
+  - "How many times can a minority element cancel the majority?"
+  - "Keep one candidate and a counter."
+traps:
+  both:
+    - "Boyer-Moore only works because a majority is guaranteed to exist"
+signature:
+  name: majorityElement
+  params: [{ name: nums, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: hashmap
+    name: "Count in a hash map"
+    idea: "Count each value and return the one above n/2."
+    time: "O(n)"
+    space: "O(n)"
+    files: { java: approaches/1-hashmap.java, cpp: approaches/1-hashmap.cpp }
+  - id: boyer-moore
+    name: "Boyer-Moore voting"
+    unlock: "Pairs of different values cancel; a majority cannot be fully cancelled."
+    idea: "Keep a candidate and a count; reset the candidate when the count hits zero."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-boyer-moore.java, cpp: approaches/2-boyer-moore.cpp }

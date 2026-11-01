@@ -1,0 +1,42 @@
+id: maximum-depth-of-binary-tree
+platform: leetcode
+lcNumber: 104
+title: Maximum Depth of Binary Tree
+url: https://leetcode.com/problems/maximum-depth-of-binary-tree/
+difficulty: easy
+tier: 1
+topics: [tree, dfs, bfs]
+patterns: [tree-dfs, tree-bfs]
+concepts: [binary-trees, recursion-basics]
+insight: "A tree's depth is one more than the deeper of its two subtrees; an empty tree has depth 0."
+tells:
+  - "Height or depth of a tree"
+  - "Answer combines results from both children"
+hints:
+  - "If you knew the depth of each subtree, what is the depth of the whole?"
+  - "What is the depth of a null child?"
+traps:
+  both:
+    - "Count nodes, not edges: a single node has depth 1"
+    - "Deep skewed trees can overflow the recursion stack"
+signature:
+  name: maxDepth
+  params: [{ name: root, type: TreeNode }]
+  returns: int
+  compare: exact
+approaches:
+  - id: recursive
+    name: Recursive DFS
+    unlock: "Depth is defined recursively: 1 + max(depth(left), depth(right))."
+    idea: "Return 0 for null; otherwise 1 plus the larger depth of the two children."
+    time: "O(n)"
+    space: "O(h)"
+    isOptimal: true
+    files: { java: approaches/1-recursive.java, cpp: approaches/1-recursive.cpp }
+  - id: bfs
+    name: Level-by-level BFS
+    idea: "Process the tree one level at a time with a queue and count how many levels there are."
+    time: "O(n)"
+    space: "O(w)"
+    preferWhen: "you need levels anyway or the tree is very deep"
+    files: { java: approaches/2-bfs.java, cpp: approaches/2-bfs.cpp }

@@ -1,0 +1,8 @@
+concept: recursion-basics
+cards:
+  - {id: 1, type: basic, front: "What are the two required parts of a recursive function?", back: "A base case that stops, and a recursive case that moves toward it."}
+  - {id: 2, type: cloze, text: "Naive recursive Fibonacci is {{c1::O(2^n)}} because the same subproblems repeat."}
+  - {id: 3, type: basic, front: "How do you fix repeated subproblems in recursion?", back: "Memoize: cache each result by its arguments."}
+  - {id: 4, type: complexity, prompt: "Space used by recursion on a tree of height h?", answer: "O(h) for the call stack"}
+  - {id: 5, type: basic, front: "Why can deep recursion fail on 10^5 elements?", back: "The call stack overflows. Convert to an explicit stack or loop."}
+  - {id: 6, type: code, prompt: "Fill the base case for computing the depth of a tree.", code: {java: "if (n == ____) return 0;", cpp: "if (n == ____) return 0;"}, answer: "null (nullptr in C++)"}

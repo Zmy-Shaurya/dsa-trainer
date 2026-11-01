@@ -1,0 +1,11 @@
+{
+  "cases": [
+    { "args": { "grid": ["11110","11010","11000","00000"] }, "expected": 1 },
+    { "args": { "grid": ["11000","11000","00100","00011"] }, "expected": 3 },
+    { "args": { "grid": ["1"] }, "expected": 1 },
+    { "args": { "grid": ["0"] }, "expected": 0 },
+    { "args": { "grid": ["101","010","101"] }, "expected": 5 },
+    { "args": { "grid": ["111","010","111"] }, "expected": 1 },
+    { "args": { "grid": ["10","01"] }, "expected": 2 }
+  ]
+}

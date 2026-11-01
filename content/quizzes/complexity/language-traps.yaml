@@ -1,0 +1,239 @@
+items:
+  - id: 51
+    topic: language-traps
+    code:
+      java: |
+        String s = "";
+        for (int i = 0; i < n; i++)
+            s += 'a';
+      cpp: |
+        string s;
+        for (int i = 0; i < n; i++)
+            s += 'a';
+    time: { java: "O(n²)", cpp: "O(n)" }
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Java strings are immutable, so each += copies the whole string. C++ std::string appends in place with amortised O(1). Use StringBuilder in Java."
+    trap: true
+    concepts: [java-cpp-essentials, strings-advanced]
+  - id: 52
+    topic: language-traps
+    code:
+      java: |
+        // s is a String of length n
+        for (int i = 0; i < s.length(); i++)
+            if (s.charAt(i) == 'a') count++;
+      cpp: |
+        // s is a C string of length n
+        for (int i = 0; i < strlen(s); i++)
+            if (s[i] == 'a') count++;
+    time: { java: "O(n)", cpp: "O(n²)" }
+    space: "O(1)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(n)", "O(n²)"]
+    why: "String.length() is O(1), but strlen scans for the terminator on every loop test. Hoist it out or use std::string."
+    trap: true
+    concepts: [java-cpp-essentials]
+  - id: 53
+    topic: language-traps
+    code:
+      java: |
+        // a has n elements
+        int sum(int[] a, int i) {
+            return i == a.length ? 0 : a[i] + sum(a, i + 1);
+        }
+      cpp: |
+        // a has n elements
+        int sum(vector<int> a, int i) {
+            return i == (int)a.size() ? 0 : a[i] + sum(a, i + 1);
+        }
+    time: { java: "O(n)", cpp: "O(n²)" }
+    space: { java: "O(n)", cpp: "O(n²)" }
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"]
+      space: ["O(1)", "O(n)", "O(n²)"]
+    why: "Java passes the array reference. The C++ vector is passed by value, so every call copies n elements and all copies sit on the stack. Pass by const reference."
+    trap: true
+    concepts: [java-cpp-essentials, recursion-basics]
+  - id: 54
+    topic: language-traps
+    code:
+      java: |
+        // extra space used by q lookups (the map already exists)
+        Map<Integer, Integer> m = ...;
+        for (int k : queries)
+            if (m.get(k) != null) hits++;
+      cpp: |
+        // extra space used by q lookups (the map already exists)
+        unordered_map<int, int> m = ...;
+        for (int k : queries)
+            if (m[k]) hits++;
+    time: "O(q)"
+    space: { java: "O(1)", cpp: "O(q)" }
+    options:
+      time: ["O(1)", "O(q)", "O(q log q)", "O(q²)"]
+      space: ["O(1)", "O(log q)", "O(q)"]
+    why: "In C++, operator[] inserts a default value for every missing key, so q misses grow the map. Use count() or find(). Java get() never inserts. (Time is expected O(q) for both.)"
+    trap: true
+    concepts: [java-cpp-essentials, hashing]
+  - id: 55
+    topic: language-traps
+    code:
+      java: |
+        // a is an ArrayList<Integer> with n elements
+        for (int i = 0; i < n; i++) {
+            List<Integer> tail = a.subList(i, n);
+            total += tail.get(0);
+        }
+      cpp: |
+        // a is a vector<int> with n elements
+        for (int i = 0; i < n; i++) {
+            vector<int> tail(a.begin() + i, a.end());
+            total += tail[0];
+        }
+    time: { java: "O(n)", cpp: "O(n²)" }
+    space: { java: "O(1)", cpp: "O(n)" }
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "subList is a view, so it costs O(1). Constructing a vector from a range copies it, which is O(n) each time (one copy alive at a time)."
+    trap: true
+    concepts: [java-cpp-essentials]
+  - id: 56
+    topic: language-traps
+    code:
+      java: |
+        // remove all even numbers from an ArrayList of n ints
+        list.removeIf(x -> x % 2 == 0);
+      cpp: |
+        // remove all even numbers from a vector of n ints
+        v.erase(remove_if(v.begin(), v.end(), [](int x) { return x % 2 == 0; }), v.end());
+    time: "O(n)"
+    space: "O(1)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(n)", "O(n²)"]
+    why: "Both compact the elements in a single pass. A loop calling remove(i) or erase(i) per element would be O(n²)."
+    trap: true
+    concepts: [java-cpp-essentials]
+  - id: 57
+    topic: language-traps
+    code:
+      java: |
+        // s is a String of length n
+        for (int i = 0; i < n; i++)
+            if (s.toCharArray()[i] == 'a') count++;
+      cpp: |
+        // s is a std::string of length n
+        for (int i = 0; i < n; i++)
+            if (s[i] == 'a') count++;
+    time: { java: "O(n²)", cpp: "O(n)" }
+    space: { java: "O(n)", cpp: "O(1)" }
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "toCharArray() copies the whole string on every iteration. Call it once before the loop or use charAt(i)."
+    trap: true
+    concepts: [java-cpp-essentials, strings-advanced]
+  - id: 58
+    topic: language-traps
+    code:
+      java: |
+        // check only looks at the first character
+        boolean check(String s) { return !s.isEmpty() && s.charAt(0) == 'a'; }
+        for (int i = 0; i < n; i++) count += check(s) ? 1 : 0;   // s has length n
+      cpp: |
+        // check only looks at the first character
+        bool check(string s) { return !s.empty() && s[0] == 'a'; }
+        for (int i = 0; i < n; i++) count += check(s) ? 1 : 0;   // s has length n
+    time: { java: "O(n)", cpp: "O(n²)" }
+    space: { java: "O(1)", cpp: "O(n)" }
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "The C++ parameter is a by-value string, so every call copies n characters. Java passes the reference. (Extra space: none in Java, one transient copy in C++.)"
+    trap: true
+    concepts: [java-cpp-essentials]
+  - id: 59
+    topic: language-traps
+    code:
+      java: |
+        // n Integer keys chosen to collide on purpose
+        Map<Integer, Integer> m = new HashMap<>();
+        for (int k : collidingKeys) m.put(k, 1);
+      cpp: |
+        // n int keys chosen to collide on purpose
+        unordered_map<int, int> m;
+        for (int k : collidingKeys) m[k] = 1;
+    time: { java: "O(n log n)", cpp: "O(n²)" }
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Adversarial case only. Java HashMap turns a long collision chain into a balanced tree (comparable keys), while unordered_map keeps a list per bucket. This is the anti-hash problem on contest sites."
+    trap: true
+    concepts: [java-cpp-essentials, hashing]
+  - id: 60
+    topic: language-traps
+    code:
+      java: |
+        // s is a String of length n, take the first half n times
+        for (int i = 0; i < n; i++) {
+            String half = s.substring(0, n / 2);
+            total += half.length();
+        }
+      cpp: |
+        // sv is a string_view of length n, take the first half n times
+        for (int i = 0; i < n; i++) {
+            string_view half = sv.substr(0, n / 2);
+            total += half.size();
+        }
+    time: { java: "O(n²)", cpp: "O(n)" }
+    space: { java: "O(n)", cpp: "O(1)" }
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "String.substring copies its characters. string_view::substr only moves a pointer and a length, but it must not outlive the underlying string."
+    trap: true
+    concepts: [java-cpp-essentials, strings-advanced]
+  - id: 61
+    topic: language-traps
+    code:
+      java: |
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < n; i++)
+            list.add(0, i);
+      cpp: |
+        deque<int> d;
+        for (int i = 0; i < n; i++)
+            d.push_front(i);
+    time: { java: "O(n²)", cpp: "O(n)" }
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "add(0, x) on an ArrayList shifts every element. A deque (ArrayDeque.addFirst in Java) is O(1) at both ends."
+    trap: true
+    concepts: [java-cpp-essentials, queue-deque]
+  - id: 62
+    topic: language-traps
+    code:
+      java: |
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < n; i++) q.add(i);
+        while (!q.isEmpty()) q.poll();
+      cpp: |
+        queue<int> q;
+        for (int i = 0; i < n; i++) q.push(i);
+        while (!q.empty()) q.pop();
+    time: "O(n)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Both ends of a queue are O(1). The quadratic trap is ArrayList.remove(0), not a LinkedList or ArrayDeque used as a queue."
+    trap: false
+    concepts: [java-cpp-essentials, queue-deque]

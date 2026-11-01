@@ -1,0 +1,40 @@
+id: product-of-array-except-self
+platform: leetcode
+lcNumber: 238
+title: Product of Array Except Self
+url: https://leetcode.com/problems/product-of-array-except-self/
+difficulty: medium
+tier: 1
+topics: [arrays, prefix-sums]
+patterns: [prefix-sum]
+concepts: [prefix-sums, arrays-strings]
+insight: "The product of everything except i is (product of the prefix before i) times (product of the suffix after i)."
+tells:
+  - "Product of all other elements"
+  - "Division is not allowed"
+hints:
+  - "What do you know about the elements to the left of i?"
+  - "Can the output array double as the prefix array?"
+traps:
+  both:
+    - "Do not divide by the total product: zeros break it"
+signature:
+  name: productExceptSelf
+  params: [{ name: nums, type: "int[]" }]
+  returns: int[]
+  compare: exact
+approaches:
+  - id: prefix-suffix
+    name: "Prefix and suffix arrays"
+    idea: "Build left[i] and right[i] products, then multiply them."
+    time: "O(n)"
+    space: "O(n)"
+    files: { java: approaches/1-prefix-suffix.java, cpp: approaches/1-prefix-suffix.cpp }
+  - id: in-place
+    name: "Output array as the prefix"
+    unlock: "Store prefixes in the answer, then sweep right-to-left with one running suffix."
+    idea: "Fill res with prefix products, then multiply in a running suffix."
+    time: "O(n)"
+    space: "O(1) extra"
+    isOptimal: true
+    files: { java: approaches/2-in-place.java, cpp: approaches/2-in-place.cpp }

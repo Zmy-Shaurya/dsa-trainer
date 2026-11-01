@@ -1,0 +1,51 @@
+id: contains-duplicate
+platform: leetcode
+lcNumber: 217
+title: Contains Duplicate
+url: https://leetcode.com/problems/contains-duplicate/
+difficulty: easy
+tier: 1
+topics: [arrays, hashing]
+patterns: [frequency-map]
+concepts: [arrays-strings, hashing]
+insight: "A value seen twice is a duplicate, so remember what you have already seen."
+tells:
+  - "Does any value appear more than once?"
+  - "Only existence matters, not positions"
+hints:
+  - "What do you need to know when you meet a value again?"
+  - "A set answers 'seen before?' in O(1)."
+traps:
+  java:
+    - "Arrays.sort on int[] is a dual-pivot quicksort; fine here, but it mutates the input"
+  cpp:
+    - "unordered_set can degrade on adversarial keys; sorting is a safe fallback"
+signature:
+  name: containsDuplicate
+  params: [{ name: nums, type: "int[]" }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: brute
+    name: Compare every pair
+    idea: "Check each pair (i, j) for equal values."
+    time: "O(n^2)"
+    space: "O(1)"
+    preferWhen: "n is tiny and extra memory is not allowed"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: sort
+    name: Sort, then neighbours
+    unlock: "After sorting, equal values must sit next to each other."
+    idea: "Sort a copy; any duplicate shows up as two equal adjacent elements."
+    time: "O(n log n)"
+    space: "O(n)"
+    preferWhen: "you cannot afford hashing but may reorder a copy"
+    files: { java: approaches/2-sort.java, cpp: approaches/2-sort.cpp }
+  - id: hashset
+    name: Hash set
+    unlock: "Trade memory for O(1) membership tests instead of sorting."
+    idea: "Insert each value into a set; if it is already present, return true."
+    time: "O(n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/3-hashset.java, cpp: approaches/3-hashset.cpp }

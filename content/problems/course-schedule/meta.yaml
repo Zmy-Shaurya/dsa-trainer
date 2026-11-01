@@ -1,0 +1,42 @@
+id: course-schedule
+platform: leetcode
+lcNumber: 207
+title: Course Schedule
+url: https://leetcode.com/problems/course-schedule/
+difficulty: medium
+tier: 1
+topics: [graph, topological-sort, dfs, bfs]
+patterns: [topological-sort]
+concepts: [topological-sort, dfs]
+insight: "All courses can be finished exactly when the prerequisite graph has no cycle."
+tells:
+  - "Dependencies between tasks"
+  - "Can everything be ordered without contradiction?"
+  - "Detect a cycle in a directed graph"
+hints:
+  - "Model each prerequisite as a directed edge. What would make completion impossible?"
+  - "Two ways to find a cycle: track nodes on the current path, or repeatedly remove nodes with no prerequisites."
+traps:
+  both:
+    - "Edges are [course, prerequisite]; build the adjacency list in the right direction"
+    - "The graph may be disconnected; start a search from every unvisited node"
+signature:
+  name: canFinish
+  params: [{ name: numCourses, type: int }, { name: prerequisites, type: "int[][]" }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: dfs-cycle
+    name: DFS cycle detection
+    idea: "Colour nodes unvisited / on the current path / done; reaching a node on the path means a cycle."
+    time: "O(V + E)"
+    space: "O(V + E)"
+    files: { java: approaches/1-dfs-cycle.java, cpp: approaches/1-dfs-cycle.cpp }
+  - id: kahn
+    name: Kahn's topological sort (BFS)
+    unlock: "A course with no remaining prerequisites can be taken now; peel those off repeatedly."
+    idea: "Count in-degrees, process zero in-degree nodes with a queue, and check that all nodes were processed."
+    time: "O(V + E)"
+    space: "O(V + E)"
+    isOptimal: true
+    files: { java: approaches/2-kahn.java, cpp: approaches/2-kahn.cpp }

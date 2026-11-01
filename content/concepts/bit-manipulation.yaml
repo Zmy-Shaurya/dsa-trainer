@@ -1,0 +1,34 @@
+id: bit-manipulation
+title: Bit Manipulation
+track: foundations
+order: 4
+prereqs: []
+coreProblems: [single-number, number-of-1-bits, counting-bits, missing-number, reverse-bits]
+card:
+  idea: "Use bitwise operators to test, set and combine flags in O(1)."
+  useWhen:
+    - "Every value appears twice except one"
+    - "Counting or toggling set bits"
+    - "Representing a subset of up to ~20 items as an int"
+  complexity:
+    time: "O(1) per op, O(bits) per scan"
+    space: "O(1)"
+  template:
+    java: |
+      x & (x - 1)        // clear lowest set bit
+      x & -x             // isolate lowest set bit
+      (x >> i) & 1       // read bit i
+      x | (1 << i)       // set bit i
+      x ^ (1 << i)       // toggle bit i
+      Integer.bitCount(x)
+    cpp: |
+      x & (x - 1);       // clear lowest set bit
+      x & -x;            // isolate lowest set bit
+      (x >> i) & 1;      // read bit i
+      x | (1 << i);      // set bit i
+      x ^ (1 << i);      // toggle bit i
+      __builtin_popcount(x);
+  pitfalls:
+    - "Java >> keeps the sign; use >>> to shift in zeros."
+    - "1 << 31 overflows an int; use 1L << i for 32+ bit masks."
+    - "Operator precedence: write (x & 1) == 0, not x & 1 == 0."

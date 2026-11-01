@@ -1,0 +1,8 @@
+concept: dp-2d
+cards:
+  - {id: 1, type: basic, front: "Unique Paths: recurrence?", back: "dp[r][c] = dp[r - 1][c] + dp[r][c - 1], with the first row and column all 1."}
+  - {id: 2, type: basic, front: "LCS: what is dp[i][j]?", back: "The LCS length of the first i characters of a and the first j characters of b."}
+  - {id: 3, type: code, prompt: "LCS when characters match:", code: {java: "dp[i][j] = dp[i - 1][j - 1] + ____;", cpp: "dp[i][j] = dp[i - 1][j - 1] + ____;"}, answer: "1"}
+  - {id: 4, type: cloze, text: "When they differ, LCS takes {{c1::max(dp[i - 1][j], dp[i][j - 1])}}."}
+  - {id: 5, type: complexity, prompt: "Time and space of a standard m x n 2D DP?", answer: "O(m * n) time and space; O(n) space with a rolling row"}
+  - {id: 6, type: trap, prompt: "Which index is off by one?", code: {java: "if (a.charAt(i) == b.charAt(j)) dp[i][j] = dp[i-1][j-1] + 1;", cpp: "if (a[i] == b[j]) dp[i][j] = dp[i-1][j-1] + 1;"}, answer: "The table is 1-indexed over prefixes, so compare a.charAt(i - 1) and b.charAt(j - 1)."}

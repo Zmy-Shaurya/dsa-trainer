@@ -1,0 +1,12 @@
+{
+  "cases": [
+    {"args": {"digits": [1, 2, 3]}, "expected": [1, 2, 4]},
+    {"args": {"digits": [4, 3, 2, 1]}, "expected": [4, 3, 2, 2]},
+    {"args": {"digits": [9]}, "expected": [1, 0]},
+    {"args": {"digits": [9, 9, 9]}, "expected": [1, 0, 0, 0]},
+    {"args": {"digits": [1, 9, 9]}, "expected": [2, 0, 0]},
+    {"args": {"digits": [0]}, "expected": [1]},
+    {"args": {"digits": [8, 9]}, "expected": [9, 0]},
+    {"args": {"digits": [2, 0, 9, 9, 9]}, "expected": [2, 1, 0, 0, 0]}
+  ]
+}

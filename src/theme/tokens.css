@@ -1,0 +1,36 @@
+:root {
+  --bg: #fafaf9; --surface: #ffffff; --surface-2: #f4f4f2; --text: #1c1917; --muted: #6b6b66;
+  --border: #e4e4e0; --accent: #4338ca; --accent-contrast: #ffffff;
+  --ok: #15803d; --warn: #b45309; --danger: #b91c1c;
+  --radius-s: 6px; --radius-m: 10px; --radius-l: 16px;
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  color-scheme: light;
+  --tone-compare: #d97706; --tone-swap: #dc2626; --tone-active: #4338ca; --tone-sorted: #15803d;
+  --tone-found: #0f766e; --tone-range: #2563eb; --tone-dim: #a8a29e; --tone-error: #be123c;
+  --tone-visited: #7c3aed; --tone-frontier: #c2410c; --tone-path: #0e7490; --tone-neutral: #78716c;
+}
+:root[data-theme="dark"] {
+  --bg: #121214; --surface: #1a1a1d; --surface-2: #232327; --text: #ececea; --muted: #a1a1a8;
+  --border: #2e2e33; --accent: #818cf8; --accent-contrast: #0b0b0f;
+  --ok: #4ade80; --warn: #fbbf24; --danger: #f87171;
+  color-scheme: dark;
+  --tone-compare: #fbbf24; --tone-swap: #f87171; --tone-active: #818cf8; --tone-sorted: #4ade80;
+  --tone-found: #2dd4bf; --tone-range: #60a5fa; --tone-dim: #57534e; --tone-error: #fb7185;
+  --tone-visited: #a78bfa; --tone-frontier: #fb923c; --tone-path: #22d3ee; --tone-neutral: #a8a29e;
+}
+:root[data-palette="colorblind"] {
+  --tone-compare: #E69F00; --tone-swap: #D55E00; --tone-sorted: #009E73; --tone-found: #56B4E9;
+  --tone-range: #0072B2; --tone-active: #CC79A7; --tone-visited: #8E6BBF; --tone-frontier: #F0E442;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-reduced="off"]) * { transition: none !important; animation: none !important; }
+}
+:root[data-reduced="on"] * { transition: none !important; animation: none !important; }
+
+:root { --heat-0: #ebebe8; --heat-1: #c7d2fe; --heat-2: #a5b4fc; --heat-3: #6366f1; --heat-4: #3730a3; }
+:root[data-theme="dark"] { --heat-0: #232327; --heat-1: #312e81; --heat-2: #4338ca; --heat-3: #6366f1; --heat-4: #c7d2fe; }
+:root[data-palette="colorblind"] { --heat-1: #b3d9f2; --heat-2: #56B4E9; --heat-3: #0072B2; --heat-4: #00395c; }
+:root[data-palette="colorblind"][data-theme="dark"] { --heat-1: #00395c; --heat-2: #0072B2; --heat-3: #56B4E9; --heat-4: #cfe9f8; }

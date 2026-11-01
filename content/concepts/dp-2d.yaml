@@ -1,0 +1,37 @@
+id: dp-2d
+title: 2D Dynamic Programming
+track: recursion-dp
+order: 38
+prereqs: [dp-1d, matrix-grids]
+visualizers: [lcs, edit-distance]
+coreProblems: [unique-paths, longest-common-subsequence, edit-distance]
+card:
+  idea: "State needs two indices, such as a grid cell or two string prefixes."
+  useWhen:
+    - "Grid paths with allowed moves"
+    - "Comparing two sequences"
+    - "Each state depends on its up, left and diagonal neighbours"
+  complexity:
+    time: "O(rows * cols)"
+    space: "O(rows * cols), or O(cols) rolling"
+  template:
+    java: |
+      int[][] dp = new int[m + 1][n + 1];
+      for (int i = 1; i <= m; i++)
+          for (int j = 1; j <= n; j++)
+              dp[i][j] = a.charAt(i - 1) == b.charAt(j - 1)
+                  ? dp[i - 1][j - 1] + 1
+                  : Math.max(dp[i - 1][j], dp[i][j - 1]);
+      return dp[m][n];
+    cpp: |
+      vector<vector<int>> dp(m + 1, vector<int>(n + 1));
+      for (int i = 1; i <= m; i++)
+          for (int j = 1; j <= n; j++)
+              dp[i][j] = a[i - 1] == b[j - 1]
+                  ? dp[i - 1][j - 1] + 1
+                  : max(dp[i - 1][j], dp[i][j - 1]);
+      return dp[m][n];
+  pitfalls:
+    - "Table size is (m + 1) x (n + 1); index 0 means the empty prefix."
+    - "Strings are 0-indexed, the table is 1-indexed: use charAt(i - 1)."
+    - "Iterate in an order that fills dependencies first."

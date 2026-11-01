@@ -1,0 +1,12 @@
+{
+  "cases": [
+    { "args": { "coins": [1,2,5], "amount": 11 }, "expected": 3 },
+    { "args": { "coins": [2], "amount": 3 }, "expected": -1 },
+    { "args": { "coins": [1], "amount": 0 }, "expected": 0 },
+    { "args": { "coins": [1,3,4], "amount": 6 }, "expected": 2 },
+    { "args": { "coins": [5,7], "amount": 9 }, "expected": -1 },
+    { "args": { "coins": [1,2147483647], "amount": 2 }, "expected": 2 },
+    { "args": { "coins": [2,5,10,1], "amount": 27 }, "expected": 4, "skipApproaches": ["brute"] },
+    { "args": { "coins": [186,419,83,408], "amount": 6249 }, "expected": 20, "skipApproaches": ["brute"] }
+  ]
+}

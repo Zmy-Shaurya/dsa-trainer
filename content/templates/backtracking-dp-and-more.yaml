@@ -1,0 +1,376 @@
+pages:
+  - id: backtracking
+    title: Backtracking
+    concept: backtracking
+    when: "Generate every subset, ordering or combination that satisfies a rule."
+    pitfalls: ["Copy the current path when you record it.", "Undo every choice after the recursive call.", "Sort and skip equal values to avoid duplicate results."]
+    problems: [subsets, permutations, combination-sum, subsets-ii, combination-sum-ii]
+    variants:
+      - id: subsets
+        title: Subsets (include or skip)
+        java: |
+          static void subsets(int[] a, int i, List<Integer> cur, List<List<Integer>> out) {
+              if (i == a.length) { out.add(new ArrayList<>(cur)); return; }
+              subsets(a, i + 1, cur, out);
+              cur.add(a[i]);
+              subsets(a, i + 1, cur, out);
+              cur.remove(cur.size() - 1);
+          }
+        cpp: |
+          void subsets(const vector<int>& a, int i, vector<int>& cur, vector<vector<int>>& out) {
+              if (i == (int)a.size()) { out.push_back(cur); return; }
+              subsets(a, i + 1, cur, out);
+              cur.push_back(a[i]);
+              subsets(a, i + 1, cur, out);
+              cur.pop_back();
+          }
+      - id: permutations
+        title: Permutations (used flags)
+        java: |
+          static void permute(int[] a, boolean[] used, List<Integer> cur, List<List<Integer>> out) {
+              if (cur.size() == a.length) { out.add(new ArrayList<>(cur)); return; }
+              for (int i = 0; i < a.length; i++) {
+                  if (used[i]) continue;
+                  used[i] = true; cur.add(a[i]);
+                  permute(a, used, cur, out);
+                  cur.remove(cur.size() - 1); used[i] = false;
+              }
+          }
+        cpp: |
+          void permute(const vector<int>& a, vector<bool>& used, vector<int>& cur, vector<vector<int>>& out) {
+              if (cur.size() == a.size()) { out.push_back(cur); return; }
+              for (int i = 0; i < (int)a.size(); i++) {
+                  if (used[i]) continue;
+                  used[i] = true; cur.push_back(a[i]);
+                  permute(a, used, cur, out);
+                  cur.pop_back(); used[i] = false;
+              }
+          }
+      - id: combinations
+        title: Combinations that reach a target (items reusable)
+        java: |
+          static void combos(int[] a, int start, int remain, List<Integer> cur, List<List<Integer>> out) {
+              if (remain == 0) { out.add(new ArrayList<>(cur)); return; }
+              for (int i = start; i < a.length && a[i] <= remain; i++) {   // a is sorted
+                  cur.add(a[i]);
+                  combos(a, i, remain - a[i], cur, out);
+                  cur.remove(cur.size() - 1);
+              }
+          }
+        cpp: |
+          void combos(const vector<int>& a, int start, int remain, vector<int>& cur, vector<vector<int>>& out) {
+              if (remain == 0) { out.push_back(cur); return; }
+              for (int i = start; i < (int)a.size() && a[i] <= remain; i++) {   // a is sorted
+                  cur.push_back(a[i]);
+                  combos(a, i, remain - a[i], cur, out);
+                  cur.pop_back();
+              }
+          }
+  - id: dp
+    title: Dynamic programming
+    concept: dp-1d
+    when: "Optimal or counting problems whose answer builds from smaller overlapping answers."
+    pitfalls: ["Write the state and the recurrence in a comment first.", "0/1 knapsack loops capacity backwards, unbounded loops forwards.", "Initialise unreachable states to a sentinel, and check it before adding."]
+    problems: [climbing-stairs, house-robber, coin-change, longest-increasing-subsequence, longest-common-subsequence]
+    variants:
+      - id: one-d
+        title: 1D (fewest coins)
+        java: |
+          static int coinChange(int[] coins, int amount) {
+              int[] dp = new int[amount + 1];
+              Arrays.fill(dp, Integer.MAX_VALUE);
+              dp[0] = 0;
+              for (int a = 1; a <= amount; a++)
+                  for (int c : coins)
+                      if (c <= a && dp[a - c] != Integer.MAX_VALUE) dp[a] = Math.min(dp[a], dp[a - c] + 1);
+              return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+          }
+        cpp: |
+          int coinChange(const vector<int>& coins, int amount) {
+              vector<int> dp(amount + 1, INT_MAX);
+              dp[0] = 0;
+              for (int a = 1; a <= amount; a++)
+                  for (int c : coins)
+                      if (c <= a && dp[a - c] != INT_MAX) dp[a] = min(dp[a], dp[a - c] + 1);
+              return dp[amount] == INT_MAX ? -1 : dp[amount];
+          }
+      - id: grid
+        title: 2D grid (minimum path sum)
+        java: |
+          static int minPath(int[][] g) {
+              int r = g.length, c = g[0].length;
+              int[][] dp = new int[r][c];
+              for (int i = 0; i < r; i++)
+                  for (int j = 0; j < c; j++) {
+                      if (i == 0 && j == 0) dp[i][j] = g[i][j];
+                      else dp[i][j] = g[i][j] + Math.min(i > 0 ? dp[i - 1][j] : Integer.MAX_VALUE,
+                                                          j > 0 ? dp[i][j - 1] : Integer.MAX_VALUE);
+                  }
+              return dp[r - 1][c - 1];
+          }
+        cpp: |
+          int minPath(const vector<vector<int>>& g) {
+              int r = g.size(), c = g[0].size();
+              vector<vector<int>> dp(r, vector<int>(c, 0));
+              for (int i = 0; i < r; i++)
+                  for (int j = 0; j < c; j++) {
+                      if (i == 0 && j == 0) dp[i][j] = g[i][j];
+                      else dp[i][j] = g[i][j] + min(i > 0 ? dp[i - 1][j] : INT_MAX,
+                                                     j > 0 ? dp[i][j - 1] : INT_MAX);
+                  }
+              return dp[r - 1][c - 1];
+          }
+      - id: knapsack
+        title: 0/1 knapsack
+        java: |
+          static int knapsack(int[] w, int[] v, int cap) {
+              int[] dp = new int[cap + 1];
+              for (int i = 0; i < w.length; i++)
+                  for (int c = cap; c >= w[i]; c--)       // backwards: each item once
+                      dp[c] = Math.max(dp[c], dp[c - w[i]] + v[i]);
+              return dp[cap];
+          }
+        cpp: |
+          int knapsack(const vector<int>& w, const vector<int>& v, int cap) {
+              vector<int> dp(cap + 1, 0);
+              for (size_t i = 0; i < w.size(); i++)
+                  for (int c = cap; c >= w[i]; c--)       // backwards: each item once
+                      dp[c] = max(dp[c], dp[c - w[i]] + v[i]);
+              return dp[cap];
+          }
+      - id: lis
+        title: Longest increasing subsequence in O(n log n)
+        java: |
+          static int lis(int[] a) {
+              int[] tails = new int[a.length];
+              int len = 0;
+              for (int x : a) {
+                  int lo = 0, hi = len;
+                  while (lo < hi) {
+                      int mid = (lo + hi) / 2;
+                      if (tails[mid] < x) lo = mid + 1; else hi = mid;
+                  }
+                  tails[lo] = x;
+                  if (lo == len) len++;
+              }
+              return len;
+          }
+        cpp: |
+          int lis(const vector<int>& a) {
+              vector<int> tails;
+              for (int x : a) {
+                  auto it = lower_bound(tails.begin(), tails.end(), x);   // strictly increasing
+                  if (it == tails.end()) tails.push_back(x); else *it = x;
+              }
+              return tails.size();
+          }
+      - id: lcs
+        title: Longest common subsequence
+        java: |
+          static int lcs(String a, String b) {
+              int[][] dp = new int[a.length() + 1][b.length() + 1];
+              for (int i = 1; i <= a.length(); i++)
+                  for (int j = 1; j <= b.length(); j++)
+                      dp[i][j] = a.charAt(i - 1) == b.charAt(j - 1)
+                          ? dp[i - 1][j - 1] + 1
+                          : Math.max(dp[i - 1][j], dp[i][j - 1]);
+              return dp[a.length()][b.length()];
+          }
+        cpp: |
+          int lcs(const string& a, const string& b) {
+              vector<vector<int>> dp(a.size() + 1, vector<int>(b.size() + 1, 0));
+              for (size_t i = 1; i <= a.size(); i++)
+                  for (size_t j = 1; j <= b.size(); j++)
+                      dp[i][j] = a[i - 1] == b[j - 1] ? dp[i - 1][j - 1] + 1 : max(dp[i - 1][j], dp[i][j - 1]);
+              return dp[a.size()][b.size()];
+          }
+  - id: range-queries
+    title: Fenwick tree and segment tree
+    concept: range-queries
+    when: "Point updates mixed with range-sum queries, where prefix sums would be rebuilt each time."
+    pitfalls: ["Fenwick is 1-indexed inside: shift the public index by one.", "The iterative segment tree query is half-open [l, r).", "Use long for sums."]
+    problems: [range-sum-query-mutable, count-of-smaller-numbers-after-self]
+    variants:
+      - id: fenwick
+        title: Fenwick tree (point add, prefix sum)
+        java: |
+          static class Fenwick {
+              long[] t;
+              Fenwick(int n) { t = new long[n + 1]; }
+              void add(int i, long d) { for (i++; i < t.length; i += i & -i) t[i] += d; }
+              long sum(int i) { long s = 0; for (i++; i > 0; i -= i & -i) s += t[i]; return s; }   // a[0..i]
+          }
+        cpp: |
+          struct Fenwick {
+              vector<long long> t;
+              Fenwick(int n) : t(n + 1, 0) {}
+              void add(int i, long long d) { for (i++; i < (int)t.size(); i += i & -i) t[i] += d; }
+              long long sum(int i) { long long s = 0; for (i++; i > 0; i -= i & -i) s += t[i]; return s; }   // a[0..i]
+          };
+      - id: segment-tree
+        title: Segment tree (iterative, sum)
+        java: |
+          static class SegTree {
+              int n; long[] t;
+              SegTree(int n) { this.n = n; t = new long[2 * n]; }
+              void set(int i, long v) { for (t[i += n] = v; i > 1; i >>= 1) t[i >> 1] = t[i] + t[i ^ 1]; }
+              long query(int l, int r) {                       // [l, r)
+                  long s = 0;
+                  for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
+                      if ((l & 1) == 1) s += t[l++];
+                      if ((r & 1) == 1) s += t[--r];
+                  }
+                  return s;
+              }
+          }
+        cpp: |
+          struct SegTree {
+              int n; vector<long long> t;
+              SegTree(int n) : n(n), t(2 * n, 0) {}
+              void set(int i, long long v) { for (t[i += n] = v; i > 1; i >>= 1) t[i >> 1] = t[i] + t[i ^ 1]; }
+              long long query(int l, int r) {                  // [l, r)
+                  long long s = 0;
+                  for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
+                      if (l & 1) s += t[l++];
+                      if (r & 1) s += t[--r];
+                  }
+                  return s;
+              }
+          };
+  - id: string-matching
+    title: KMP and Z-function
+    concept: strings-advanced
+    when: "Find a pattern in text in linear time, or compute prefix/border structure of a string."
+    pitfalls: ["Join pattern and text with a separator that cannot appear in either.", "pi[i] is the longest proper prefix that is also a suffix of s[0..i].", "The Z-function z[0] is left as 0 here."]
+    problems: [find-the-index-of-the-first-occurrence-in-a-string, repeated-substring-pattern]
+    variants:
+      - id: kmp
+        title: KMP prefix function and search
+        java: |
+          static int[] prefixFunction(String s) {
+              int[] pi = new int[s.length()];
+              for (int i = 1, k = 0; i < s.length(); i++) {
+                  while (k > 0 && s.charAt(i) != s.charAt(k)) k = pi[k - 1];
+                  if (s.charAt(i) == s.charAt(k)) k++;
+                  pi[i] = k;
+              }
+              return pi;
+          }
+          static int indexOf(String text, String pat) {
+              int[] pi = prefixFunction(pat + "#" + text);
+              for (int i = 0; i < pi.length; i++)
+                  if (pi[i] == pat.length()) return i - 2 * pat.length();
+              return -1;
+          }
+        cpp: |
+          vector<int> prefixFunction(const string& s) {
+              vector<int> pi(s.size(), 0);
+              for (int i = 1, k = 0; i < (int)s.size(); i++) {
+                  while (k > 0 && s[i] != s[k]) k = pi[k - 1];
+                  if (s[i] == s[k]) k++;
+                  pi[i] = k;
+              }
+              return pi;
+          }
+          int indexOf(const string& text, const string& pat) {
+              auto pi = prefixFunction(pat + "#" + text);
+              for (int i = 0; i < (int)pi.size(); i++)
+                  if (pi[i] == (int)pat.size()) return i - 2 * (int)pat.size();
+              return -1;
+          }
+      - id: z-function
+        title: Z-function
+        java: |
+          static int[] zFunction(String s) {
+              int n = s.length();
+              int[] z = new int[n];
+              for (int i = 1, l = 0, r = 0; i < n; i++) {
+                  if (i < r) z[i] = Math.min(r - i, z[i - l]);
+                  while (i + z[i] < n && s.charAt(z[i]) == s.charAt(i + z[i])) z[i]++;
+                  if (i + z[i] > r) { l = i; r = i + z[i]; }
+              }
+              return z;
+          }
+        cpp: |
+          vector<int> zFunction(const string& s) {
+              int n = s.size();
+              vector<int> z(n, 0);
+              for (int i = 1, l = 0, r = 0; i < n; i++) {
+                  if (i < r) z[i] = min(r - i, z[i - l]);
+                  while (i + z[i] < n && s[z[i]] == s[i + z[i]]) z[i]++;
+                  if (i + z[i] > r) { l = i; r = i + z[i]; }
+              }
+              return z;
+          }
+  - id: modular-exponentiation
+    title: Modular exponentiation
+    concept: math-basics
+    when: "Large powers under a modulus, modular inverses via Fermat, and counting problems with mod 1e9+7."
+    pitfalls: ["Multiply in long: a product of two ints can overflow an int.", "Reduce the base first, and make the result non-negative.", "A modular inverse via Fermat needs a prime modulus."]
+    problems: [powx-n, happy-number]
+    variants:
+      - id: modpow
+        title: Fast power
+        java: |
+          static long modPow(long b, long e, long m) {
+              long r = 1; b %= m;
+              for (; e > 0; e >>= 1) {
+                  if ((e & 1) == 1) r = r * b % m;
+                  b = b * b % m;
+              }
+              return r;
+          }
+        cpp: |
+          long long modPow(long long b, long long e, long long m) {
+              long long r = 1; b %= m;
+              for (; e > 0; e >>= 1) {
+                  if (e & 1) r = r * b % m;
+                  b = b * b % m;
+              }
+              return r;
+          }
+  - id: fast-io
+    title: Fast input and output
+    concept: java-cpp-essentials
+    when: "Contest-style problems that read 10^5 or more numbers."
+    pitfalls: ["Call sync_with_stdio(false) before any input or output.", "Use '\\n' instead of endl, which flushes every time.", "Flush the PrintWriter in Java or output may never appear."]
+    problems: [two-sum, contains-duplicate]
+    variants:
+      - id: header
+        title: Fast I/O skeleton
+        java: |
+          static void io() throws IOException {
+              BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+              PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+              StringTokenizer st = new StringTokenizer(br.readLine());
+              int n = Integer.parseInt(st.nextToken());
+              out.println(n);
+              out.flush();
+          }
+        cpp: |
+          int main() {
+              ios::sync_with_stdio(false);
+              cin.tie(nullptr);
+              int n;
+              cin >> n;
+              cout << n << '\n';
+          }
+  - id: comparator
+    title: Custom comparator
+    concept: sorting
+    when: "Sorting objects or intervals by one key and breaking ties by another."
+    pitfalls: ["Never subtract in a Java comparator, use Integer.compare.", "A C++ comparator must be a strict weak order: use < or >, never <= or >=.", "Use stable_sort when equal keys must keep their order."]
+    problems: [merge-intervals, insert-interval, non-overlapping-intervals]
+    variants:
+      - id: two-keys
+        title: Sort by start, then end descending
+        java: |
+          static void sortIntervals(int[][] a) {
+              Arrays.sort(a, (x, y) -> x[0] != y[0] ? Integer.compare(x[0], y[0]) : Integer.compare(y[1], x[1]));
+          }
+        cpp: |
+          void sortIntervals(vector<vector<int>>& a) {
+              sort(a.begin(), a.end(), [](const vector<int>& x, const vector<int>& y) {
+                  return x[0] != y[0] ? x[0] < y[0] : x[1] > y[1];
+              });
+          }

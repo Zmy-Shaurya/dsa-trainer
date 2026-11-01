@@ -1,0 +1,35 @@
+id: greedy
+title: Greedy
+track: arrays-strings
+order: 15
+prereqs: [sorting]
+visualizers: [kadane]
+coreProblems: [maximum-subarray, jump-game, gas-station, non-overlapping-intervals]
+card:
+  idea: "Take the locally best choice and never look back."
+  useWhen:
+    - "A sorted order makes each choice obviously safe"
+    - "You track a reachable frontier or a running best"
+    - "Exchange argument: swapping choices never helps"
+  complexity:
+    time: "O(n) or O(n log n) with a sort"
+    space: "O(1)"
+  template:
+    java: |
+      int reach = 0;
+      for (int i = 0; i < a.length; i++) {
+          if (i > reach) return false;
+          reach = Math.max(reach, i + a[i]);
+      }
+      return true;
+    cpp: |
+      int reach = 0;
+      for (int i = 0; i < (int)a.size(); i++) {
+          if (i > reach) return false;
+          reach = max(reach, i + a[i]);
+      }
+      return true;
+  pitfalls:
+    - "Greedy is easy to believe and wrong; test a tricky counterexample first."
+    - "If choices interact, you probably need DP instead."
+    - "Tie-breaking in the sort order often decides correctness."

@@ -1,0 +1,228 @@
+items:
+  - id: 13
+    topic: recursion
+    code:
+      java: &b13 |
+        int fib(int n) {
+            return n < 2 ? n : fib(n - 1) + fib(n - 2);
+        }
+      cpp: *b13
+    time: "O(2ⁿ)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n²)", "O(2ⁿ)", "O(n!)"]
+      space: ["O(1)", "O(n)", "O(2ⁿ)"]
+    why: "Each call makes two calls, so the call tree is exponential, but its depth (the stack) is only n."
+    trap: false
+    concepts: [recursion-basics]
+  - id: 14
+    topic: recursion
+    code:
+      java: &b14 |
+        // merge copies the range into a temporary buffer
+        void sort(int[] a, int lo, int hi) {
+            if (hi - lo < 2) return;
+            int mid = (lo + hi) / 2;
+            sort(a, lo, mid);
+            sort(a, mid, hi);
+            merge(a, lo, mid, hi);
+        }
+      cpp: &b14c |
+        // merge copies the range into a temporary buffer
+        void sort(vector<int>& a, int lo, int hi) {
+            if (hi - lo < 2) return;
+            int mid = (lo + hi) / 2;
+            sort(a, lo, mid);
+            sort(a, mid, hi);
+            merge(a, lo, mid, hi);
+        }
+    time: "O(n log n)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "log n levels of linear merging, and the merge buffer takes O(n) extra space."
+    trap: false
+    concepts: [recursion-basics, sorting]
+  - id: 15
+    topic: recursion
+    code:
+      java: &b15 |
+        // collect every subset, copying each into the result
+        void go(int[] a, int i, List<Integer> cur, List<List<Integer>> out) {
+            if (i == a.length) { out.add(new ArrayList<>(cur)); return; }
+            go(a, i + 1, cur, out);
+            cur.add(a[i]);
+            go(a, i + 1, cur, out);
+            cur.remove(cur.size() - 1);
+        }
+      cpp: &b15c |
+        // collect every subset, copying each into the result
+        void go(vector<int>& a, int i, vector<int>& cur, vector<vector<int>>& out) {
+            if (i == (int)a.size()) { out.push_back(cur); return; }
+            go(a, i + 1, cur, out);
+            cur.push_back(a[i]);
+            go(a, i + 1, cur, out);
+            cur.pop_back();
+        }
+    time: "O(n·2ⁿ)"
+    space: "O(n)"
+    options:
+      time: ["O(2ⁿ)", "O(n·2ⁿ)", "O(n!)", "O(n²)"]
+      space: ["O(1)", "O(n)", "O(2ⁿ)"]
+    why: "There are 2ⁿ subsets and copying each costs up to n. Not counting the output, the stack and current list are O(n)."
+    trap: true
+    concepts: [backtracking, recursion-basics]
+  - id: 16
+    topic: recursion
+    code:
+      java: &b16 |
+        int search(int[] a, int lo, int hi, int x) {
+            if (lo > hi) return -1;
+            int mid = lo + (hi - lo) / 2;
+            if (a[mid] == x) return mid;
+            return a[mid] < x ? search(a, mid + 1, hi, x) : search(a, lo, mid - 1, x);
+        }
+      cpp: &b16c |
+        int search(vector<int>& a, int lo, int hi, int x) {
+            if (lo > hi) return -1;
+            int mid = lo + (hi - lo) / 2;
+            if (a[mid] == x) return mid;
+            return a[mid] < x ? search(a, mid + 1, hi, x) : search(a, lo, mid - 1, x);
+        }
+    time: "O(log n)"
+    space: "O(log n)"
+    options:
+      time: ["O(1)", "O(log n)", "O(n)", "O(n log n)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "The range halves each call, and each call stays on the stack: depth log n, so the space is not O(1)."
+    trap: true
+    concepts: [binary-search, recursion-basics]
+  - id: 17
+    topic: recursion
+    code:
+      java: &b17 |
+        long fact(int n) {
+            return n <= 1 ? 1 : n * fact(n - 1);
+        }
+      cpp: &b17c |
+        long long fact(int n) {
+            return n <= 1 ? 1 : n * fact(n - 1);
+        }
+    time: "O(n)"
+    space: "O(n)"
+    options:
+      time: ["O(1)", "O(n)", "O(n!)", "O(2ⁿ)"]
+      space: ["O(1)", "O(n)", "O(n!)"]
+    why: "One call per level, n levels deep. The result is n!, but the number of calls is n."
+    trap: true
+    concepts: [recursion-basics]
+  - id: 18
+    topic: recursion
+    code:
+      java: &b18 |
+        // generate every permutation of a, swapping in place
+        void perm(int[] a, int k, List<int[]> out) {
+            if (k == a.length) { out.add(a.clone()); return; }
+            for (int i = k; i < a.length; i++) {
+                swap(a, k, i);
+                perm(a, k + 1, out);
+                swap(a, k, i);
+            }
+        }
+      cpp: &b18c |
+        // generate every permutation of a, swapping in place
+        void perm(vector<int>& a, int k, vector<vector<int>>& out) {
+            if (k == (int)a.size()) { out.push_back(a); return; }
+            for (int i = k; i < (int)a.size(); i++) {
+                swap(a[k], a[i]);
+                perm(a, k + 1, out);
+                swap(a[k], a[i]);
+            }
+        }
+    time: "O(n·n!)"
+    space: "O(n)"
+    options:
+      time: ["O(n!)", "O(n·n!)", "O(n·2ⁿ)", "O(nⁿ)"]
+      space: ["O(1)", "O(n)", "O(n!)"]
+    why: "n! permutations, each copied in O(n). Not counting the output, the recursion depth is n."
+    trap: true
+    concepts: [backtracking]
+  - id: 19
+    topic: recursion
+    code:
+      java: &b19 |
+        int f(int n) {
+            if (n <= 1) return 1;
+            return f(n / 2) + f(n / 2);
+        }
+      cpp: *b19
+    time: "O(n)"
+    space: "O(log n)"
+    options:
+      time: ["O(log n)", "O(n)", "O(n log n)", "O(2ⁿ)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "T(n) = 2T(n/2) + O(1) has n leaves, so O(n). The depth is log n."
+    trap: true
+    concepts: [recursion-basics]
+  - id: 20
+    topic: recursion
+    code:
+      java: &b20 |
+        void f(int n) {
+            if (n == 0) return;
+            for (int i = 0; i < n; i++) work();
+            f(n - 1);
+        }
+      cpp: *b20
+    time: "O(n²)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"]
+      space: ["O(1)", "O(n)", "O(n²)"]
+    why: "T(n) = T(n-1) + n sums to n(n+1)/2. The stack is n deep."
+    trap: false
+    concepts: [recursion-basics]
+  - id: 21
+    topic: recursion
+    code:
+      java: &b21 |
+        void f(int n) {
+            if (n <= 1) return;
+            for (int i = 0; i < n; i++) work();
+            f(n / 2);
+        }
+      cpp: *b21
+    time: "O(n)"
+    space: "O(log n)"
+    options:
+      time: ["O(log n)", "O(n)", "O(n log n)", "O(n²)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "T(n) = T(n/2) + n gives n + n/2 + n/4 + ... = 2n. Only one branch recurses, log n deep."
+    trap: true
+    concepts: [recursion-basics]
+  - id: 22
+    topic: recursion
+    code:
+      java: &b22 |
+        long[] memo = new long[n + 1];
+        long fib(int n) {
+            if (n < 2) return n;
+            if (memo[n] != 0) return memo[n];
+            return memo[n] = fib(n - 1) + fib(n - 2);
+        }
+      cpp: &b22c |
+        vector<long long> memo(n + 1, 0);
+        long long fib(int n) {
+            if (n < 2) return n;
+            if (memo[n] != 0) return memo[n];
+            return memo[n] = fib(n - 1) + fib(n - 2);
+        }
+    time: "O(n)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n²)", "O(2ⁿ)", "O(log n)"]
+      space: ["O(1)", "O(n)", "O(n²)"]
+    why: "Each value is computed once and cached: n states, constant work each, plus an n-deep stack."
+    trap: false
+    concepts: [recursion-basics, dp-1d]

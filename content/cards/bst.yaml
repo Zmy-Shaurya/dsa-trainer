@@ -1,0 +1,8 @@
+concept: bst
+cards:
+  - {id: 1, type: basic, front: "What is the BST property?", back: "For every node, all values in the left subtree are smaller and all in the right subtree are larger."}
+  - {id: 2, type: trap, prompt: "Why is this validation wrong?", code: {java: "return n.left.val < n.val && n.val < n.right.val && ok(n.left) && ok(n.right);", cpp: "// same check in C++"}, answer: "It only compares parent and child. A deep node can violate an ancestor's bound. Pass lo/hi limits down."}
+  - {id: 3, type: complexity, prompt: "Search time in a BST of height h?", answer: "O(h): log n if balanced, n if skewed"}
+  - {id: 4, type: cloze, text: "To find the kth smallest in a BST, do an {{c1::inorder}} traversal and stop at the kth node."}
+  - {id: 5, type: basic, front: "Lowest common ancestor in a BST: how to find it?", back: "Walk down from the root: if both values are smaller go left, if both larger go right, otherwise this node is the LCA."}
+  - {id: 6, type: basic, front: "Why use long bounds when validating a BST?", back: "A node may hold Integer.MIN_VALUE or MAX_VALUE, which int sentinels cannot bound strictly."}

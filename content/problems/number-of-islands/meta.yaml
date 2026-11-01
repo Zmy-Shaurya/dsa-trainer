@@ -1,0 +1,46 @@
+id: number-of-islands
+platform: leetcode
+lcNumber: 200
+title: Number of Islands
+url: https://leetcode.com/problems/number-of-islands/
+difficulty: medium
+tier: 1
+topics: [graph, grid, dfs, bfs]
+patterns: [flood-fill, graph-dfs-components]
+concepts: [dfs, grid-graphs]
+insight: "Each unvisited land cell starts a new island; flood-fill from it so every connected land cell is counted once."
+tells:
+  - "Count connected regions in a grid"
+  - "Four-directional neighbours"
+  - "Marking visited cells avoids recounting"
+hints:
+  - "Once you find a land cell, how do you mark its whole island?"
+  - "How do you avoid visiting the same cell twice?"
+traps:
+  java:
+    - "The grid is char[][]; compare with '1', not the number 1"
+  cpp:
+    - "Check row and column bounds before reading grid[r][c]"
+  both:
+    - "Sinking cells in place mutates the input; copy the grid if callers need it intact"
+signature:
+  name: numIslands
+  params: [{ name: grid, type: "char[][]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: dfs
+    name: DFS flood fill
+    unlock: "An island is a connected component; one flood fill visits every cell in it."
+    idea: "Scan the grid; on each '1', count an island and recursively sink all connected land cells."
+    time: "O(R * C)"
+    space: "O(R * C)"
+    isOptimal: true
+    files: { java: approaches/1-dfs.java, cpp: approaches/1-dfs.cpp }
+  - id: bfs
+    name: BFS flood fill
+    idea: "Same scan, but spread from each new land cell with a queue instead of recursion."
+    time: "O(R * C)"
+    space: "O(min(R, C))"
+    preferWhen: "a large island could overflow the recursion stack"
+    files: { java: approaches/2-bfs.java, cpp: approaches/2-bfs.cpp }

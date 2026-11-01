@@ -1,0 +1,8 @@
+concept: mst
+cards:
+  - {id: 1, type: basic, front: "What is a minimum spanning tree?", back: "A set of n - 1 edges connecting all nodes with the smallest total weight."}
+  - {id: 2, type: basic, front: "How does Kruskal's algorithm work?", back: "Sort edges by weight; add an edge if it joins two different components (union-find)."}
+  - {id: 3, type: complexity, prompt: "Time of Kruskal's algorithm?", answer: "O(E log E), dominated by sorting"}
+  - {id: 4, type: cloze, text: "Prim's algorithm grows one tree by repeatedly adding the {{c1::cheapest edge leaving it}}."}
+  - {id: 5, type: basic, front: "Min Cost to Connect All Points: which algorithm for dense graphs?", back: "Prim's with an O(V^2) array scan, since there are about V^2 candidate edges."}
+  - {id: 6, type: basic, front: "Is the MST path between two nodes always their shortest path?", back: "No. An MST minimizes total weight, not any particular route's length."}

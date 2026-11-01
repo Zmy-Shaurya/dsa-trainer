@@ -1,0 +1,37 @@
+id: strings-advanced
+title: Strings Advanced
+track: arrays-strings
+order: 16
+prereqs: [hashing, two-pointers]
+visualizers: [kmp]
+coreProblems: [find-the-index-of-the-first-occurrence-in-a-string, repeated-substring-pattern, longest-palindromic-substring]
+card:
+  idea: "Reuse structure inside a string: centres, prefixes and hashes."
+  useWhen:
+    - "Searching a pattern inside a longer text"
+    - "Palindromes expand from a centre"
+    - "Comparing many substrings quickly"
+  complexity:
+    time: "O(n) with KMP, O(n^2) expand-around-centre"
+    space: "O(1) to O(n)"
+  template:
+    java: |
+      String best = "";
+      for (int c = 0; c < s.length(); c++)
+          for (int w = 0; w < 2; w++) {
+              int l = c, r = c + w;
+              while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) { l--; r++; }
+              if (r - l - 1 > best.length()) best = s.substring(l + 1, r);
+          }
+    cpp: |
+      string best;
+      for (int c = 0; c < (int)s.size(); c++)
+          for (int w = 0; w < 2; w++) {
+              int l = c, r = c + w;
+              while (l >= 0 && r < (int)s.size() && s[l] == s[r]) { l--; r++; }
+              if (r - l - 1 > (int)best.size()) best = s.substr(l + 1, r - l - 1);
+          }
+  pitfalls:
+    - "Even and odd length palindromes need separate centres."
+    - "Substring copies cost O(n); compare indices when you can."
+    - "Rolling hashes collide; verify the match before trusting it."

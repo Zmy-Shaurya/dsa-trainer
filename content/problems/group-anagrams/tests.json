@@ -1,0 +1,11 @@
+{
+  "cases": [
+    { "args": { "strs": ["eat","tea","tan","ate","nat","bat"] }, "expected": [["bat"],["nat","tan"],["ate","eat","tea"]] },
+    { "args": { "strs": [""] }, "expected": [[""]] },
+    { "args": { "strs": ["a"] }, "expected": [["a"]] },
+    { "args": { "strs": ["ab","ba","abc","cab","bca"] }, "expected": [["ab","ba"],["abc","cab","bca"]] },
+    { "args": { "strs": ["x","y","x"] }, "expected": [["x","x"],["y"]] },
+    { "args": { "strs": ["aa","a"] }, "expected": [["a"],["aa"]] },
+    { "args": { "strs": ["", "", "a"] }, "expected": [["",""],["a"]] }
+  ]
+}

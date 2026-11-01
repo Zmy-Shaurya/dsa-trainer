@@ -1,0 +1,40 @@
+id: happy-number
+platform: leetcode
+lcNumber: 202
+title: Happy Number
+url: https://leetcode.com/problems/happy-number/
+difficulty: easy
+tier: 1
+topics: [math, hashing, two-pointers]
+patterns: [fast-slow-pointers, frequency-map]
+concepts: [math-basics, hashing]
+insight: "Repeatedly summing squared digits either reaches 1 or falls into a cycle, so detect the cycle."
+tells:
+  - "A process repeated until it stabilises or loops"
+  - "Digit-by-digit transformation"
+hints:
+  - "Can the sequence grow forever?"
+  - "How do you detect a repeat?"
+traps:
+  both:
+    - "Do not loop until 1 without cycle detection: unhappy numbers never reach it"
+signature:
+  name: isHappy
+  params: [{ name: n, type: int }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: hashset
+    name: "Remember seen values"
+    idea: "Stop with false when a value repeats."
+    time: "O(log n) steps"
+    space: "O(log n)"
+    files: { java: approaches/1-hashset.java, cpp: approaches/1-hashset.cpp }
+  - id: floyd
+    name: "Floyd's tortoise and hare"
+    unlock: "The sequence is a linked list in disguise: a cycle can be found with two speeds and no set."
+    idea: "Move slow one step and fast two; they meet at 1 or inside a cycle."
+    time: "O(log n) steps"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-floyd.java, cpp: approaches/2-floyd.cpp }

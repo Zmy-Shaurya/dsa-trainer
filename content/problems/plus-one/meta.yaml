@@ -1,0 +1,40 @@
+id: plus-one
+platform: leetcode
+lcNumber: 66
+title: Plus One
+url: https://leetcode.com/problems/plus-one/
+difficulty: easy
+tier: 1
+topics: [arrays, math]
+patterns: [math-number-theory]
+concepts: [arrays-strings, math-basics]
+insight: "Add one from the least significant digit; a 9 becomes 0 and carries, anything else stops the carry."
+tells:
+  - "A big number stored as digits"
+  - "Increment by one"
+hints:
+  - "What happens to a trailing 9?"
+  - "When does the array need to grow?"
+traps:
+  both:
+    - "All nines (999) needs a new leading 1 and a longer array"
+signature:
+  name: plusOne
+  params: [{ name: digits, type: "int[]" }]
+  returns: int[]
+  compare: exact
+approaches:
+  - id: carry-loop
+    name: "Carry loop"
+    idea: "Walk from the end, writing 0 for each 9 and carrying on."
+    time: "O(n)"
+    space: "O(n)"
+    files: { java: approaches/1-carry-loop.java, cpp: approaches/1-carry-loop.cpp }
+  - id: first-non-nine
+    name: "Stop at the first non-nine"
+    unlock: "Only trailing nines change; the first digit below 9 absorbs the carry and ends the work."
+    idea: "From the end, return as soon as a digit below 9 is incremented; otherwise the answer is 1 followed by zeros."
+    time: "O(n)"
+    space: "O(1) extra"
+    isOptimal: true
+    files: { java: approaches/2-first-non-nine.java, cpp: approaches/2-first-non-nine.cpp }

@@ -1,0 +1,13 @@
+{
+  "cases": [
+    { "args": { "nums": [1,2,3,1] }, "expected": 4 },
+    { "args": { "nums": [2,7,9,3,1] }, "expected": 12 },
+    { "args": { "nums": [5] }, "expected": 5 },
+    { "args": { "nums": [2,1] }, "expected": 2 },
+    { "args": { "nums": [0,0] }, "expected": 0 },
+    { "args": { "nums": [2,1,1,2] }, "expected": 4 },
+    { "args": { "nums": [10,1,1,10,1,1,10] }, "expected": 30 },
+    { "args": { "nums": [3,10,3,1,2] }, "expected": 12 },
+    { "gen": "random-int-array", "n": 100000, "seed": 3, "range": [0, 400], "skipApproaches": ["brute"] }
+  ]
+}

@@ -1,0 +1,9 @@
+concept: dp-1d
+cards:
+  - {id: 1, type: basic, front: "What should you write before the recurrence in any DP?", back: "A one-sentence meaning for the state, e.g. dp[i] = fewest coins to make amount i."}
+  - {id: 2, type: basic, front: "Climbing Stairs: recurrence?", back: "dp[i] = dp[i - 1] + dp[i - 2], with dp[1] = 1 and dp[2] = 2."}
+  - {id: 3, type: basic, front: "House Robber: recurrence?", back: "dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])."}
+  - {id: 4, type: code, prompt: "Coin Change transition:", code: {java: "dp[a] = Math.min(dp[a], dp[a - c] + ____);", cpp: "dp[a] = min(dp[a], dp[a - c] + ____);"}, answer: "1"}
+  - {id: 5, type: trap, prompt: "What overflows here?", code: {java: "Arrays.fill(dp, Integer.MAX_VALUE); dp[a] = dp[a - c] + 1;", cpp: "vector<int> dp(n, INT_MAX); dp[a] = dp[a - c] + 1;"}, answer: "INT_MAX + 1 wraps negative. Use a safe infinity like amount + 1."}
+  - {id: 6, type: complexity, prompt: "Time of Coin Change with A amounts and C coins?", answer: "O(A * C)"}
+  - {id: 7, type: cloze, text: "If dp[i] only needs the last two values, space reduces to {{c1::O(1)}}."}

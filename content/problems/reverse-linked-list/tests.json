@@ -1,0 +1,10 @@
+{
+  "cases": [
+    { "args": { "head": [1,2,3,4,5] }, "expected": [5,4,3,2,1] },
+    { "args": { "head": [1,2] }, "expected": [2,1] },
+    { "args": { "head": [] }, "expected": [] },
+    { "args": { "head": [1] }, "expected": [1] },
+    { "args": { "head": [1,1,2] }, "expected": [2,1,1] },
+    { "args": { "head": [7,8,9,10] }, "expected": [10,9,8,7] }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "cases": [
+    { "args": { "s": "A man, a plan, a canal: Panama" }, "expected": true },
+    { "args": { "s": "race a car" }, "expected": false },
+    { "args": { "s": " " }, "expected": true },
+    { "args": { "s": "0P" }, "expected": false },
+    { "args": { "s": "ab_a" }, "expected": true },
+    { "args": { "s": "" }, "expected": true },
+    { "args": { "s": ".,!" }, "expected": true },
+    { "args": { "s": "No lemon, no melon" }, "expected": true }
+  ]
+}

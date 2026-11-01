@@ -1,0 +1,13 @@
+{
+  "cases": [
+    { "args": { "s": "abcabcbb" }, "expected": 3 },
+    { "args": { "s": "bbbbb" }, "expected": 1 },
+    { "args": { "s": "pwwkew" }, "expected": 3 },
+    { "args": { "s": "" }, "expected": 0 },
+    { "args": { "s": " " }, "expected": 1 },
+    { "args": { "s": "au" }, "expected": 2 },
+    { "args": { "s": "dvdf" }, "expected": 3 },
+    { "args": { "s": "abba" }, "expected": 2 },
+    { "args": { "s": "tmmzuxt" }, "expected": 5 }
+  ]
+}

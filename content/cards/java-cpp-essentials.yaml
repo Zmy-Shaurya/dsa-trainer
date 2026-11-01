@@ -1,0 +1,8 @@
+concept: java-cpp-essentials
+cards:
+  - {id: 1, type: trap, prompt: "What can go wrong with this?", code: {java: "int mid = (lo + hi) / 2;", cpp: "int mid = (lo + hi) / 2;"}, answer: "lo + hi can overflow int. Use lo + (hi - lo) / 2."}
+  - {id: 2, type: trap, prompt: "Why is this a bug in Java?", code: {java: "if (a.equals(b) == false || s == t) ...", cpp: "// C++ std::string: s == t compares contents"}, answer: "In Java == on Strings compares references, not contents. Use equals()."}
+  - {id: 3, type: basic, front: "What is -7 / 2 in Java and C++?", back: "-3. Integer division truncates toward zero. And -7 % 2 is -1."}
+  - {id: 4, type: cloze, text: "Signed integer overflow is {{c1::undefined behaviour}} in C++ but wraps around silently in Java."}
+  - {id: 5, type: trap, prompt: "What does this do in C++?", code: {java: "// Java Map.get(k) returns null if absent", cpp: "int c = cnt[key];"}, answer: "operator[] on a map inserts key with a default value 0 if it was missing. Use find() or count() to test."}
+  - {id: 6, type: basic, front: "How do you widen before multiplying two ints to avoid overflow?", back: "Java: (long) a * b. C++: 1LL * a * b."}

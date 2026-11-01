@@ -1,0 +1,8 @@
+concept: heaps
+cards:
+  - {id: 1, type: complexity, prompt: "Time of push and pop on a binary heap?", answer: "O(log n); peek is O(1)"}
+  - {id: 2, type: basic, front: "To get the k largest items, which heap do you keep and of what size?", back: "A min-heap of size k; pop the smallest whenever it grows past k."}
+  - {id: 3, type: trap, prompt: "Which of these is a max-heap by default?", code: {java: "PriorityQueue<Integer> pq = new PriorityQueue<>();", cpp: "priority_queue<int> pq;"}, answer: "C++ priority_queue is a max-heap. Java PriorityQueue is a min-heap."}
+  - {id: 4, type: basic, front: "How do two heaps give a running median?", back: "A max-heap for the lower half and a min-heap for the upper half, kept within one element of each other in size."}
+  - {id: 5, type: cloze, text: "Time to build a heap from n items in place is {{c1::O(n)}} with heapify."}
+  - {id: 6, type: basic, front: "Task Scheduler: what does the max-heap hold?", back: "Remaining counts per task; each step pick the most frequent available task, with a cooldown queue."}

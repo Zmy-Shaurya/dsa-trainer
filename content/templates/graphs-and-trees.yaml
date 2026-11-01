@@ -1,0 +1,366 @@
+pages:
+  - id: bfs
+    title: Breadth-first search
+    concept: bfs
+    when: "Shortest path in an unweighted graph or grid, level-by-level work, spreading from sources."
+    pitfalls: ["Mark nodes visited when you enqueue them, not when you dequeue them.", "Check bounds before indexing a grid.", "Start from every source at once for multi-source problems."]
+    problems: [rotting-oranges, word-ladder, number-of-islands, binary-tree-level-order-traversal]
+    variants:
+      - id: graph
+        title: Graph (distances from a source)
+        java: |
+          static int[] bfs(List<List<Integer>> adj, int src) {
+              int[] dist = new int[adj.size()];
+              Arrays.fill(dist, -1);
+              Deque<Integer> q = new ArrayDeque<>();
+              dist[src] = 0; q.add(src);
+              while (!q.isEmpty()) {
+                  int u = q.poll();
+                  for (int v : adj.get(u))
+                      if (dist[v] < 0) { dist[v] = dist[u] + 1; q.add(v); }
+              }
+              return dist;
+          }
+        cpp: |
+          vector<int> bfs(const vector<vector<int>>& adj, int src) {
+              vector<int> dist(adj.size(), -1);
+              queue<int> q;
+              dist[src] = 0; q.push(src);
+              while (!q.empty()) {
+                  int u = q.front(); q.pop();
+                  for (int v : adj[u])
+                      if (dist[v] < 0) { dist[v] = dist[u] + 1; q.push(v); }
+              }
+              return dist;
+          }
+      - id: grid
+        title: Grid (shortest path, '#' is a wall)
+        java: |
+          static int shortest(char[][] g, int sr, int sc, int tr, int tc) {
+              int[][] d = new int[g.length][g[0].length];
+              for (int[] row : d) Arrays.fill(row, -1);
+              int[] dr = {1, -1, 0, 0}, dc = {0, 0, 1, -1};
+              Deque<int[]> q = new ArrayDeque<>();
+              d[sr][sc] = 0; q.add(new int[]{sr, sc});
+              while (!q.isEmpty()) {
+                  int[] cur = q.poll();
+                  if (cur[0] == tr && cur[1] == tc) return d[tr][tc];
+                  for (int k = 0; k < 4; k++) {
+                      int r = cur[0] + dr[k], c = cur[1] + dc[k];
+                      if (r >= 0 && c >= 0 && r < g.length && c < g[0].length && g[r][c] != '#' && d[r][c] < 0) {
+                          d[r][c] = d[cur[0]][cur[1]] + 1; q.add(new int[]{r, c});
+                      }
+                  }
+              }
+              return -1;
+          }
+        cpp: |
+          int shortest(const vector<string>& g, int sr, int sc, int tr, int tc) {
+              int R = g.size(), C = g[0].size();
+              vector<vector<int>> d(R, vector<int>(C, -1));
+              int dr[] = {1, -1, 0, 0}, dc[] = {0, 0, 1, -1};
+              queue<pair<int,int>> q;
+              d[sr][sc] = 0; q.push({sr, sc});
+              while (!q.empty()) {
+                  auto [cr, cc] = q.front(); q.pop();
+                  if (cr == tr && cc == tc) return d[tr][tc];
+                  for (int k = 0; k < 4; k++) {
+                      int r = cr + dr[k], c = cc + dc[k];
+                      if (r >= 0 && c >= 0 && r < R && c < C && g[r][c] != '#' && d[r][c] < 0) {
+                          d[r][c] = d[cr][cc] + 1; q.push({r, c});
+                      }
+                  }
+              }
+              return -1;
+          }
+      - id: multi-source
+        title: Multi-source ('S' marks every source)
+        java: |
+          static int[][] multiSource(char[][] g) {
+              int[][] d = new int[g.length][g[0].length];
+              Deque<int[]> q = new ArrayDeque<>();
+              for (int i = 0; i < g.length; i++)
+                  for (int j = 0; j < g[0].length; j++) {
+                      d[i][j] = g[i][j] == 'S' ? 0 : -1;
+                      if (d[i][j] == 0) q.add(new int[]{i, j});
+                  }
+              int[] dr = {1, -1, 0, 0}, dc = {0, 0, 1, -1};
+              while (!q.isEmpty()) {
+                  int[] cur = q.poll();
+                  for (int k = 0; k < 4; k++) {
+                      int r = cur[0] + dr[k], c = cur[1] + dc[k];
+                      if (r >= 0 && c >= 0 && r < g.length && c < g[0].length && d[r][c] < 0) {
+                          d[r][c] = d[cur[0]][cur[1]] + 1; q.add(new int[]{r, c});
+                      }
+                  }
+              }
+              return d;
+          }
+        cpp: |
+          vector<vector<int>> multiSource(const vector<string>& g) {
+              int R = g.size(), C = g[0].size();
+              vector<vector<int>> d(R, vector<int>(C, -1));
+              queue<pair<int,int>> q;
+              for (int i = 0; i < R; i++)
+                  for (int j = 0; j < C; j++)
+                      if (g[i][j] == 'S') { d[i][j] = 0; q.push({i, j}); }
+              int dr[] = {1, -1, 0, 0}, dc[] = {0, 0, 1, -1};
+              while (!q.empty()) {
+                  auto [cr, cc] = q.front(); q.pop();
+                  for (int k = 0; k < 4; k++) {
+                      int r = cr + dr[k], c = cc + dc[k];
+                      if (r >= 0 && c >= 0 && r < R && c < C && d[r][c] < 0) {
+                          d[r][c] = d[cr][cc] + 1; q.push({r, c});
+                      }
+                  }
+              }
+              return d;
+          }
+  - id: dfs
+    title: Depth-first search
+    concept: dfs
+    when: "Connected components, cycle checks, path exploration, anything that goes deep before wide."
+    pitfalls: ["Mark visited before recursing, or cycles recurse forever.", "Deep inputs can overflow the stack, so use the iterative form.", "Remember to undo state when backtracking."]
+    problems: [number-of-islands, clone-graph, max-area-of-island, course-schedule]
+    variants:
+      - id: recursive
+        title: Recursive
+        java: |
+          static void dfs(List<List<Integer>> adj, int u, boolean[] seen) {
+              seen[u] = true;
+              for (int v : adj.get(u))
+                  if (!seen[v]) dfs(adj, v, seen);
+          }
+        cpp: |
+          void dfs(const vector<vector<int>>& adj, int u, vector<bool>& seen) {
+              seen[u] = true;
+              for (int v : adj[u])
+                  if (!seen[v]) dfs(adj, v, seen);
+          }
+      - id: iterative
+        title: Iterative (explicit stack)
+        java: |
+          static void dfsIter(List<List<Integer>> adj, int src, boolean[] seen) {
+              Deque<Integer> st = new ArrayDeque<>();
+              st.push(src);
+              while (!st.isEmpty()) {
+                  int u = st.pop();
+                  if (seen[u]) continue;
+                  seen[u] = true;
+                  for (int v : adj.get(u)) if (!seen[v]) st.push(v);
+              }
+          }
+        cpp: |
+          void dfsIter(const vector<vector<int>>& adj, int src, vector<bool>& seen) {
+              stack<int> st;
+              st.push(src);
+              while (!st.empty()) {
+                  int u = st.top(); st.pop();
+                  if (seen[u]) continue;
+                  seen[u] = true;
+                  for (int v : adj[u]) if (!seen[v]) st.push(v);
+              }
+          }
+  - id: topological-sort
+    title: Topological sort
+    concept: topological-sort
+    when: "Ordering tasks with dependencies, or detecting a cycle in a directed graph."
+    pitfalls: ["If the order has fewer than n nodes, there is a cycle.", "Edges point from prerequisite to dependant: be consistent.", "Several valid orders can exist."]
+    problems: [course-schedule, course-schedule-ii, alien-dictionary]
+    variants:
+      - id: kahn
+        title: Kahn's algorithm
+        java: |
+          static List<Integer> topo(int n, List<List<Integer>> adj) {
+              int[] indeg = new int[n];
+              for (List<Integer> out : adj) for (int v : out) indeg[v]++;
+              Deque<Integer> q = new ArrayDeque<>();
+              for (int i = 0; i < n; i++) if (indeg[i] == 0) q.add(i);
+              List<Integer> order = new ArrayList<>();
+              while (!q.isEmpty()) {
+                  int u = q.poll();
+                  order.add(u);
+                  for (int v : adj.get(u)) if (--indeg[v] == 0) q.add(v);
+              }
+              return order.size() == n ? order : List.of();   // empty means a cycle
+          }
+        cpp: |
+          vector<int> topo(int n, const vector<vector<int>>& adj) {
+              vector<int> indeg(n, 0), order;
+              for (auto& out : adj) for (int v : out) indeg[v]++;
+              queue<int> q;
+              for (int i = 0; i < n; i++) if (indeg[i] == 0) q.push(i);
+              while (!q.empty()) {
+                  int u = q.front(); q.pop();
+                  order.push_back(u);
+                  for (int v : adj[u]) if (--indeg[v] == 0) q.push(v);
+              }
+              if ((int)order.size() != n) order.clear();      // empty means a cycle
+              return order;
+          }
+  - id: union-find
+    title: Union-find
+    concept: union-find
+    when: "Merging groups, counting components, detecting a cycle while adding edges."
+    pitfalls: ["Always compare roots, never the raw nodes.", "Path compression and union by rank together give near-constant time.", "Count components by decrementing on each successful union."]
+    problems: [redundant-connection, number-of-connected-components-in-an-undirected-graph, graph-valid-tree]
+    variants:
+      - id: dsu
+        title: Path compression and union by rank
+        java: |
+          static int[] parent, rank;
+          static void init(int n) {
+              parent = new int[n]; rank = new int[n];
+              for (int i = 0; i < n; i++) parent[i] = i;
+          }
+          static int find(int x) {
+              while (parent[x] != x) { parent[x] = parent[parent[x]]; x = parent[x]; }
+              return x;
+          }
+          static boolean union(int a, int b) {
+              a = find(a); b = find(b);
+              if (a == b) return false;
+              if (rank[a] < rank[b]) { int t = a; a = b; b = t; }
+              parent[b] = a;
+              if (rank[a] == rank[b]) rank[a]++;
+              return true;
+          }
+        cpp: |
+          struct DSU {
+              vector<int> parent, rnk;
+              DSU(int n) : parent(n), rnk(n, 0) { iota(parent.begin(), parent.end(), 0); }
+              int find(int x) {
+                  while (parent[x] != x) { parent[x] = parent[parent[x]]; x = parent[x]; }
+                  return x;
+              }
+              bool unite(int a, int b) {
+                  a = find(a); b = find(b);
+                  if (a == b) return false;
+                  if (rnk[a] < rnk[b]) swap(a, b);
+                  parent[b] = a;
+                  if (rnk[a] == rnk[b]) rnk[a]++;
+                  return true;
+              }
+          };
+  - id: dijkstra
+    title: Dijkstra
+    concept: shortest-paths
+    when: "Shortest path from one source when edges have non-negative weights."
+    pitfalls: ["Negative edges break it: use Bellman-Ford.", "Skip stale heap entries (d > dist[u]).", "Use long for distances to avoid overflow."]
+    problems: [network-delay-time, swim-in-rising-water, cheapest-flights-within-k-stops]
+    variants:
+      - id: priority-queue
+        title: Priority queue version
+        java: |
+          static long[] dijkstra(List<List<int[]>> adj, int src) {    // edge = {to, weight}
+              long[] dist = new long[adj.size()];
+              Arrays.fill(dist, Long.MAX_VALUE);
+              PriorityQueue<long[]> pq = new PriorityQueue<>((x, y) -> Long.compare(x[0], y[0]));
+              dist[src] = 0; pq.add(new long[]{0, src});
+              while (!pq.isEmpty()) {
+                  long[] cur = pq.poll();
+                  int u = (int) cur[1];
+                  if (cur[0] > dist[u]) continue;
+                  for (int[] e : adj.get(u))
+                      if (dist[u] + e[1] < dist[e[0]]) {
+                          dist[e[0]] = dist[u] + e[1];
+                          pq.add(new long[]{dist[e[0]], e[0]});
+                      }
+              }
+              return dist;
+          }
+        cpp: |
+          vector<long long> dijkstra(const vector<vector<pair<int,int>>>& adj, int src) {   // edge = {to, weight}
+              vector<long long> dist(adj.size(), LLONG_MAX);
+              priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
+              dist[src] = 0; pq.push({0, src});
+              while (!pq.empty()) {
+                  auto [d, u] = pq.top(); pq.pop();
+                  if (d > dist[u]) continue;
+                  for (auto [v, w] : adj[u])
+                      if (dist[u] + w < dist[v]) { dist[v] = dist[u] + w; pq.push({dist[v], v}); }
+              }
+              return dist;
+          }
+  - id: trie
+    title: Trie
+    concept: tries
+    when: "Prefix queries, autocomplete, and searching many words at once."
+    pitfalls: ["Mark the end of a word separately from having children.", "26 pointers per node is memory hungry for huge dictionaries.", "Free nodes in C++ if the structure is long-lived."]
+    problems: [implement-trie-prefix-tree, design-add-and-search-words-data-structure, word-search-ii]
+    variants:
+      - id: basic
+        title: Insert and prefix search (lowercase letters)
+        java: |
+          static class Trie {
+              Trie[] next = new Trie[26];
+              boolean end;
+              void insert(String w) {
+                  Trie cur = this;
+                  for (char c : w.toCharArray()) {
+                      if (cur.next[c - 'a'] == null) cur.next[c - 'a'] = new Trie();
+                      cur = cur.next[c - 'a'];
+                  }
+                  cur.end = true;
+              }
+              boolean startsWith(String p) {
+                  Trie cur = this;
+                  for (char c : p.toCharArray()) {
+                      cur = cur.next[c - 'a'];
+                      if (cur == null) return false;
+                  }
+                  return true;
+              }
+          }
+        cpp: |
+          struct Trie {
+              Trie* next[26] = {};
+              bool end = false;
+              void insert(const string& w) {
+                  Trie* cur = this;
+                  for (char c : w) {
+                      if (!cur->next[c - 'a']) cur->next[c - 'a'] = new Trie();
+                      cur = cur->next[c - 'a'];
+                  }
+                  cur->end = true;
+              }
+              bool startsWith(const string& p) {
+                  Trie* cur = this;
+                  for (char c : p) {
+                      cur = cur->next[c - 'a'];
+                      if (!cur) return false;
+                  }
+                  return true;
+              }
+          };
+  - id: heap-top-k
+    title: Heap top-k
+    concept: heaps
+    when: "The k largest, smallest or most frequent items without sorting everything."
+    pitfalls: ["Use a min-heap of size k for the k largest.", "Java and C++ default heaps have opposite order.", "Pop when the size exceeds k, not after the loop."]
+    problems: [kth-largest-element-in-an-array, top-k-frequent-elements, k-closest-points-to-origin, find-median-from-data-stream]
+    variants:
+      - id: top-k
+        title: k largest values
+        java: |
+          static int[] topK(int[] a, int k) {
+              PriorityQueue<Integer> pq = new PriorityQueue<>();      // min-heap of the k largest
+              for (int x : a) {
+                  pq.add(x);
+                  if (pq.size() > k) pq.poll();
+              }
+              int[] res = new int[pq.size()];
+              for (int i = res.length - 1; i >= 0; i--) res[i] = pq.poll();
+              return res;
+          }
+        cpp: |
+          vector<int> topK(const vector<int>& a, int k) {
+              priority_queue<int, vector<int>, greater<int>> pq;      // min-heap of the k largest
+              for (int x : a) {
+                  pq.push(x);
+                  if ((int)pq.size() > k) pq.pop();
+              }
+              vector<int> res(pq.size());
+              for (int i = (int)res.size() - 1; i >= 0; i--) { res[i] = pq.top(); pq.pop(); }
+              return res;
+          }

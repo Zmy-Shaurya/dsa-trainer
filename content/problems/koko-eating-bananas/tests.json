@@ -1,0 +1,11 @@
+{
+  "cases": [
+    { "args": { "piles": [3,6,7,11], "h": 8 }, "expected": 4 },
+    { "args": { "piles": [30,11,23,4,20], "h": 5 }, "expected": 30 },
+    { "args": { "piles": [30,11,23,4,20], "h": 6 }, "expected": 23 },
+    { "args": { "piles": [1], "h": 1 }, "expected": 1 },
+    { "args": { "piles": [5], "h": 3 }, "expected": 2 },
+    { "args": { "piles": [10,10], "h": 4 }, "expected": 5 },
+    { "args": { "piles": [312884470], "h": 312884469 }, "expected": 2 }
+  ]
+}

@@ -1,0 +1,35 @@
+id: binary-trees
+title: Binary Trees
+track: trees
+order: 21
+prereqs: [recursion-basics, linked-lists]
+visualizers: [tree-traversals]
+coreProblems: [invert-binary-tree, maximum-depth-of-binary-tree, diameter-of-binary-tree, balanced-binary-tree, same-tree, subtree-of-another-tree]
+card:
+  idea: "Solve the left and right subtree, then combine at the node."
+  useWhen:
+    - "A tree property depends on both children"
+    - "You can define what a call returns for a subtree"
+    - "Comparing two trees node by node"
+  complexity:
+    time: "O(n): visit each node once"
+    space: "O(h) recursion, h is the height"
+  template:
+    java: |
+      int height(TreeNode n) {
+          if (n == null) return 0;
+          int l = height(n.left), r = height(n.right);
+          best = Math.max(best, l + r);          // side result
+          return 1 + Math.max(l, r);             // value for parent
+      }
+    cpp: |
+      int height(TreeNode* n) {
+          if (!n) return 0;
+          int l = height(n->left), r = height(n->right);
+          best = max(best, l + r);               // side result
+          return 1 + max(l, r);                  // value for parent
+      }
+  pitfalls:
+    - "Return value for the parent and answer for the whole tree are different things."
+    - "Always handle the null node first."
+    - "A skewed tree has height n, so recursion can overflow the stack."

@@ -1,0 +1,19 @@
+// @hide-start
+#include <bits/stdc++.h>
+using namespace std;
+// @hide-end
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if (s.size() != t.size()) return false;
+        int count[26] = {0};
+        for (size_t i = 0; i < s.size(); i++) {
+            count[s[i] - 'a']++;
+            count[t[i] - 'a']--;
+        }
+        for (int c : count) {
+            if (c != 0) return false;
+        }
+        return true;
+    }
+};

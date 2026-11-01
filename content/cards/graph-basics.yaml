@@ -1,0 +1,8 @@
+concept: graph-basics
+cards:
+  - {id: 1, type: basic, front: "What is an adjacency list?", back: "For each node, a list of its neighbours. It uses O(V + E) space."}
+  - {id: 2, type: complexity, prompt: "Time of a BFS or DFS traversal?", answer: "O(V + E)"}
+  - {id: 3, type: cloze, text: "For an undirected edge (a, b), add b to a's list and {{c1::a to b's list}}."}
+  - {id: 4, type: basic, front: "Why do you need a visited set?", back: "Cycles would make the traversal loop forever and repeat work."}
+  - {id: 5, type: basic, front: "How do you count connected components?", back: "Start a traversal from every unvisited node; the number of starts is the count."}
+  - {id: 6, type: basic, front: "Clone Graph: what map do you need?", back: "A map from each original node to its clone, which doubles as the visited set."}

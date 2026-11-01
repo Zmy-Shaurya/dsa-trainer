@@ -1,0 +1,41 @@
+id: missing-number
+platform: leetcode
+lcNumber: 268
+title: Missing Number
+url: https://leetcode.com/problems/missing-number/
+difficulty: easy
+tier: 1
+topics: [arrays, math]
+patterns: [bit-manipulation, math-number-theory]
+concepts: [arrays-strings, bit-manipulation]
+insight: "Of the n+1 numbers 0..n exactly one is absent, so XOR-ing (or summing) the full range against the actual values exposes it."
+tells:
+  - "n distinct numbers from the range 0..n"
+  - "Exactly one value is missing"
+hints:
+  - "What would the sum of 0..n be if nothing were missing?"
+  - "Can you avoid extra memory?"
+traps:
+  both:
+    - "Sum in a long if n can be large; XOR avoids overflow entirely"
+signature:
+  name: missingNumber
+  params: [{ name: nums, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: hashset
+    name: "Hash set"
+    idea: "Put every number in a set, then find the first value in 0..n that is absent."
+    time: "O(n)"
+    space: "O(n)"
+    preferWhen: "you want the simplest correct code"
+    files: { java: approaches/1-hashset.java, cpp: approaches/1-hashset.cpp }
+  - id: xor
+    name: "XOR of indices and values"
+    unlock: "x ^ x = 0, so pairing every present value with its index leaves only the missing one."
+    idea: "XOR 0..n with every element; equal pairs cancel."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-xor.java, cpp: approaches/2-xor.cpp }

@@ -1,0 +1,36 @@
+id: cp-basics-30
+name: Competitive programming basics in 30 days
+description: Math, bit tricks, fast input, modular arithmetic, sieves, union-find, range queries and shortest paths. Use the C++ templates first.
+language: cpp
+hoursPerDay: 2
+days:
+  - { day: 1, title: C++ setup, concepts: [java-cpp-essentials, complexity-basics], problems: [plus-one], quizzes: [complexity], focus: "Open Learn, Templates: the fast I/O header and the custom comparator. Use long long for sums" }
+  - { day: 2, title: Number tricks, concepts: [math-basics], problems: [happy-number, pow-x-n], focus: "Write modular exponentiation from the templates page" }
+  - { day: 3, title: Sieve, concepts: [math-basics], problems: [count-primes, reverse-integer], focus: "Sieve of Eratosthenes; watch for int overflow" }
+  - { day: 4, title: Bit tricks, concepts: [bit-manipulation], problems: [single-number, number-of-1-bits] }
+  - { day: 5, title: Bit tricks, concepts: [bit-manipulation], problems: [counting-bits, missing-number, reverse-bits] }
+  - { day: 6, title: Bits and arithmetic, concepts: [bit-manipulation, math-basics], problems: [sum-of-two-integers, multiply-strings] }
+  - { day: 7, title: Review week 1, review: true }
+  - { day: 8, title: Prefix sums, concepts: [prefix-sums], problems: [range-sum-query-immutable, subarray-sum-equals-k, product-of-array-except-self] }
+  - { day: 9, title: Sorting and binary search, concepts: [sorting, binary-search], problems: [sort-an-array, binary-search, koko-eating-bananas] }
+  - { day: 10, title: Binary search on the answer, concepts: [binary-search], problems: [find-minimum-in-rotated-sorted-array, median-of-two-sorted-arrays], optional: [median-of-two-sorted-arrays] }
+  - { day: 11, title: Greedy, concepts: [greedy], problems: [maximum-subarray, jump-game, gas-station] }
+  - { day: 12, title: Divide and conquer, concepts: [divide-conquer, intervals], problems: [kth-largest-element-in-an-array, merge-intervals] }
+  - { day: 13, title: Dynamic programming, concepts: [dp-1d], problems: [climbing-stairs, house-robber, coin-change] }
+  - { day: 14, title: Review week 2, review: true }
+  - { day: 15, title: Breadth-first search, concepts: [graph-basics, bfs], problems: [rotting-oranges, clone-graph, word-ladder], optional: [word-ladder] }
+  - { day: 16, title: Grids, concepts: [dfs, grid-graphs], problems: [number-of-islands, max-area-of-island] }
+  - { day: 17, title: Topological sort, concepts: [topological-sort], problems: [course-schedule, course-schedule-ii] }
+  - { day: 18, title: Union-find, concepts: [union-find], problems: [number-of-provinces, redundant-connection, accounts-merge] }
+  - { day: 19, title: Union-find, concepts: [union-find], problems: [number-of-connected-components-in-an-undirected-graph, graph-valid-tree] }
+  - { day: 20, title: Shortest paths, concepts: [shortest-paths], problems: [network-delay-time, cheapest-flights-within-k-stops], focus: "Dijkstra with a priority queue from the templates page" }
+  - { day: 21, title: Review week 3, review: true }
+  - { day: 22, title: Spanning trees, concepts: [mst], problems: [min-cost-to-connect-all-points, swim-in-rising-water] }
+  - { day: 23, title: Range queries, concepts: [range-queries], problems: [range-sum-query-mutable], focus: "Write a Fenwick tree first, then a segment tree" }
+  - { day: 24, title: Range queries, concepts: [range-queries], problems: [count-of-smaller-numbers-after-self] }
+  - { day: 25, title: Two-dimensional DP, concepts: [dp-2d], problems: [unique-paths, longest-common-subsequence] }
+  - { day: 26, title: Knapsack, concepts: [dp-knapsack], problems: [partition-equal-subset-sum, coin-change-ii, target-sum] }
+  - { day: 27, title: String DP, concepts: [dp-strings], problems: [edit-distance, longest-palindromic-substring] }
+  - { day: 28, title: Review week 4, review: true }
+  - { day: 29, title: Mixed practice, problems: [longest-increasing-subsequence, word-break], quizzes: [pattern, complexity] }
+  - { day: 30, title: Mock contest, review: true, focus: "Three problems in two hours, C++ templates only" }

@@ -1,0 +1,34 @@
+id: divide-conquer
+title: Divide and Conquer
+track: recursion-dp
+order: 36
+prereqs: [recursion-basics, sorting]
+coreProblems: [sort-an-array, median-of-two-sorted-arrays, kth-largest-element-in-an-array, pow-x-n]
+card:
+  idea: "Split into independent halves, solve each, then combine."
+  useWhen:
+    - "Subproblems don't overlap"
+    - "Merge sort, quickselect or fast exponentiation"
+    - "The combine step is cheaper than solving whole"
+  complexity:
+    time: "T(n) = 2T(n/2) + O(n) gives O(n log n)"
+    space: "O(log n) to O(n)"
+  template:
+    java: |
+      double pow(double x, long n) {
+          if (n == 0) return 1;
+          if (n < 0) return 1 / pow(x, -n);
+          double half = pow(x, n / 2);
+          return n % 2 == 0 ? half * half : half * half * x;
+      }
+    cpp: |
+      double mypow(double x, long long n) {
+          if (n == 0) return 1;
+          if (n < 0) return 1 / mypow(x, -n);
+          double half = mypow(x, n / 2);
+          return n % 2 == 0 ? half * half : half * half * x;
+      }
+  pitfalls:
+    - "Compute the half once; calling it twice makes it O(n)."
+    - "Negating Integer.MIN_VALUE overflows; widen to long first."
+    - "Pick the pivot carefully or quickselect degrades to O(n^2)."

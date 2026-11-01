@@ -1,0 +1,8 @@
+concept: greedy
+cards:
+  - {id: 1, type: basic, front: "What is the greedy idea in Jump Game?", back: "Track the furthest reachable index; fail if i ever exceeds it."}
+  - {id: 2, type: basic, front: "What does an exchange argument prove?", back: "That swapping any optimal solution's choice for the greedy choice never makes it worse."}
+  - {id: 3, type: cloze, text: "Maximum Subarray (Kadane): the best sum ending here is {{c1::max(x, best + x)}}."}
+  - {id: 4, type: basic, front: "Gas Station: how do you pick the start in one pass?", back: "If total gas >= total cost an answer exists; reset the start to i + 1 whenever the running tank goes negative."}
+  - {id: 5, type: basic, front: "How can you tell greedy is probably wrong?", back: "A locally best choice can block a better later one. Try a small counterexample or use DP."}
+  - {id: 6, type: complexity, prompt: "Typical time of a sort-then-greedy solution?", answer: "O(n log n)"}

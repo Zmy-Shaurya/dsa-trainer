@@ -1,0 +1,39 @@
+id: linked-lists
+title: Linked Lists
+track: linear-ds
+order: 17
+prereqs: [arrays-strings]
+visualizers: [reverse-linked-list, floyd-cycle]
+coreProblems: [reverse-linked-list, merge-two-sorted-lists, linked-list-cycle, remove-nth-node-from-end-of-list, reorder-list, add-two-numbers, lru-cache]
+card:
+  idea: "Rewire next pointers; use a dummy head and fast/slow pointers."
+  useWhen:
+    - "Insert or delete in the middle without shifting"
+    - "Detect a cycle or find the middle"
+    - "Merge or reverse sequences in place"
+  complexity:
+    time: "O(n) traversal"
+    space: "O(1) pointer work"
+  template:
+    java: |
+      ListNode prev = null, cur = head;
+      while (cur != null) {
+          ListNode next = cur.next;
+          cur.next = prev;
+          prev = cur;
+          cur = next;
+      }
+      return prev;
+    cpp: |
+      ListNode *prev = nullptr, *cur = head;
+      while (cur) {
+          ListNode* next = cur->next;
+          cur->next = prev;
+          prev = cur;
+          cur = next;
+      }
+      return prev;
+  pitfalls:
+    - "Save cur.next before you overwrite it."
+    - "A dummy head removes the special case for deleting the first node."
+    - "Check fast != null && fast.next != null before moving two steps."

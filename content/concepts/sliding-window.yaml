@@ -1,0 +1,38 @@
+id: sliding-window
+title: Sliding Window
+track: arrays-strings
+order: 10
+prereqs: [two-pointers, hashing]
+visualizers: [sliding-window-max-sum, longest-unique-substring]
+coreProblems: [longest-substring-without-repeating-characters, longest-repeating-character-replacement, permutation-in-string, minimum-window-substring, sliding-window-maximum]
+card:
+  idea: "Grow a window on the right, shrink it on the left until valid."
+  useWhen:
+    - "Longest or shortest contiguous range with a property"
+    - "Fixed-size window statistics"
+    - "Substring containing or avoiding certain characters"
+  complexity:
+    time: "O(n): each index enters and leaves once"
+    space: "O(k) for the window state"
+  template:
+    java: |
+      Map<Character, Integer> cnt = new HashMap<>();
+      int l = 0, best = 0;
+      for (int r = 0; r < s.length(); r++) {
+          cnt.merge(s.charAt(r), 1, Integer::sum);
+          while (cnt.get(s.charAt(r)) > 1)
+              cnt.merge(s.charAt(l++), -1, Integer::sum);
+          best = Math.max(best, r - l + 1);
+      }
+    cpp: |
+      unordered_map<char, int> cnt;
+      int l = 0, best = 0;
+      for (int r = 0; r < (int)s.size(); r++) {
+          cnt[s[r]]++;
+          while (cnt[s[r]] > 1) cnt[s[l++]]--;
+          best = max(best, r - l + 1);
+      }
+  pitfalls:
+    - "Update the answer after shrinking, when the window is valid again."
+    - "Negative numbers break the shrink-while-too-big logic."
+    - "Window length is r - l + 1, a common off-by-one."

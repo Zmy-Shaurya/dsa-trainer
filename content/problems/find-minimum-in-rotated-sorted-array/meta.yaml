@@ -1,0 +1,42 @@
+id: find-minimum-in-rotated-sorted-array
+platform: leetcode
+lcNumber: 153
+title: Find Minimum in Rotated Sorted Array
+url: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+difficulty: medium
+tier: 1
+topics: [arrays, binary-search]
+patterns: [binary-search]
+concepts: [binary-search]
+insight: "Compare mid with the right end: if mid is larger the minimum is to the right, otherwise it is at mid or to its left."
+tells:
+  - "Rotated sorted array, find the smallest"
+  - "Distinct values, O(log n)"
+hints:
+  - "What does nums[mid] > nums[hi] tell you about where the drop is?"
+  - "Which side may still contain mid itself as the answer?"
+traps:
+  both:
+    - "Compare against nums[hi], not nums[lo]; the left comparison is ambiguous when nothing is rotated"
+    - "Use hi = mid (not mid - 1) so you never skip the minimum"
+signature:
+  name: findMin
+  params: [{ name: nums, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: linear
+    name: Linear scan
+    idea: "Walk the array keeping the smallest value seen."
+    time: "O(n)"
+    space: "O(1)"
+    preferWhen: "the array is not guaranteed to be rotated-sorted"
+    files: { java: approaches/1-linear.java, cpp: approaches/1-linear.cpp }
+  - id: binary
+    name: Binary search against the right end
+    unlock: "A rotated sorted array has one drop; mid versus the right end shows which side holds it."
+    idea: "If nums[mid] > nums[hi] the minimum is right of mid; otherwise it is at mid or left. Stop when lo == hi."
+    time: "O(log n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-binary.java, cpp: approaches/2-binary.cpp }

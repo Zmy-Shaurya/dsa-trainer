@@ -1,0 +1,40 @@
+id: power-of-two
+platform: leetcode
+lcNumber: 231
+title: Power of Two
+url: https://leetcode.com/problems/power-of-two/
+difficulty: easy
+tier: 1
+topics: [math, bit-manipulation]
+patterns: [bit-manipulation]
+concepts: [bit-manipulation, math-basics]
+insight: "A power of two has exactly one set bit, so n & (n - 1) is zero for positive n."
+tells:
+  - "Is n equal to 2^k?"
+  - "No loop or recursion follow-up"
+hints:
+  - "How many 1 bits does a power of two have?"
+  - "What about zero and negatives?"
+traps:
+  both:
+    - "n must be positive: 0 and negatives are not powers of two"
+signature:
+  name: isPowerOfTwo
+  params: [{ name: n, type: int }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: divide
+    name: "Divide by two"
+    idea: "While n is even divide it by two; the answer is whether you end at 1."
+    time: "O(log n)"
+    space: "O(1)"
+    files: { java: approaches/1-divide.java, cpp: approaches/1-divide.cpp }
+  - id: bit-trick
+    name: "One set bit"
+    unlock: "Exactly one set bit means clearing it leaves zero."
+    idea: "n > 0 and n & (n - 1) == 0."
+    time: "O(1)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-bit-trick.java, cpp: approaches/2-bit-trick.cpp }

@@ -1,0 +1,12 @@
+{
+  "cases": [
+    {"args": {"s": "abc", "t": "ahbgdc"}, "expected": true},
+    {"args": {"s": "axc", "t": "ahbgdc"}, "expected": false},
+    {"args": {"s": "", "t": "abc"}, "expected": true},
+    {"args": {"s": "", "t": ""}, "expected": true},
+    {"args": {"s": "a", "t": ""}, "expected": false},
+    {"args": {"s": "aaa", "t": "aa"}, "expected": false},
+    {"args": {"s": "ace", "t": "abcde"}, "expected": true},
+    {"args": {"s": "bb", "t": "ahbgdcb"}, "expected": true}
+  ]
+}

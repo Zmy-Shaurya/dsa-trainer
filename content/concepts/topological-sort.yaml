@@ -1,0 +1,43 @@
+id: topological-sort
+title: Topological Sort
+track: graphs
+order: 31
+prereqs: [bfs, dfs]
+visualizers: [topological-sort-kahn]
+coreProblems: [course-schedule, course-schedule-ii]
+card:
+  idea: "Order a directed acyclic graph so every edge points forward."
+  useWhen:
+    - "Prerequisites or build dependencies"
+    - "Detect whether a directed graph has a cycle"
+    - "Ordering tasks with constraints"
+  complexity:
+    time: "O(V + E)"
+    space: "O(V + E)"
+  template:
+    java: |
+      int[] indeg = new int[n];
+      for (int[] e : edges) { g.get(e[1]).add(e[0]); indeg[e[0]]++; }
+      Queue<Integer> q = new ArrayDeque<>();
+      for (int i = 0; i < n; i++) if (indeg[i] == 0) q.offer(i);
+      int done = 0;
+      while (!q.isEmpty()) {
+          int u = q.poll(); done++;
+          for (int v : g.get(u)) if (--indeg[v] == 0) q.offer(v);
+      }
+      return done == n;      // false means a cycle
+    cpp: |
+      vector<int> indeg(n);
+      for (auto& e : edges) { g[e[1]].push_back(e[0]); indeg[e[0]]++; }
+      queue<int> q;
+      for (int i = 0; i < n; i++) if (indeg[i] == 0) q.push(i);
+      int done = 0;
+      while (!q.empty()) {
+          int u = q.front(); q.pop(); done++;
+          for (int v : g[u]) if (--indeg[v] == 0) q.push(v);
+      }
+      return done == n;      // false means a cycle
+  pitfalls:
+    - "Edge direction: [a, b] often means b must come before a."
+    - "If fewer than n nodes are processed, a cycle exists."
+    - "A valid order is rarely unique; check the problem's tie rule."

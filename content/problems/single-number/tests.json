@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {"args": {"nums": [2, 2, 1]}, "expected": 1},
+    {"args": {"nums": [4, 1, 2, 1, 2]}, "expected": 4},
+    {"args": {"nums": [1]}, "expected": 1},
+    {"args": {"nums": [-1, -1, -2]}, "expected": -2},
+    {"args": {"nums": [0, 5, 0]}, "expected": 5},
+    {"args": {"nums": [7, 3, 7, 3, 9]}, "expected": 9},
+    {"args": {"nums": [30000, -30000, 30000]}, "expected": -30000}
+  ]
+}

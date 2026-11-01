@@ -1,0 +1,8 @@
+concept: queue-deque
+cards:
+  - {id: 1, type: basic, front: "What does a queue guarantee?", back: "First in, first out."}
+  - {id: 2, type: basic, front: "How do you build a queue from two stacks?", back: "Push onto an input stack; when popping, if the output stack is empty move everything over from the input stack."}
+  - {id: 3, type: cloze, text: "A monotonic deque keeps {{c1::indices}} so entries can be expired when they leave the window."}
+  - {id: 4, type: complexity, prompt: "Amortized cost per operation of the two-stack queue?", answer: "O(1) amortized"}
+  - {id: 5, type: trap, prompt: "What difference should you remember between these?", code: {java: "q.remove();  // vs q.poll();", cpp: "q.front();  // on an empty queue is undefined"}, answer: "Java remove() throws on empty, poll() returns null. C++ front() on an empty queue is undefined behaviour."}
+  - {id: 6, type: basic, front: "In a circular queue, how do you tell full from empty?", back: "Keep a size counter (or leave one slot unused); head == tail alone is ambiguous."}

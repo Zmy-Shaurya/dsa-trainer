@@ -1,0 +1,8 @@
+concept: linked-lists
+cards:
+  - {id: 1, type: code, prompt: "Reverse a list: what must you do before overwriting cur.next?", code: {java: "ListNode next = ____;", cpp: "ListNode* next = ____;"}, answer: "cur.next (cur->next in C++)"}
+  - {id: 2, type: basic, front: "How does Floyd's cycle detection work?", back: "A slow pointer moves 1 step and a fast one 2; if they ever meet, there is a cycle."}
+  - {id: 3, type: cloze, text: "A {{c1::dummy head}} node removes the special case of deleting or inserting at the first position."}
+  - {id: 4, type: complexity, prompt: "Time to access the i-th node of a linked list?", answer: "O(i), linear"}
+  - {id: 5, type: trap, prompt: "What crashes here?", code: {java: "while (fast.next != null && fast != null) fast = fast.next.next;", cpp: "while (fast->next && fast) fast = fast->next->next;"}, answer: "Order matters: check fast != null before fast.next, or you dereference null."}
+  - {id: 6, type: basic, front: "Remove Nth From End: how do you find it in one pass?", back: "Advance a lead pointer n steps, then move both until lead reaches the end; the trailing pointer is just before the target."}

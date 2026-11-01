@@ -1,0 +1,41 @@
+id: tries
+title: Tries
+track: trees
+order: 25
+prereqs: [binary-trees, hashing]
+visualizers: [trie-insert-search]
+coreProblems: [implement-trie-prefix-tree, design-add-and-search-words-data-structure, word-search-ii]
+card:
+  idea: "Share prefixes in a tree of characters for fast prefix queries."
+  useWhen:
+    - "Many words with prefix lookups or autocomplete"
+    - "Searching a grid for words from a dictionary"
+    - "Wildcard match over a word set"
+  complexity:
+    time: "O(L) per insert or search, L = word length"
+    space: "O(total characters)"
+  template:
+    java: |
+      class Node { Node[] next = new Node[26]; boolean end; }
+      void insert(String w) {
+          Node cur = root;
+          for (char c : w.toCharArray()) {
+              if (cur.next[c - 'a'] == null) cur.next[c - 'a'] = new Node();
+              cur = cur.next[c - 'a'];
+          }
+          cur.end = true;
+      }
+    cpp: |
+      struct Node { Node* next[26] = {}; bool end = false; };
+      void insert(const string& w) {
+          Node* cur = root;
+          for (char c : w) {
+              if (!cur->next[c - 'a']) cur->next[c - 'a'] = new Node();
+              cur = cur->next[c - 'a'];
+          }
+          cur->end = true;
+      }
+  pitfalls:
+    - "Mark word ends; a prefix is not automatically a word."
+    - "Array children cost 26 pointers per node; use a map for large alphabets."
+    - "C++ nodes need freeing, or accept the leak in a contest."

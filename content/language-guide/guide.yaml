@@ -1,0 +1,280 @@
+cards:
+  - id: arraylist-vs-vector
+    title: ArrayList vs vector
+    category: collections
+    java: |
+      List<Integer> a = new ArrayList<>();
+      a.add(5);  a.get(0);  a.size();
+    cpp: |
+      vector<int> a;
+      a.push_back(5);  a[0];  a.size();
+    trap: "Both grow by doubling. Inserting or removing at the front is O(n) in both, so use a deque for queues."
+    complexity: "add O(1) amortised, front insert O(n)"
+  - id: hashmap-vs-unordered-map
+    title: HashMap vs unordered_map
+    category: collections
+    java: |
+      Map<String, Integer> m = new HashMap<>();
+      m.get("x");                        // null if missing
+      m.getOrDefault("x", 0);
+    cpp: |
+      unordered_map<string, int> m;
+      m["x"];                            // inserts 0 if missing!
+      m.count("x");  m.find("x");
+    trap: "C++ operator[] inserts a default entry. Iteration order is unspecified in both, so never rely on it."
+    complexity: "expected O(1) per operation"
+  - id: hashset-vs-unordered-set
+    title: HashSet vs unordered_set
+    category: collections
+    java: |
+      Set<Integer> s = new HashSet<>();
+      s.add(3);  s.contains(3);  s.remove(3);
+    cpp: |
+      unordered_set<int> s;
+      s.insert(3);  s.count(3);  s.erase(3);
+    trap: "Java add() returns false for a duplicate. C++ insert() returns a pair whose second is false."
+    complexity: "expected O(1)"
+  - id: treemap-vs-map
+    title: TreeMap vs map
+    category: collections
+    java: |
+      TreeMap<Integer, String> m = new TreeMap<>();
+      m.floorKey(x);  m.ceilingKey(x);   // <= x and >= x
+      m.lowerKey(x);  m.higherKey(x);    // < x and > x
+    cpp: |
+      map<int, string> m;
+      m.lower_bound(x);                  // first key >= x
+      m.upper_bound(x);                  // first key > x
+    trap: "C++ returns iterators, so check against end() and step back with prev() for the floor. Java returns null when nothing matches."
+    complexity: "O(log n) per operation"
+  - id: priority-queue
+    title: PriorityQueue vs priority_queue
+    category: collections
+    java: |
+      PriorityQueue<Integer> minHeap = new PriorityQueue<>();            // min-heap by default
+      PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+    cpp: |
+      priority_queue<int> maxHeap;                                       // max-heap by default
+      priority_queue<int, vector<int>, greater<int>> minHeap;
+    trap: "Default order is opposite in the two languages. Neither supports fast removal of an arbitrary element."
+    complexity: "push and pop O(log n), top O(1)"
+  - id: deque-and-stack
+    title: Stack and queue types
+    category: collections
+    java: |
+      Deque<Integer> st = new ArrayDeque<>();   // stack: push, pop, peek
+      Queue<Integer> q = new ArrayDeque<>();    // queue: offer, poll, peek
+    cpp: |
+      stack<int> st;  st.push(1); st.top(); st.pop();
+      queue<int> q;   q.push(1);  q.front(); q.pop();
+    trap: "Do not use Java's legacy Stack class (synchronised, extends Vector). In C++, top() and pop() are separate and pop() returns nothing."
+    complexity: "O(1) at the ends"
+  - id: strings-immutability
+    title: Strings and appending
+    category: strings
+    java: |
+      String s = "";
+      for (...) s += c;                       // O(n^2): copies each time
+      StringBuilder sb = new StringBuilder();
+      for (...) sb.append(c);                 // O(n)
+    cpp: |
+      string s;
+      for (...) s += c;                       // amortised O(1) per append
+    trap: "Java Strings are immutable, so += in a loop is quadratic. std::string is mutable and appends in place."
+    complexity: "Java += O(n) per append, C++ += O(1) amortised"
+  - id: substring-cost
+    title: Substrings
+    category: strings
+    java: |
+      String t = s.substring(i, j);           // copies j - i characters
+    cpp: |
+      string t = s.substr(i, j - i);          // copies; second argument is a LENGTH
+      string_view v(s.data() + i, j - i);     // no copy
+    trap: "Java's second argument is an end index, C++ substr takes a length. Both copy, so a substring in a loop adds a factor of n."
+    complexity: "O(length of the piece)"
+  - id: sorting-and-comparators
+    title: Comparators
+    category: sorting
+    java: |
+      Arrays.sort(a, (x, y) -> Integer.compare(x[0], y[0]));   // not x[0] - y[0]
+    cpp: |
+      sort(a.begin(), a.end(), [](auto& x, auto& y) { return x[0] < y[0]; });   // never <=
+    trap: "Subtraction comparators overflow in Java. A C++ comparator must be a strict weak order: using <= can crash or loop forever."
+    complexity: "O(n log n)"
+  - id: stability
+    title: Stable sorting
+    category: sorting
+    java: |
+      Arrays.sort(objects);            // stable (objects)
+      Arrays.sort(ints);               // primitives: order of equals is invisible
+    cpp: |
+      sort(v.begin(), v.end());        // NOT stable
+      stable_sort(v.begin(), v.end()); // stable
+    trap: "Sorting by one key and relying on earlier order for ties needs stable_sort in C++."
+    complexity: "O(n log n)"
+  - id: integer-overflow
+    title: Integer overflow
+    category: numbers
+    java: |
+      int x = Integer.MAX_VALUE;
+      x + 1;                           // wraps to Integer.MIN_VALUE
+      Math.addExact(x, 1);             // throws
+    cpp: |
+      int x = INT_MAX;
+      x + 1;                           // UNDEFINED BEHAVIOUR
+      long long y = (long long)x + 1;  // widen first
+    trap: "Java wraps predictably. Signed overflow in C++ is undefined behaviour, so the compiler may assume it never happens."
+  - id: integer-division-and-modulo
+    title: Division and modulo of negatives
+    category: numbers
+    java: |
+      -7 / 2;                          // -3 (truncates toward zero)
+      -7 % 2;                          // -1 (sign follows the dividend)
+      Math.floorMod(-7, 2);            // 1
+    cpp: |
+      -7 / 2;                          // -3
+      -7 % 2;                          // -1
+      ((-7 % 2) + 2) % 2;              // 1
+    trap: "Both truncate toward zero, so % can be negative. Normalise before using it as an array index or hash bucket."
+  - id: abs-int-min
+    title: abs of the smallest int
+    category: numbers
+    java: |
+      Math.abs(Integer.MIN_VALUE);     // still negative!
+    cpp: |
+      abs(INT_MIN);                    // undefined behaviour
+      llabs((long long)INT_MIN);       // fine
+    trap: "-2147483648 has no positive int counterpart. Widen to long before taking abs."
+  - id: integer-cache
+    title: Boxed Integer comparison
+    category: memory
+    java: |
+      Integer a = 127, b = 127;   a == b;       // true  (cached)
+      Integer c = 128, d = 128;   c == d;       // false (different objects)
+      c.equals(d);                              // true
+    cpp: |
+      int c = 128, d = 128;
+      c == d;                                   // always compares values
+    trap: "In Java, == on Integer compares references and only works by accident in -128..127. Use equals, or unbox."
+  - id: list-remove-ambiguity
+    title: remove(int) vs remove(Object)
+    category: collections
+    java: |
+      List<Integer> a = new ArrayList<>(List.of(10, 20, 30));
+      a.remove(1);                     // removes the element at INDEX 1
+      a.remove(Integer.valueOf(10));   // removes the VALUE 10
+    cpp: |
+      v.erase(v.begin() + 1);                          // by position
+      v.erase(find(v.begin(), v.end(), 10));           // by value
+    trap: "A List<Integer> with an int argument removes by index. Box the value to remove by value."
+    complexity: "O(n) either way"
+  - id: char-arithmetic
+    title: Characters as numbers
+    category: strings
+    java: |
+      char c = 'd';
+      int idx = c - 'a';               // 3
+      char next = (char) (c + 1);      // 'e', cast needed
+    cpp: |
+      char c = 'd';
+      int idx = c - 'a';               // 3
+      char next = c + 1;               // implicit narrowing is allowed
+    trap: "c + 1 is an int in Java, so cast back. Adding chars in C++ also promotes to int, which matters when printing."
+  - id: arrays-2d
+    title: 2D arrays
+    category: memory
+    java: |
+      int[][] g = new int[r][c];       // zero-filled, rows are separate objects
+      Arrays.fill(g[0], -1);           // fill one row at a time
+    cpp: |
+      vector<vector<int>> g(r, vector<int>(c, 0));
+      int h[100][100] = {};            // contiguous, zeroed
+    trap: "int g[r][c] with variable sizes is not standard C++. Beware vector<vector<int>> g(r) leaves inner vectors empty."
+  - id: vector-bool
+    title: vector of bool
+    category: collections
+    java: |
+      boolean[] seen = new boolean[n];
+      seen[i] = true;
+    cpp: |
+      vector<bool> seen(n);            // bit-packed proxy, not real bools
+      vector<char> seen2(n);           // safer when you need references
+    trap: "vector<bool> returns a proxy object, so auto& and pointers to elements do not work as expected."
+  - id: pass-by-value-vs-reference
+    title: Passing arguments
+    category: memory
+    java: |
+      void f(int[] a, int x) {         // reference to the array is copied
+          a[0] = 9;  x = 9;            // a[0] changes for the caller, x does not
+      }
+    cpp: |
+      void f(vector<int>& a, int x) {  // & means no copy
+          a[0] = 9;  x = 9;
+      }
+    trap: "Java passes everything by value, but object variables hold references. Forgetting & in C++ copies the whole container on every call."
+  - id: null-vs-nullptr
+    title: null vs nullptr
+    category: memory
+    java: |
+      TreeNode node = null;
+      if (node == null) return;
+    cpp: |
+      TreeNode* node = nullptr;
+      if (node == nullptr) return;
+      // never use NULL or 0 for pointers
+    trap: "Dereferencing null throws NullPointerException in Java but is undefined behaviour in C++, and often a crash."
+  - id: bit-operations
+    title: Bit operations
+    category: numbers
+    java: |
+      x >>> 1;                         // logical shift
+      x >> 1;                          // arithmetic shift
+      Integer.bitCount(x);  Long.numberOfTrailingZeros(x);
+    cpp: |
+      x >> 1;                          // arithmetic for signed in practice, unsigned is logical
+      __builtin_popcount(x);  __builtin_ctz(x);
+    trap: "Right-shifting a negative number keeps the sign. Use >>> in Java, or an unsigned type in C++, for a logical shift. 1 << 31 overflows an int."
+  - id: recursion-depth
+    title: Recursion limits
+    category: recursion
+    java: |
+      // default stack ~10^4 to 10^5 frames
+      new Thread(null, task, "big", 1L << 28).start();
+    cpp: |
+      // typical stack 1 to 8 MB, about 10^5 frames
+      // convert deep recursion to a loop with a stack
+    trap: "Deep DFS on a path-shaped input can overflow in both languages. Past about 10^4 to 10^5 depth, use an explicit stack."
+  - id: fast-io
+    title: Fast input and output
+    category: io
+    java: |
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      StringTokenizer st = new StringTokenizer(br.readLine());
+      PrintWriter out = new PrintWriter(System.out);
+    cpp: |
+      ios::sync_with_stdio(false);
+      cin.tie(nullptr);
+      cout << x << '\n';               // '\n', not endl
+    trap: "Scanner and unbuffered cout are slow for 10^5+ numbers. After sync_with_stdio(false), never mix cin with scanf."
+  - id: unordered-map-anti-hash
+    title: Anti-hash tests (contests)
+    category: collections
+    java: |
+      // HashMap treeifies long chains: worst case O(log n) per op
+      Map<Integer, Integer> m = new HashMap<>();
+    cpp: |
+      // unordered_map can be attacked: O(n) per op
+      unordered_map<int, int, Hasher> m;   // custom hash with a random seed
+    trap: "On sites with hacking, a default unordered_map can be forced into quadratic time. Use a randomised hash or an ordered map."
+    complexity: "worst case O(n) per op in C++"
+  - id: swap-and-min-max
+    title: swap, min and max
+    category: numbers
+    java: |
+      Math.min(a, b);  Math.max(a, b);
+      int t = a[i]; a[i] = a[j]; a[j] = t;     // no built-in swap for arrays
+      Collections.swap(list, i, j);
+    cpp: |
+      min(a, b);  max(a, b);                   // both arguments must be the same type
+      swap(a[i], a[j]);
+    trap: "min(int, long long) does not compile in C++ because the types differ. Cast one side first."

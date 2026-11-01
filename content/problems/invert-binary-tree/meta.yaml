@@ -1,0 +1,42 @@
+id: invert-binary-tree
+platform: leetcode
+lcNumber: 226
+title: Invert Binary Tree
+url: https://leetcode.com/problems/invert-binary-tree/
+difficulty: easy
+tier: 1
+topics: [tree, dfs, bfs]
+patterns: [tree-dfs, tree-bfs]
+concepts: [binary-trees]
+insight: "Mirroring a tree means swapping every node's two children; do it at each node, in any traversal order."
+tells:
+  - "Mirror or flip a binary tree"
+  - "The same small operation applies at every node"
+hints:
+  - "What must change at a single node?"
+  - "Does the order in which you visit nodes matter for correctness?"
+traps:
+  both:
+    - "Swap the child pointers, not the values stored in them"
+    - "An empty tree (null root) must be returned as null"
+signature:
+  name: invertTree
+  params: [{ name: root, type: TreeNode }]
+  returns: TreeNode
+  compare: exact
+approaches:
+  - id: recursive
+    name: Recursive DFS
+    unlock: "Each subtree is itself a tree to mirror, so recurse and then swap."
+    idea: "Invert the left and right subtrees, then swap them at the current node."
+    time: "O(n)"
+    space: "O(h)"
+    isOptimal: true
+    files: { java: approaches/1-recursive.java, cpp: approaches/1-recursive.cpp }
+  - id: bfs
+    name: Iterative BFS with a queue
+    idea: "Pop a node from the queue, swap its children, and push the non-null children."
+    time: "O(n)"
+    space: "O(w)"
+    preferWhen: "the tree can be deep enough to overflow the call stack"
+    files: { java: approaches/2-bfs.java, cpp: approaches/2-bfs.cpp }

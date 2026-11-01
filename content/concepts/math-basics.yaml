@@ -1,0 +1,33 @@
+id: math-basics
+title: Math Basics
+track: foundations
+order: 5
+prereqs: [complexity-basics]
+visualizers: [sieve]
+coreProblems: [happy-number, plus-one, pow-x-n, count-primes]
+card:
+  idea: "Use modular arithmetic, gcd and sieves instead of brute force."
+  useWhen:
+    - "The answer is huge and asked modulo 10^9+7"
+    - "Testing primes or divisors up to n"
+    - "Digits of a number are processed one at a time"
+  complexity:
+    time: "Sieve O(n log log n); fast power O(log n)"
+    space: "O(n) for the sieve"
+  template:
+    java: |
+      boolean[] composite = new boolean[n + 1];
+      for (int i = 2; (long) i * i <= n; i++)
+          if (!composite[i])
+              for (int j = i * i; j <= n; j += i) composite[j] = true;
+      int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }
+    cpp: |
+      vector<bool> composite(n + 1);
+      for (int i = 2; 1LL * i * i <= n; i++)
+          if (!composite[i])
+              for (int j = i * i; j <= n; j += i) composite[j] = true;
+      int g = gcd(a, b);  // <numeric>
+  pitfalls:
+    - "i * i overflows int near 46341; cast to long."
+    - "Take the modulus after every multiply, not once at the end."
+    - "Negative % in Java and C++ can be negative; add the modulus back."

@@ -1,0 +1,42 @@
+id: number-of-1-bits
+platform: leetcode
+lcNumber: 191
+title: Number of 1 Bits
+url: https://leetcode.com/problems/number-of-1-bits/
+difficulty: easy
+tier: 1
+topics: [bit-manipulation]
+patterns: [bit-manipulation]
+concepts: [bit-manipulation]
+insight: "n & (n - 1) clears the lowest set bit, so counting how often you can do that counts the ones."
+tells:
+  - "Count set bits"
+  - "Hamming weight"
+hints:
+  - "What does n & (n - 1) do to the lowest 1?"
+  - "How many iterations do you need?"
+traps:
+  java:
+    - "Use >>> for an unsigned shift when n may be negative"
+  cpp:
+    - "Shift an unsigned copy; right-shifting a negative int is implementation-defined"
+signature:
+  name: hammingWeight
+  params: [{ name: n, type: int }]
+  returns: int
+  compare: exact
+approaches:
+  - id: shift
+    name: "Test every bit"
+    idea: "Check the lowest bit and shift right 32 times."
+    time: "O(32)"
+    space: "O(1)"
+    files: { java: approaches/1-shift.java, cpp: approaches/1-shift.cpp }
+  - id: kernighan
+    name: "Brian Kernighan's trick"
+    unlock: "n & (n - 1) removes exactly one set bit."
+    idea: "Clear the lowest set bit until n is 0, counting the steps."
+    time: "O(number of ones)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-kernighan.java, cpp: approaches/2-kernighan.cpp }

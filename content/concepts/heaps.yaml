@@ -1,0 +1,35 @@
+id: heaps
+title: Heaps
+track: trees
+order: 24
+prereqs: [binary-trees, sorting]
+visualizers: [heap-push-pop, heap-sort]
+coreProblems: [last-stone-weight, kth-largest-element-in-an-array, k-closest-points-to-origin, task-scheduler, find-median-from-data-stream]
+card:
+  idea: "Keep the smallest or largest item at the top in O(log n)."
+  useWhen:
+    - "Top k, kth largest or repeated best-so-far"
+    - "Merging k sorted streams"
+    - "Running median with two heaps"
+  complexity:
+    time: "O(log n) push/pop, O(1) peek"
+    space: "O(k) for a size-k heap"
+  template:
+    java: |
+      PriorityQueue<Integer> pq = new PriorityQueue<>();   // min-heap
+      for (int x : a) {
+          pq.offer(x);
+          if (pq.size() > k) pq.poll();    // keeps the k largest
+      }
+      return pq.peek();                    // kth largest
+    cpp: |
+      priority_queue<int, vector<int>, greater<int>> pq;   // min-heap
+      for (int x : a) {
+          pq.push(x);
+          if ((int)pq.size() > k) pq.pop();    // keeps the k largest
+      }
+      return pq.top();                         // kth largest
+  pitfalls:
+    - "C++ priority_queue is a max-heap by default; Java's is a min-heap."
+    - "For the k largest, keep a min-heap of size k, not a max-heap."
+    - "Comparators that subtract can overflow; use Integer.compare."

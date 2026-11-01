@@ -1,0 +1,8 @@
+concept: arrays-strings
+cards:
+  - {id: 1, type: basic, front: "What is the best-time-to-buy-stock idea in one line?", back: "Track the minimum price so far and the best profit if you sell today."}
+  - {id: 2, type: trap, prompt: "Why is this slow for large inputs in Java?", code: {java: "String s = \"\";\nfor (char c : cs) s += c;", cpp: "// C++ std::string += is amortized O(1)"}, answer: "Java Strings are immutable, so each += copies: O(n^2). Use StringBuilder."}
+  - {id: 3, type: cloze, text: "Removing zeros in place by overwriting with a write index uses {{c1::O(1)}} extra space."}
+  - {id: 4, type: basic, front: "Which edge cases should you try first on array problems?", back: "Empty input, one element, all equal elements, and already sorted or reversed."}
+  - {id: 5, type: complexity, prompt: "Time of inserting at the front of an array of n items?", answer: "O(n), everything shifts"}
+  - {id: 6, type: basic, front: "How do you find the majority element in O(1) space?", back: "Boyer-Moore voting: keep a candidate and a count; decrement on mismatch."}

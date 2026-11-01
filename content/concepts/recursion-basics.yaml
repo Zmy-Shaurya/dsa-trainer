@@ -1,0 +1,37 @@
+id: recursion-basics
+title: Recursion Basics
+track: foundations
+order: 3
+prereqs: []
+visualizers: [recursion-call-stack, subsets]
+coreProblems: [fibonacci-number, pow-x-n, same-tree, maximum-depth-of-binary-tree]
+card:
+  idea: "Solve a problem by solving smaller copies of it, with a base case."
+  useWhen:
+    - "The input is defined in terms of a smaller input"
+    - "A tree, nested structure or subset choice appears"
+    - "You can state what one call returns in a sentence"
+  complexity:
+    time: "branches^depth unless calls repeat"
+    space: "O(depth) call stack"
+  template:
+    java: |
+      int solve(State s) {
+          if (isBase(s)) return baseValue(s);
+          int best = 0;
+          for (State next : children(s))
+              best = Math.max(best, solve(next));
+          return best + 1;
+      }
+    cpp: |
+      int solve(State s) {
+          if (isBase(s)) return baseValue(s);
+          int best = 0;
+          for (State next : children(s))
+              best = max(best, solve(next));
+          return best + 1;
+      }
+  pitfalls:
+    - "Missing or unreachable base case gives a stack overflow."
+    - "Overlapping calls (like naive Fibonacci) are exponential; memoize."
+    - "Deep recursion on 10^5 nodes can overflow the stack; go iterative."

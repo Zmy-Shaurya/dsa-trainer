@@ -1,0 +1,41 @@
+id: bfs
+title: Breadth-First Search
+track: graphs
+order: 28
+prereqs: [graph-basics]
+visualizers: [bfs-graph]
+coreProblems: [rotting-oranges, word-ladder, clone-graph]
+card:
+  idea: "Expand outward level by level; the first arrival is the shortest path."
+  useWhen:
+    - "Shortest path in an unweighted graph or grid"
+    - "Minimum number of steps or moves"
+    - "Multiple sources spreading at the same time"
+  complexity:
+    time: "O(V + E)"
+    space: "O(V) for queue and visited"
+  template:
+    java: |
+      Queue<Integer> q = new ArrayDeque<>();
+      boolean[] seen = new boolean[n];
+      q.offer(src); seen[src] = true;
+      for (int dist = 0; !q.isEmpty(); dist++)
+          for (int i = q.size(); i > 0; i--) {
+              int u = q.poll();
+              for (int v : g.get(u))
+                  if (!seen[v]) { seen[v] = true; q.offer(v); }
+          }
+    cpp: |
+      queue<int> q;
+      vector<bool> seen(n);
+      q.push(src); seen[src] = true;
+      for (int dist = 0; !q.empty(); dist++)
+          for (int i = q.size(); i > 0; i--) {
+              int u = q.front(); q.pop();
+              for (int v : g[u])
+                  if (!seen[v]) { seen[v] = true; q.push(v); }
+          }
+  pitfalls:
+    - "Mark visited when you enqueue, not when you dequeue."
+    - "BFS gives shortest paths only when every edge costs the same."
+    - "Multi-source BFS starts with all sources in the queue at distance 0."

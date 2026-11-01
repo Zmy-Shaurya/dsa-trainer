@@ -1,0 +1,37 @@
+id: grid-graphs
+title: Grid Graphs
+track: graphs
+order: 30
+prereqs: [matrix-grids, bfs, dfs]
+visualizers: [flood-fill-grid]
+coreProblems: [number-of-islands, rotting-oranges, max-area-of-island, pacific-atlantic-water-flow]
+card:
+  idea: "Each cell is a node and its four neighbours are its edges."
+  useWhen:
+    - "Islands, regions or flood fill on a grid"
+    - "Shortest path through a maze"
+    - "Spread from several cells at once"
+  complexity:
+    time: "O(rows * cols)"
+    space: "O(rows * cols) worst case"
+  template:
+    java: |
+      void fill(char[][] g, int r, int c) {
+          if (r < 0 || c < 0 || r >= g.length || c >= g[0].length) return;
+          if (g[r][c] != '1') return;
+          g[r][c] = '0';                       // mark visited in place
+          fill(g, r + 1, c); fill(g, r - 1, c);
+          fill(g, r, c + 1); fill(g, r, c - 1);
+      }
+    cpp: |
+      void fill(vector<vector<char>>& g, int r, int c) {
+          if (r < 0 || c < 0 || r >= (int)g.size() || c >= (int)g[0].size()) return;
+          if (g[r][c] != '1') return;
+          g[r][c] = '0';                       // mark visited in place
+          fill(g, r + 1, c); fill(g, r - 1, c);
+          fill(g, r, c + 1); fill(g, r, c - 1);
+      }
+  pitfalls:
+    - "Bounds check first, then the cell value."
+    - "Mutating the input is fast but only OK if the problem allows it."
+    - "Use BFS for shortest distance; DFS does not find it."

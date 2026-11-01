@@ -1,0 +1,34 @@
+id: queue-deque
+title: Queue and Deque
+track: linear-ds
+order: 19
+prereqs: [arrays-strings]
+coreProblems: [implement-queue-using-stacks, design-circular-queue, sliding-window-maximum]
+card:
+  idea: "First in, first out; a deque also works at both ends."
+  useWhen:
+    - "Processing items in arrival order, like BFS"
+    - "Window maximum with a monotonic deque"
+    - "Simulating a line or round-robin"
+  complexity:
+    time: "O(1) at either end"
+    space: "O(n)"
+  template:
+    java: |
+      Deque<Integer> dq = new ArrayDeque<>();   // indices, values decreasing
+      for (int i = 0; i < a.length; i++) {
+          while (!dq.isEmpty() && a[dq.peekLast()] <= a[i]) dq.pollLast();
+          dq.offerLast(i);
+          if (dq.peekFirst() <= i - k) dq.pollFirst();
+      }
+    cpp: |
+      deque<int> dq;   // indices, values decreasing
+      for (int i = 0; i < (int)a.size(); i++) {
+          while (!dq.empty() && a[dq.back()] <= a[i]) dq.pop_back();
+          dq.push_back(i);
+          if (dq.front() <= i - k) dq.pop_front();
+      }
+  pitfalls:
+    - "Java Queue.remove() throws on empty; poll() returns null."
+    - "Store indices, not values, so you can expire old entries."
+    - "ArrayDeque rejects null elements."

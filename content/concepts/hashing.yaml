@@ -1,0 +1,36 @@
+id: hashing
+title: Hashing
+track: arrays-strings
+order: 7
+prereqs: [arrays-strings]
+coreProblems: [two-sum, valid-anagram, group-anagrams, top-k-frequent-elements, longest-consecutive-sequence]
+visualizers: [hashmap-internals, two-sum-hash]
+card:
+  idea: Trade memory for O(1) average lookups by key.
+  useWhen:
+    - need to check "have I seen this?"
+    - count frequencies
+    - find a complement or pair
+    - group items by a canonical key
+  complexity:
+    time: O(1) average per op
+    space: O(n)
+  template:
+    java: |
+      Map<Integer, Integer> seen = new HashMap<>();
+      for (int i = 0; i < a.length; i++) {
+          Integer j = seen.get(target - a[i]);
+          if (j != null) return new int[]{j, i};
+          seen.put(a[i], i);
+      }
+    cpp: |
+      unordered_map<int, int> seen;
+      for (int i = 0; i < (int)a.size(); i++) {
+          auto it = seen.find(target - a[i]);
+          if (it != seen.end()) return {it->second, i};
+          seen[a[i]] = i;
+      }
+  pitfalls:
+    - Java map.get returns Integer; unboxing null throws NPE.
+    - C++ operator[] inserts a default entry; use find to test.
+    - Adversarial keys can degrade hash maps to O(n).

@@ -1,0 +1,32 @@
+id: mst
+title: Minimum Spanning Tree
+track: graphs
+order: 34
+prereqs: [union-find, sorting]
+visualizers: [kruskal, prim]
+coreProblems: [min-cost-to-connect-all-points]
+card:
+  idea: "Connect all nodes at minimum total weight, cheapest edge first."
+  useWhen:
+    - "Connect everything with minimum total cost"
+    - "Edges can be sorted by weight"
+    - "Only connectivity matters, not shortest paths"
+  complexity:
+    time: "O(E log E) for Kruskal"
+    space: "O(V)"
+  template:
+    java: |
+      Arrays.sort(edges, (a, b) -> Integer.compare(a[2], b[2]));
+      long total = 0; int used = 0;
+      for (int[] e : edges)
+          if (union(e[0], e[1])) { total += e[2]; if (++used == n - 1) break; }
+    cpp: |
+      sort(edges.begin(), edges.end(),
+           [](auto& a, auto& b) { return a[2] < b[2]; });
+      long long total = 0; int used = 0;
+      for (auto& e : edges)
+          if (unite(e[0], e[1])) { total += e[2]; if (++used == n - 1) break; }
+  pitfalls:
+    - "A spanning tree has exactly n - 1 edges; fewer means disconnected."
+    - "A dense graph of points needs all pairs: n^2 edges, so Prim may be faster."
+    - "MST is not the same as the shortest path tree."

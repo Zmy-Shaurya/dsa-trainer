@@ -1,0 +1,8 @@
+concept: topological-sort
+cards:
+  - {id: 1, type: basic, front: "What is a topological order?", back: "An ordering of a DAG's nodes where every edge goes from earlier to later."}
+  - {id: 2, type: basic, front: "How does Kahn's algorithm work?", back: "Queue all nodes with indegree 0; pop one, decrement its neighbours' indegrees, enqueue those that reach 0."}
+  - {id: 3, type: cloze, text: "If Kahn's algorithm processes fewer than n nodes, the graph has a {{c1::cycle}}."}
+  - {id: 4, type: complexity, prompt: "Time of topological sort?", answer: "O(V + E)"}
+  - {id: 5, type: basic, front: "Course Schedule: what do the edges mean?", back: "[a, b] means b is a prerequisite of a, so draw b -> a."}
+  - {id: 6, type: basic, front: "Can a graph have more than one valid topological order?", back: "Yes, whenever several nodes are available at once."}

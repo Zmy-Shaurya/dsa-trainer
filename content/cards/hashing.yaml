@@ -1,0 +1,8 @@
+concept: hashing
+cards:
+  - {id: 1, type: basic, front: "What is the one-pass Two Sum idea?", back: "For each x, look up target - x among values already seen; then store x."}
+  - {id: 2, type: complexity, prompt: "Average time of a hash map get or put?", answer: "O(1) average, O(n) worst case"}
+  - {id: 3, type: cloze, text: "To group anagrams, use as the key the {{c1::sorted letters}} (or a 26-count signature) of each word."}
+  - {id: 4, type: trap, prompt: "What happens here if the key is absent?", code: {java: "int j = map.get(k);", cpp: "// C++: map.find(k) == map.end()"}, answer: "Java: map.get returns null and unboxing to int throws NullPointerException. Use getOrDefault or check for null."}
+  - {id: 5, type: trap, prompt: "What does this do to the map?", code: {java: "// Java: containsKey checks without inserting", cpp: "if (cnt[x] > 0) ..."}, answer: "operator[] inserts x with 0 when missing, growing the map. Use find() to look up without inserting."}
+  - {id: 6, type: basic, front: "Why look up the complement before inserting the current value?", back: "So an element never pairs with itself."}

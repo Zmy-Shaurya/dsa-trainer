@@ -1,0 +1,8 @@
+concept: matrix-grids
+cards:
+  - {id: 1, type: basic, front: "How do you rotate an n x n matrix 90 degrees clockwise in place?", back: "Transpose it, then reverse each row."}
+  - {id: 2, type: cloze, text: "Spiral traversal keeps four boundaries: {{c1::top, bottom, left and right}}, shrinking one after each pass."}
+  - {id: 3, type: basic, front: "Set Matrix Zeroes in O(1) extra space: what trick?", back: "Use the first row and first column as markers, plus two flags for their own zeros."}
+  - {id: 4, type: complexity, prompt: "Time to visit every cell of an R x C grid?", answer: "O(R * C)"}
+  - {id: 5, type: trap, prompt: "What is the usual indexing mistake with a 2D array?", code: {java: "int[][] g = new int[R][C];  // g[r][c]", cpp: "vector<vector<int>> g(R, vector<int>(C));"}, answer: "Mixing up rows and columns. g[row][col], g.length is rows and g[0].length is columns."}
+  - {id: 6, type: basic, front: "How does Valid Sudoku detect duplicates efficiently?", back: "One set per row, column and 3x3 box (box index = (r / 3) * 3 + c / 3)."}

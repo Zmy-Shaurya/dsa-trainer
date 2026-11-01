@@ -1,0 +1,33 @@
+id: arrays-strings
+title: Arrays and Strings
+track: arrays-strings
+order: 6
+prereqs: [complexity-basics, java-cpp-essentials]
+visualizers: [linear-search, two-sum-brute, two-sum-hash]
+coreProblems: [contains-duplicate, best-time-to-buy-and-sell-stock, move-zeroes, majority-element, plus-one]
+card:
+  idea: "Scan once, keeping just enough state to answer as you go."
+  useWhen:
+    - "Input is a list or string and order matters"
+    - "A running min, max, count or sum answers the question"
+    - "You can edit in place instead of allocating a copy"
+  complexity:
+    time: "O(n) per pass"
+    space: "O(1) if in place"
+  template:
+    java: |
+      int minSoFar = Integer.MAX_VALUE, best = 0;
+      for (int x : a) {
+          minSoFar = Math.min(minSoFar, x);
+          best = Math.max(best, x - minSoFar);
+      }
+    cpp: |
+      int minSoFar = INT_MAX, best = 0;
+      for (int x : a) {
+          minSoFar = min(minSoFar, x);
+          best = max(best, x - minSoFar);
+      }
+  pitfalls:
+    - "Empty array and single element are the usual edge cases; test them first."
+    - "Java strings are immutable; build with StringBuilder, not +=."
+    - "Changing a vector or list while iterating it invalidates your loop."

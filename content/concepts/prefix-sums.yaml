@@ -1,0 +1,33 @@
+id: prefix-sums
+title: Prefix Sums
+track: arrays-strings
+order: 8
+prereqs: [arrays-strings]
+visualizers: [prefix-sums]
+coreProblems: [range-sum-query-immutable, product-of-array-except-self, subarray-sum-equals-k]
+card:
+  idea: "Precompute running totals so any range sum is one subtraction."
+  useWhen:
+    - "Many range-sum queries on a fixed array"
+    - "Counting subarrays with a target sum"
+    - "Result at i depends on everything left or right of i"
+  complexity:
+    time: "O(n) build, O(1) query"
+    space: "O(n)"
+  template:
+    java: |
+      int[] pre = new int[n + 1];
+      for (int i = 0; i < n; i++) pre[i + 1] = pre[i] + a[i];
+      // sum of a[l..r] inclusive:
+      int s = pre[r + 1] - pre[l];
+      // subarrays summing to k: count[pre - k] in a hash map
+    cpp: |
+      vector<long long> pre(n + 1);
+      for (int i = 0; i < n; i++) pre[i + 1] = pre[i] + a[i];
+      // sum of a[l..r] inclusive:
+      long long s = pre[r + 1] - pre[l];
+      // subarrays summing to k: count[pre - k] in a hash map
+  pitfalls:
+    - "Off by one: pre has n+1 slots, pre[0] = 0."
+    - "Sums of ints can overflow int; use long."
+    - "For counting subarrays, seed the map with {0: 1}."

@@ -1,0 +1,13 @@
+{
+  "cases": [
+    {"args": {"n": 19}, "expected": true},
+    {"args": {"n": 2}, "expected": false},
+    {"args": {"n": 1}, "expected": true},
+    {"args": {"n": 7}, "expected": true},
+    {"args": {"n": 4}, "expected": false},
+    {"args": {"n": 100}, "expected": true},
+    {"args": {"n": 116}, "expected": false},
+    {"args": {"n": 1111111}, "expected": true},
+    {"args": {"n": 2147483647}, "expected": false}
+  ]
+}

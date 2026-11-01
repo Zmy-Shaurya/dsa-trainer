@@ -1,0 +1,34 @@
+id: matrix-grids
+title: Matrix and Grids
+track: arrays-strings
+order: 14
+prereqs: [arrays-strings]
+coreProblems: [rotate-image, spiral-matrix, set-matrix-zeroes, valid-sudoku]
+card:
+  idea: "Treat a grid as rows, columns and neighbours with careful bounds."
+  useWhen:
+    - "2D array traversal or in-place transform"
+    - "Checking rows, columns and boxes together"
+    - "Walking in a spiral or along diagonals"
+  complexity:
+    time: "O(rows * cols)"
+    space: "O(1) if marks go in the grid itself"
+  template:
+    java: |
+      int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+      for (int[] d : dirs) {
+          int nr = r + d[0], nc = c + d[1];
+          if (nr < 0 || nc < 0 || nr >= R || nc >= C) continue;
+          // use grid[nr][nc]
+      }
+    cpp: |
+      int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
+      for (auto& d : dirs) {
+          int nr = r + d[0], nc = c + d[1];
+          if (nr < 0 || nc < 0 || nr >= R || nc >= C) continue;
+          // use grid[nr][nc]
+      }
+  pitfalls:
+    - "Rows and columns swap easily: grid[row][col], size is rows x cols."
+    - "Check bounds before indexing, never after."
+    - "Rotating in place: transpose then reverse each row, not the reverse."

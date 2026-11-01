@@ -1,0 +1,8 @@
+node_modules
+dist
+public/content
+.verify-cache.json
+*.tsbuildinfo
+test-results
+
+content/companies/

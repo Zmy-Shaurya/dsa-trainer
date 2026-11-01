@@ -1,0 +1,36 @@
+id: dp-1d
+title: 1D Dynamic Programming
+track: recursion-dp
+order: 37
+prereqs: [recursion-basics, arrays-strings]
+visualizers: [climbing-stairs-dp, coin-change-dp, lis, kadane]
+coreProblems: [climbing-stairs, house-robber, coin-change, longest-increasing-subsequence, word-break, decode-ways]
+card:
+  idea: "Define dp[i] as the answer for a prefix, built from smaller i."
+  useWhen:
+    - "Count ways or find best value along a sequence"
+    - "Naive recursion repeats the same subproblems"
+    - "Each choice depends on a few earlier states"
+  complexity:
+    time: "O(n * choices)"
+    space: "O(n), often reducible to O(1)"
+  template:
+    java: |
+      int[] dp = new int[amount + 1];
+      Arrays.fill(dp, amount + 1);        // "infinity"
+      dp[0] = 0;
+      for (int a = 1; a <= amount; a++)
+          for (int c : coins)
+              if (c <= a) dp[a] = Math.min(dp[a], dp[a - c] + 1);
+      return dp[amount] > amount ? -1 : dp[amount];
+    cpp: |
+      vector<int> dp(amount + 1, amount + 1);   // "infinity"
+      dp[0] = 0;
+      for (int a = 1; a <= amount; a++)
+          for (int c : coins)
+              if (c <= a) dp[a] = min(dp[a], dp[a - c] + 1);
+      return dp[amount] > amount ? -1 : dp[amount];
+  pitfalls:
+    - "Write the state meaning in one sentence before the recurrence."
+    - "Use a safe infinity; Integer.MAX_VALUE + 1 overflows."
+    - "Initialise base cases, including n = 0 and n = 1."

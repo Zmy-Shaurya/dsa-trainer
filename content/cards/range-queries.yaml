@@ -1,0 +1,8 @@
+concept: range-queries
+cards:
+  - {id: 1, type: basic, front: "When do you need a Fenwick or segment tree instead of prefix sums?", back: "When the array changes between range queries."}
+  - {id: 2, type: complexity, prompt: "Update and query time of a Fenwick tree?", answer: "O(log n) each"}
+  - {id: 3, type: code, prompt: "Fenwick update loop step:", code: {java: "for (i++; i <= n; i += i & ____) bit[i] += d;", cpp: "for (i++; i <= n; i += i & ____) bit[i] += d;"}, answer: "-i"}
+  - {id: 4, type: basic, front: "How do you apply update(i, newValue) to a Fenwick tree?", back: "Add the delta newValue - old value at i."}
+  - {id: 5, type: cloze, text: "Fenwick trees are {{c1::1-indexed}}, so shift 0-based array indices by one."}
+  - {id: 6, type: basic, front: "How does Count of Smaller Numbers After Self use a Fenwick tree?", back: "Sweep from the right; query how many smaller values are already inserted, then insert the current (compressed) value."}

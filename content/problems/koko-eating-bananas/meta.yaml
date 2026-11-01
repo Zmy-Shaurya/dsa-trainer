@@ -1,0 +1,42 @@
+id: koko-eating-bananas
+platform: leetcode
+lcNumber: 875
+title: Koko Eating Bananas
+url: https://leetcode.com/problems/koko-eating-bananas/
+difficulty: medium
+tier: 1
+topics: [arrays, binary-search]
+patterns: [binary-search-on-answer]
+concepts: [binary-search]
+insight: "Hours needed only decrease as speed grows, so binary search the smallest speed that still finishes in time."
+tells:
+  - "Minimise a speed or capacity subject to a limit"
+  - "Feasibility is monotonic in the answer"
+hints:
+  - "Given a fixed speed, how do you compute the hours needed?"
+  - "If speed k works, does k + 1 also work?"
+traps:
+  both:
+    - "Hours per pile is ceil(pile / speed); use (pile + speed - 1) / speed"
+    - "Sum the hours in a long; many large piles overflow int"
+signature:
+  name: minEatingSpeed
+  params: [{ name: piles, type: "int[]" }, { name: h, type: int }]
+  returns: int
+  compare: exact
+approaches:
+  - id: linear
+    name: Try every speed
+    idea: "Test speeds 1, 2, 3, ... until the total hours fit within h."
+    time: "O(n * max)"
+    space: "O(1)"
+    preferWhen: "the largest pile is tiny"
+    files: { java: approaches/1-linear.java, cpp: approaches/1-linear.cpp }
+  - id: binary-answer
+    name: Binary search on the speed
+    unlock: "Feasibility is monotonic in speed, so search the answer space instead of scanning it."
+    idea: "Search speeds in [1, max pile]; keep the smallest speed whose total hours is at most h."
+    time: "O(n log max)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-binary-answer.java, cpp: approaches/2-binary-answer.cpp }

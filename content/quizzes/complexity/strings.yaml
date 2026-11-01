@@ -1,0 +1,169 @@
+items:
+  - id: 31
+    topic: strings
+    code:
+      java: |
+        int total = 0;
+        for (int i = 0; i < n; i++) {
+            String t = s.substring(i);   // s has length n
+            total += t.length();
+        }
+      cpp: |
+        int total = 0;
+        for (int i = 0; i < n; i++) {
+            string t = s.substr(i);      // s has length n
+            total += t.size();
+        }
+    time: "O(n²)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(n³)"]
+      space: ["O(1)", "O(n)", "O(n²)"]
+    why: "Each substring copies up to n characters, and n copies cost n² overall. Only one copy is alive at a time."
+    trap: true
+    concepts: [strings-advanced, complexity-basics]
+  - id: 32
+    topic: strings
+    code:
+      java: |
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++)
+            sb.append('a');
+        String s = sb.toString();
+      cpp: |
+        string s;
+        for (int i = 0; i < n; i++)
+            s.push_back('a');
+    time: "O(n)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Appending to a builder or a std::string is amortised O(1), so the loop is linear."
+    trap: false
+    concepts: [strings-advanced]
+  - id: 33
+    topic: strings
+    code:
+      java: |
+        // reverse a in place
+        char[] a = ...;                 // length n
+        for (int l = 0, r = n - 1; l < r; l++, r--) {
+            char t = a[l]; a[l] = a[r]; a[r] = t;
+        }
+      cpp: |
+        // reverse s in place
+        string& s = ...;                // length n
+        for (int l = 0, r = n - 1; l < r; l++, r--)
+            swap(s[l], s[r]);
+    time: "O(n)"
+    space: "O(1)"
+    options:
+      time: ["O(1)", "O(n)", "O(n log n)", "O(n²)"]
+      space: ["O(1)", "O(n)", "O(log n)"]
+    why: "n/2 swaps and no extra storage."
+    trap: false
+    concepts: [two-pointers, strings-advanced]
+  - id: 34
+    topic: strings
+    code:
+      java: |
+        boolean isPal(String s) {
+            return new StringBuilder(s).reverse().toString().equals(s);
+        }
+      cpp: |
+        bool isPal(const string& s) {
+            string r(s.rbegin(), s.rend());
+            return r == s;
+        }
+    time: "O(n)"
+    space: "O(n)"
+    options:
+      time: ["O(1)", "O(n)", "O(n log n)", "O(n²)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Building the reversed copy costs O(n) time and O(n) space. Two pointers would need O(1) space."
+    trap: false
+    concepts: [strings-advanced]
+  - id: 35
+    topic: strings
+    code:
+      java: |
+        boolean anagram(String a, String b) {
+            char[] x = a.toCharArray(), y = b.toCharArray();
+            Arrays.sort(x);
+            Arrays.sort(y);
+            return Arrays.equals(x, y);
+        }
+      cpp: |
+        bool anagram(string a, string b) {
+            sort(a.begin(), a.end());
+            sort(b.begin(), b.end());
+            return a == b;
+        }
+    time: "O(n log n)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Sorting dominates. The strings are copied (a char array in Java, pass by value in C++), which is O(n) space."
+    trap: true
+    concepts: [sorting, strings-advanced]
+  - id: 36
+    topic: strings
+    code:
+      java: |
+        // s has only lowercase letters
+        int[] seen = new int[26];
+        int distinct = 0;
+        for (int i = 0; i < n; i++)
+            if (seen[s.charAt(i) - 'a']++ == 0) distinct++;
+      cpp: |
+        // s has only lowercase letters
+        int seen[26] = {};
+        int distinct = 0;
+        for (int i = 0; i < n; i++)
+            if (seen[s[i] - 'a']++ == 0) distinct++;
+    time: "O(n)"
+    space: "O(1)"
+    options:
+      time: ["O(1)", "O(n)", "O(26n)", "O(n²)"]
+      space: ["O(1)", "O(n)", "O(26)"]
+    why: "The table has 26 slots whatever n is, so the space is constant, not O(n)."
+    trap: true
+    concepts: [hashing, strings-advanced]
+  - id: 37
+    topic: strings
+    code:
+      java: |
+        // both strings have length n
+        boolean same = s.equals(t);
+      cpp: |
+        // both strings have length n
+        bool same = (s == t);
+    time: "O(n)"
+    space: "O(1)"
+    options:
+      time: ["O(1)", "O(n)", "O(n log n)", "O(n²)"]
+      space: ["O(1)", "O(n)", "O(log n)"]
+    why: "Comparing may inspect every character, so equality is linear in the length, not constant."
+    trap: true
+    concepts: [strings-advanced]
+  - id: 38
+    topic: strings
+    code:
+      java: |
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++)
+            sb.insert(0, 'a');
+      cpp: |
+        string s;
+        for (int i = 0; i < n; i++)
+            s.insert(0, 1, 'a');
+    time: "O(n²)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Inserting at the front shifts every existing character, so the i-th insert costs i."
+    trap: true
+    concepts: [strings-advanced]

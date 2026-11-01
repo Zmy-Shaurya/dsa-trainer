@@ -1,0 +1,53 @@
+id: longest-substring-without-repeating-characters
+platform: leetcode
+lcNumber: 3
+title: Longest Substring Without Repeating Characters
+url: https://leetcode.com/problems/longest-substring-without-repeating-characters/
+difficulty: medium
+tier: 1
+topics: [strings, hashing, sliding-window]
+patterns: [sliding-window]
+concepts: [sliding-window, hashing]
+insight: "Grow the window on the right; when a character repeats, shrink from the left until the window is unique again."
+tells:
+  - "Longest contiguous range with a uniqueness rule"
+  - "Constraint breaks by adding the right end"
+  - "Left end only ever moves forward"
+hints:
+  - "What makes a window invalid, and how do you fix it?"
+  - "Can you jump the left end straight past the previous copy?"
+traps:
+  java:
+    - "Boxed Character keys work, but int[128] is faster when the input is ASCII"
+  cpp:
+    - "Index lookup tables by (unsigned char) so negative char values cannot go out of bounds"
+  both:
+    - "Never move the left end backwards when a stale last-seen index is older than it"
+signature:
+  name: lengthOfLongestSubstring
+  params: [{ name: s, type: string }]
+  returns: int
+  compare: exact
+approaches:
+  - id: brute
+    name: Expand from every start
+    idea: "For each start index extend right while characters stay unique, tracking the longest run."
+    time: "O(n^2)"
+    space: "O(k)"
+    preferWhen: "n is tiny"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: window-set
+    name: Sliding window with a set
+    unlock: "The next window starts where the last one broke; never restart from scratch."
+    idea: "Keep a set of the window's characters; on a repeat, remove from the left until it is gone."
+    time: "O(n)"
+    space: "O(k)"
+    files: { java: approaches/2-window-set.java, cpp: approaches/2-window-set.cpp }
+  - id: last-index
+    name: Window with last-seen index
+    unlock: "Store each character's last index so the left end can jump instead of crawl."
+    idea: "On a repeat inside the window, move left to one past that character's previous index."
+    time: "O(n)"
+    space: "O(k)"
+    isOptimal: true
+    files: { java: approaches/3-last-index.java, cpp: approaches/3-last-index.cpp }

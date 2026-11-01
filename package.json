@@ -1,0 +1,46 @@
+{
+  "name": "dsa-studio",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && npm run content:build && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit",
+    "lint": "oxlint",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "content:build": "tsx scripts/content-build.ts",
+    "content:validate": "tsx scripts/content-validate.ts",
+    "content:verify": "tsx scripts/content-verify.ts && tsx scripts/templates-verify.ts",
+    "templates:verify": "tsx scripts/templates-verify.ts",
+    "company:import": "tsx scripts/company-import.ts"
+  },
+  "dependencies": {
+    "dexie": "^4.4.7",
+    "dexie-react-hooks": "^4.4.0",
+    "fflate": "^0.8.3",
+    "highlight.js": "^11.12.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.5",
+    "ts-fsrs": "^6.0.0",
+    "zustand": "^5.0.16"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "fake-indexeddb": "^6.2.7",
+    "oxlint": "^1.90.0",
+    "prettier": "^3.9.10",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5",
+    "yaml": "^2.9.1"
+  }
+}

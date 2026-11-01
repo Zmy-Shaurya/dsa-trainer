@@ -1,0 +1,37 @@
+id: binary-search
+title: Binary Search
+track: arrays-strings
+order: 12
+prereqs: [arrays-strings, complexity-basics]
+visualizers: [binary-search, binary-search-on-answer]
+coreProblems: [binary-search, search-a-2d-matrix, koko-eating-bananas, find-minimum-in-rotated-sorted-array, search-in-rotated-sorted-array, time-based-key-value-store]
+card:
+  idea: "Halve a sorted or monotonic search space each step."
+  useWhen:
+    - "Sorted or rotated-sorted array"
+    - "Smallest X such that a yes/no check passes"
+    - "Answer lies in a numeric range with a monotonic check"
+  complexity:
+    time: "O(log n) per search"
+    space: "O(1)"
+  template:
+    java: |
+      int lo = 0, hi = n - 1;
+      while (lo < hi) {
+          int mid = lo + (hi - lo) / 2;
+          if (ok(mid)) hi = mid;      // first true
+          else lo = mid + 1;
+      }
+      return lo;
+    cpp: |
+      int lo = 0, hi = n - 1;
+      while (lo < hi) {
+          int mid = lo + (hi - lo) / 2;
+          if (ok(mid)) hi = mid;      // first true
+          else lo = mid + 1;
+      }
+      return lo;
+  pitfalls:
+    - "(lo + hi) / 2 can overflow; use lo + (hi - lo) / 2."
+    - "Pick one loop form (lo < hi vs lo <= hi) and keep its updates consistent."
+    - "Infinite loop if lo = mid with floor division; use mid + 1."

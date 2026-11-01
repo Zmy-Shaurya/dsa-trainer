@@ -1,0 +1,41 @@
+id: longest-common-prefix
+platform: leetcode
+lcNumber: 14
+title: Longest Common Prefix
+url: https://leetcode.com/problems/longest-common-prefix/
+difficulty: easy
+tier: 1
+topics: [strings]
+patterns: [two-pointers]
+concepts: [arrays-strings]
+insight: "The common prefix of all strings is bounded by the shortest one, so compare column by column and stop at the first mismatch."
+tells:
+  - "Shared beginning of many strings"
+  - "Stop at the first differing column"
+hints:
+  - "Which string limits the answer's length?"
+  - "Compare the same index across all strings."
+traps:
+  both:
+    - "Guard against index past the end of a shorter string"
+signature:
+  name: longestCommonPrefix
+  params: [{ name: strs, type: "string[]" }]
+  returns: string
+  compare: exact
+approaches:
+  - id: vertical
+    name: "Vertical scan"
+    idea: "For each column, check every string has the same character."
+    time: "O(total characters)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/1-vertical.java, cpp: approaches/1-vertical.cpp }
+  - id: sort-ends
+    name: "Sort, compare first and last"
+    unlock: "After sorting, the two most different strings are the first and last, so only they matter."
+    idea: "Sort a copy; the common prefix of the extremes is the common prefix of all."
+    time: "O(n log n * m)"
+    space: "O(n)"
+    preferWhen: "n is small and code simplicity matters"
+    files: { java: approaches/2-sort-ends.java, cpp: approaches/2-sort-ends.cpp }

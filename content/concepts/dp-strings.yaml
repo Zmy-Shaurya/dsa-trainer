@@ -1,0 +1,35 @@
+id: dp-strings
+title: DP on Strings
+track: recursion-dp
+order: 39
+prereqs: [dp-2d]
+visualizers: [lcs, edit-distance]
+coreProblems: [longest-palindromic-substring, palindromic-substrings, longest-common-subsequence, edit-distance, decode-ways]
+card:
+  idea: "Let dp[i][j] describe prefixes or substrings, then match or skip."
+  useWhen:
+    - "Edit distance, LCS or palindrome counting"
+    - "Decisions are keep, delete, insert or replace"
+    - "Substring [i, j] answer depends on [i+1, j-1]"
+  complexity:
+    time: "O(n * m)"
+    space: "O(n * m) or O(min(n, m)) rolling"
+  template:
+    java: |
+      for (int i = 0; i <= m; i++) dp[i][0] = i;
+      for (int j = 0; j <= n; j++) dp[0][j] = j;
+      for (int i = 1; i <= m; i++)
+          for (int j = 1; j <= n; j++)
+              dp[i][j] = a.charAt(i - 1) == b.charAt(j - 1) ? dp[i - 1][j - 1]
+                  : 1 + Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1]));
+    cpp: |
+      for (int i = 0; i <= m; i++) dp[i][0] = i;
+      for (int j = 0; j <= n; j++) dp[0][j] = j;
+      for (int i = 1; i <= m; i++)
+          for (int j = 1; j <= n; j++)
+              dp[i][j] = a[i - 1] == b[j - 1] ? dp[i - 1][j - 1]
+                  : 1 + min({dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]});
+  pitfalls:
+    - "Base rows and columns carry meaning (cost of matching the empty string)."
+    - "Palindrome tables fill by length or by decreasing i, not row by row."
+    - "Rolling the table to one row needs the old diagonal saved first."

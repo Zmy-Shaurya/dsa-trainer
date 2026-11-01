@@ -1,0 +1,45 @@
+id: merge-intervals
+platform: leetcode
+lcNumber: 56
+title: Merge Intervals
+url: https://leetcode.com/problems/merge-intervals/
+difficulty: medium
+tier: 1
+topics: [arrays, sorting, intervals]
+patterns: [merge-intervals]
+concepts: [intervals, sorting]
+insight: "Sort by start; then each interval either overlaps the last merged one (extend its end) or starts a new one."
+tells:
+  - "Combine overlapping ranges"
+  - "Order of input is arbitrary"
+  - "Sorting by start makes overlaps adjacent"
+hints:
+  - "After sorting by start, which interval can the next one overlap?"
+  - "How do you tell whether two sorted intervals overlap?"
+traps:
+  java:
+    - "Sort with Integer.compare(a[0], b[0]); subtracting can overflow"
+  both:
+    - "Touching intervals like [1,4] and [4,5] count as overlapping"
+    - "Extend the end with max(); a later interval may be fully inside the last one"
+signature:
+  name: merge
+  params: [{ name: intervals, type: "int[][]" }]
+  returns: "int[][]"
+  compare: exact
+approaches:
+  - id: brute
+    name: Merge any overlapping pair until none remain
+    idea: "Repeatedly find two overlapping intervals and replace them with their union; sort the result."
+    time: "O(n^2)"
+    space: "O(n)"
+    preferWhen: "n is tiny and you want to avoid sorting logic"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: sort-merge
+    name: Sort by start, then sweep
+    unlock: "Once sorted by start, an interval can only overlap the most recently merged one."
+    idea: "Sort by start; extend the last result's end when the next start is within it, else append."
+    time: "O(n log n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/2-sort-merge.java, cpp: approaches/2-sort-merge.cpp }

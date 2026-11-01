@@ -1,0 +1,8 @@
+concept: union-find
+cards:
+  - {id: 1, type: basic, front: "What two operations does union-find provide?", back: "find(x) returns the group's representative; union(a, b) merges two groups."}
+  - {id: 2, type: basic, front: "What is path compression?", back: "During find, point every visited node straight at the root, flattening the tree."}
+  - {id: 3, type: complexity, prompt: "Amortized time per operation with path compression and union by rank?", answer: "O(alpha(n)), effectively constant"}
+  - {id: 4, type: cloze, text: "Redundant Connection: the edge whose endpoints already have the {{c1::same root}} closes a cycle."}
+  - {id: 5, type: basic, front: "How do you count components with union-find?", back: "Start with n and subtract one for each union that merges two different roots."}
+  - {id: 6, type: basic, front: "Why compare roots, not raw nodes, before merging?", back: "Two nodes are connected exactly when their roots are equal."}

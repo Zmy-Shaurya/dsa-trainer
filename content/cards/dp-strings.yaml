@@ -1,0 +1,8 @@
+concept: dp-strings
+cards:
+  - {id: 1, type: basic, front: "Edit Distance: what are the three operations in the recurrence?", back: "Insert (dp[i][j-1]), delete (dp[i-1][j]) and replace (dp[i-1][j-1]), each plus 1; free when characters match."}
+  - {id: 2, type: basic, front: "Edit Distance: base cases?", back: "dp[i][0] = i and dp[0][j] = j (turn a prefix into the empty string)."}
+  - {id: 3, type: basic, front: "Palindromic substring DP: when is s[i..j] a palindrome?", back: "s[i] == s[j] and (j - i < 2 or s[i+1..j-1] is a palindrome)."}
+  - {id: 4, type: cloze, text: "Palindrome tables must be filled by {{c1::increasing length}} (or decreasing i) so inner substrings are ready."}
+  - {id: 5, type: basic, front: "Decode Ways: recurrence?", back: "dp[i] adds dp[i-1] if the single digit is 1-9, and dp[i-2] if the two digits form 10-26."}
+  - {id: 6, type: complexity, prompt: "Time of edit distance for strings of length m and n?", answer: "O(m * n)"}

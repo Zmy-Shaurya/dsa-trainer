@@ -1,0 +1,41 @@
+id: monotonic-stack
+title: Monotonic Stack
+track: linear-ds
+order: 20
+prereqs: [stack]
+visualizers: [monotonic-stack-next-greater]
+coreProblems: [daily-temperatures, car-fleet, largest-rectangle-in-histogram]
+card:
+  idea: "Keep a stack sorted so each item finds its next greater in O(1)."
+  useWhen:
+    - "Next greater or smaller element to the right or left"
+    - "Spans, histograms and temperature-style queries"
+    - "A brute-force inner loop only looks for the first bigger value"
+  complexity:
+    time: "O(n): each item is pushed and popped once"
+    space: "O(n)"
+  template:
+    java: |
+      int[] ans = new int[n];
+      Deque<Integer> st = new ArrayDeque<>();   // indices, temps decreasing
+      for (int i = 0; i < n; i++) {
+          while (!st.isEmpty() && t[st.peek()] < t[i]) {
+              int j = st.pop();
+              ans[j] = i - j;
+          }
+          st.push(i);
+      }
+    cpp: |
+      vector<int> ans(n);
+      stack<int> st;   // indices, temps decreasing
+      for (int i = 0; i < n; i++) {
+          while (!st.empty() && t[st.top()] < t[i]) {
+              int j = st.top(); st.pop();
+              ans[j] = i - j;
+          }
+          st.push(i);
+      }
+  pitfalls:
+    - "Decide strict or non-strict comparison for equal values up front."
+    - "Items left on the stack at the end have no answer; handle them."
+    - "Push indices, not values, when you need distances."

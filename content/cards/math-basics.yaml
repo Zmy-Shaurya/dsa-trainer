@@ -1,0 +1,8 @@
+concept: math-basics
+cards:
+  - {id: 1, type: complexity, prompt: "Time of the Sieve of Eratosthenes up to n?", answer: "O(n log log n)"}
+  - {id: 2, type: basic, front: "Why does the sieve's inner loop start at i * i?", back: "Smaller multiples of i were already marked by smaller primes."}
+  - {id: 3, type: cloze, text: "gcd(a, b) equals {{c1::gcd(b, a % b)}}, with gcd(a, 0) = a."}
+  - {id: 4, type: basic, front: "How do you compute x^n in O(log n)?", back: "Fast power: square x and halve n; multiply the result when n is odd."}
+  - {id: 5, type: trap, prompt: "What is the bug when n is near 10^5?", code: {java: "for (int i = 2; i * i <= n; i++)", cpp: "for (int i = 2; i * i <= n; i++)"}, answer: "For n near 2^31, i * i overflows. Cast to long: (long) i * i <= n."}
+  - {id: 6, type: basic, front: "Why add the modulus back after a subtraction under mod?", back: "% can return a negative number in Java and C++, so use ((a - b) % m + m) % m."}

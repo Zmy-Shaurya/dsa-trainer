@@ -1,0 +1,8 @@
+concept: shortest-paths
+cards:
+  - {id: 1, type: basic, front: "When does Dijkstra work?", back: "On graphs with non-negative edge weights."}
+  - {id: 2, type: complexity, prompt: "Time of Dijkstra with a binary heap?", answer: "O((V + E) log V)"}
+  - {id: 3, type: basic, front: "What is the 'stale entry' check in heap-based Dijkstra?", back: "When popping (d, u), skip it if d > dist[u]; a shorter route was already found."}
+  - {id: 4, type: cloze, text: "To limit a path to at most k stops, use {{c1::Bellman-Ford}} for k+1 rounds on a copy of the distances."}
+  - {id: 5, type: trap, prompt: "What can overflow here?", code: {java: "int[] dist = new int[n]; Arrays.fill(dist, Integer.MAX_VALUE); ... dist[u] + w", cpp: "vector<int> dist(n, INT_MAX); ... dist[u] + w"}, answer: "INT_MAX + w overflows. Use long long with a large sentinel, or skip unreached nodes."}
+  - {id: 6, type: basic, front: "Network Delay Time: what is the answer from the distances?", back: "The maximum shortest distance over all nodes, or -1 if any node is unreachable."}

@@ -1,0 +1,177 @@
+items:
+  - id: 23
+    topic: amortised
+    code:
+      java: |
+        // a is sorted
+        int j = 0, best = 0;
+        for (int i = 0; i < n; i++) {
+            while (j < n && a[j] - a[i] <= k) j++;
+            best = Math.max(best, j - i);
+        }
+      cpp: |
+        // a is sorted
+        int j = 0, best = 0;
+        for (int i = 0; i < n; i++) {
+            while (j < n && a[j] - a[i] <= k) j++;
+            best = max(best, j - i);
+        }
+    time: "O(n)"
+    space: "O(1)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(k)"]
+      space: ["O(1)", "O(n)", "O(k)"]
+    why: "j never moves backwards, so the inner loop does at most n steps in total across all i."
+    trap: true
+    concepts: [two-pointers, complexity-basics]
+  - id: 24
+    topic: amortised
+    code:
+      java: |
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < n; i++)
+            list.add(i);
+      cpp: |
+        vector<int> v;
+        for (int i = 0; i < n; i++)
+            v.push_back(i);
+    time: "O(n)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(log n)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "An occasional resize copies everything, but doubling makes the average cost per add O(1): amortised O(n) total."
+    trap: true
+    concepts: [complexity-basics]
+  - id: 25
+    topic: amortised
+    code:
+      java: |
+        Deque<Integer> st = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            while (!st.isEmpty() && a[st.peek()] < a[i]) st.pop();
+            st.push(i);
+        }
+      cpp: |
+        stack<int> st;
+        for (int i = 0; i < n; i++) {
+            while (!st.empty() && a[st.top()] < a[i]) st.pop();
+            st.push(i);
+        }
+    time: "O(n)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(log n)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Each index is pushed once and popped at most once, so the while loop costs O(n) over the whole run."
+    trap: true
+    concepts: [monotonic-stack]
+  - id: 26
+    topic: amortised
+    code:
+      java: |
+        // s has only lowercase letters
+        int[] cnt = new int[26];
+        int l = 0, best = 0;
+        for (int r = 0; r < n; r++) {
+            cnt[s.charAt(r) - 'a']++;
+            while (cnt[s.charAt(r) - 'a'] > 1) cnt[s.charAt(l++) - 'a']--;
+            best = Math.max(best, r - l + 1);
+        }
+      cpp: |
+        // s has only lowercase letters
+        int cnt[26] = {};
+        int l = 0, best = 0;
+        for (int r = 0; r < n; r++) {
+            cnt[s[r] - 'a']++;
+            while (cnt[s[r] - 'a'] > 1) cnt[s[l++] - 'a']--;
+            best = max(best, r - l + 1);
+        }
+    time: "O(n)"
+    space: "O(1)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(26n)"]
+      space: ["O(1)", "O(n)", "O(26n)"]
+    why: "l only moves forward, so both pointers travel at most n steps. The count array has a fixed 26 slots."
+    trap: true
+    concepts: [sliding-window]
+  - id: 27
+    topic: amortised
+    code:
+      java: |
+        // bottom-up heap construction, siftDown is O(height)
+        for (int i = n / 2 - 1; i >= 0; i--)
+            siftDown(a, i, n);
+      cpp: |
+        // bottom-up heap construction, siftDown is O(height)
+        for (int i = n / 2 - 1; i >= 0; i--)
+            siftDown(a, i, n);
+    time: "O(n)"
+    space: "O(1)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(log n)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Most nodes sit near the bottom and sink only a level or two. The sum of heights over all nodes is O(n), not n log n."
+    trap: true
+    concepts: [heaps]
+  - id: 28
+    topic: amortised
+    code:
+      java: |
+        Deque<Integer> q = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) q.addLast(i);
+        while (!q.isEmpty()) q.pollFirst();
+      cpp: |
+        deque<int> q;
+        for (int i = 0; i < n; i++) q.push_back(i);
+        while (!q.empty()) q.pop_front();
+    time: "O(n)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Both ends of a deque are O(1), so n adds and n removals are O(n)."
+    trap: false
+    concepts: [queue-deque]
+  - id: 29
+    topic: amortised
+    code:
+      java: |
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int x : a) freq.merge(x, 1, Integer::sum);
+      cpp: |
+        unordered_map<int, int> freq;
+        for (int x : a) freq[x]++;
+    time: "O(n)"
+    space: "O(n)"
+    options:
+      time: ["O(n)", "O(n log n)", "O(n²)", "O(1)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Hash operations are expected O(1), so n of them cost O(n) on average (worst case with adversarial keys is worse)."
+    trap: false
+    concepts: [hashing]
+  - id: 30
+    topic: amortised
+    code:
+      java: |
+        // x is a positive int, count its 1 bits
+        int c = 0;
+        while (x > 0) {
+            x &= x - 1;
+            c++;
+        }
+      cpp: |
+        // x is a positive int, count its 1 bits
+        int c = 0;
+        while (x > 0) {
+            x &= x - 1;
+            c++;
+        }
+    time: "O(log n)"
+    space: "O(1)"
+    options:
+      time: ["O(1)", "O(log n)", "O(n)", "O(√n)"]
+      space: ["O(1)", "O(log n)", "O(n)"]
+    why: "Each step clears the lowest set bit, so it runs at most once per bit of x: up to log2(x) times. Here n is the value of x."
+    trap: true
+    concepts: [bit-manipulation]

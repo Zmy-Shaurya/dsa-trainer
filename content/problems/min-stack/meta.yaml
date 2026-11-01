@@ -1,0 +1,44 @@
+id: min-stack
+platform: leetcode
+lcNumber: 155
+title: Min Stack
+url: https://leetcode.com/problems/min-stack/
+difficulty: medium
+tier: 1
+topics: [stack, design]
+patterns: [design-data-structure]
+concepts: [stack]
+insight: "Store the running minimum alongside each pushed value, so the minimum survives every pop."
+tells:
+  - "Stack operations plus O(1) min"
+  - "Minimum must be restored after pop"
+hints:
+  - "After a pop, what was the minimum of the items still on the stack?"
+  - "Could each stack entry remember the minimum at the time it was pushed?"
+traps:
+  java:
+    - "Compare boxed Integers with equals(); == only works for small cached values"
+  cpp:
+    - "top() on an empty stack is undefined; the problem guarantees non-empty calls"
+signature:
+  name: MinStack
+  params: []
+  returns: void
+  kind: design
+  compare: exact
+approaches:
+  - id: scan
+    name: Stack plus linear scan
+    idea: "Keep a plain stack; getMin scans every element for the smallest."
+    time: "O(n) getMin"
+    space: "O(n)"
+    preferWhen: "getMin is almost never called"
+    files: { java: approaches/1-scan.java, cpp: approaches/1-scan.cpp }
+  - id: min-pairs
+    name: Stack of (value, min so far)
+    unlock: "The min only changes on push, so store it with each entry and pop restores it for free."
+    idea: "Each entry holds its value and the minimum of everything beneath it; getMin reads the top entry."
+    time: "O(1) per op"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/2-min-pairs.java, cpp: approaches/2-min-pairs.cpp }

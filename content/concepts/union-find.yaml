@@ -1,0 +1,39 @@
+id: union-find
+title: Union-Find
+track: graphs
+order: 32
+prereqs: [graph-basics]
+visualizers: [union-find, kruskal]
+coreProblems: [number-of-provinces, redundant-connection, accounts-merge]
+card:
+  idea: "Track which items are in the same group with near-O(1) merges."
+  useWhen:
+    - "Dynamic connectivity as edges arrive"
+    - "Counting components or finding the edge that closes a cycle"
+    - "Merging groups of equivalent items"
+  complexity:
+    time: "O(alpha(n)) per op, near constant"
+    space: "O(n)"
+  template:
+    java: |
+      int[] p = new int[n];
+      for (int i = 0; i < n; i++) p[i] = i;
+      int find(int x) { return p[x] == x ? x : (p[x] = find(p[x])); }
+      boolean union(int a, int b) {
+          a = find(a); b = find(b);
+          if (a == b) return false;     // already connected
+          p[a] = b; return true;
+      }
+    cpp: |
+      vector<int> p(n);
+      iota(p.begin(), p.end(), 0);
+      function<int(int)> find = [&](int x) { return p[x] == x ? x : p[x] = find(p[x]); };
+      auto unite = [&](int a, int b) {
+          a = find(a); b = find(b);
+          if (a == b) return false;     // already connected
+          p[a] = b; return true;
+      };
+  pitfalls:
+    - "Always compare roots, never the raw nodes."
+    - "Without path compression, long chains make find O(n)."
+    - "Count components by decrementing on each successful union."

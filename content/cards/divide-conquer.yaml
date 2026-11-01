@@ -1,0 +1,8 @@
+concept: divide-conquer
+cards:
+  - {id: 1, type: basic, front: "What are the three steps of divide and conquer?", back: "Divide into subproblems, conquer them recursively, combine the results."}
+  - {id: 2, type: cloze, text: "Merge sort satisfies T(n) = 2T(n/2) + O(n), which solves to {{c1::O(n log n)}}."}
+  - {id: 3, type: basic, front: "Fast power: why compute the half once?", back: "Calling pow twice for n/2 doubles the work and makes it O(n) instead of O(log n)."}
+  - {id: 4, type: trap, prompt: "What is the bug for n = -2147483648?", code: {java: "if (n < 0) return 1 / pow(x, -n);  // n is int", cpp: "if (n < 0) return 1 / pow(x, -n);  // n is int"}, answer: "-n overflows for the minimum int. Widen n to long first."}
+  - {id: 5, type: complexity, prompt: "Average and worst time of quickselect?", answer: "O(n) average, O(n^2) worst case"}
+  - {id: 6, type: basic, front: "Median of Two Sorted Arrays: what makes O(log) possible?", back: "Binary search the partition point in the shorter array so both left halves total half the elements."}

@@ -1,0 +1,34 @@
+id: intervals
+title: Intervals
+track: arrays-strings
+order: 13
+prereqs: [sorting]
+coreProblems: [merge-intervals, insert-interval, non-overlapping-intervals]
+card:
+  idea: "Sort by start, then sweep, merging or counting overlaps."
+  useWhen:
+    - "Ranges that may overlap or touch"
+    - "Scheduling, meeting rooms or minimum removals"
+    - "Inserting one range into a sorted list"
+  complexity:
+    time: "O(n log n) for the sort"
+    space: "O(n) for the output"
+  template:
+    java: |
+      Arrays.sort(iv, (a, b) -> Integer.compare(a[0], b[0]));
+      List<int[]> out = new ArrayList<>();
+      for (int[] cur : iv) {
+          if (out.isEmpty() || out.get(out.size() - 1)[1] < cur[0]) out.add(cur);
+          else out.get(out.size() - 1)[1] = Math.max(out.get(out.size() - 1)[1], cur[1]);
+      }
+    cpp: |
+      sort(iv.begin(), iv.end());
+      vector<vector<int>> out;
+      for (auto& cur : iv) {
+          if (out.empty() || out.back()[1] < cur[0]) out.push_back(cur);
+          else out.back()[1] = max(out.back()[1], cur[1]);
+      }
+  pitfalls:
+    - "Decide up front whether touching ranges like [1,2],[2,3] overlap."
+    - "Merge with max of ends; the later interval may be nested."
+    - "Sorting by end, not start, is right for the minimum-removals problem."

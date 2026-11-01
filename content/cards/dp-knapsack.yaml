@@ -1,0 +1,8 @@
+concept: dp-knapsack
+cards:
+  - {id: 1, type: basic, front: "0/1 knapsack: which direction does the capacity loop run in 1D?", back: "Downward, so each item is used at most once."}
+  - {id: 2, type: basic, front: "Unbounded knapsack: which direction?", back: "Upward, so an item can be reused."}
+  - {id: 3, type: cloze, text: "Partition Equal Subset Sum reduces to finding a subset with sum {{c1::total / 2}}, and fails fast if total is odd."}
+  - {id: 4, type: basic, front: "Coin Change II (count combinations): which loop is outer?", back: "Coins outer, amount inner. Swapping them would count ordered permutations."}
+  - {id: 5, type: complexity, prompt: "Time of knapsack with n items and capacity W?", answer: "O(n * W)"}
+  - {id: 6, type: basic, front: "Target Sum: how does it become subset sum?", back: "With P as the positive group, P = (total + target) / 2; count subsets reaching P."}

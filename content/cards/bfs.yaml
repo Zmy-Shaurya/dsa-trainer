@@ -1,0 +1,8 @@
+concept: bfs
+cards:
+  - {id: 1, type: basic, front: "Why does BFS find shortest paths in unweighted graphs?", back: "It visits nodes in order of distance, so the first time you reach a node is by the fewest edges."}
+  - {id: 2, type: trap, prompt: "When should you mark a node visited in BFS?", code: {java: "q.offer(v); seen[v] = true;", cpp: "q.push(v); seen[v] = true;"}, answer: "When you enqueue it, not when you dequeue it. Otherwise the same node can be queued many times."}
+  - {id: 3, type: cloze, text: "Multi-source BFS (like Rotting Oranges) starts with {{c1::all sources}} in the queue at distance 0."}
+  - {id: 4, type: complexity, prompt: "Space of BFS on a graph?", answer: "O(V) for the queue and visited set"}
+  - {id: 5, type: basic, front: "How do you count BFS levels?", back: "Process q.size() nodes per round and increment the distance after each round."}
+  - {id: 6, type: basic, front: "Word Ladder: what are the nodes and edges?", back: "Nodes are words; an edge joins two words that differ in exactly one letter."}

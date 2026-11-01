@@ -1,0 +1,51 @@
+id: top-k-frequent-elements
+platform: leetcode
+lcNumber: 347
+title: Top K Frequent Elements
+url: https://leetcode.com/problems/top-k-frequent-elements/
+difficulty: medium
+tier: 1
+topics: [arrays, hashing, heap]
+patterns: [frequency-map, top-k-heap]
+concepts: [hashing, arrays-strings]
+insight: "Count frequencies, then pick the k largest counts: by sorting, a size-k heap, or buckets indexed by count."
+tells:
+  - "Most frequent k items"
+  - "Frequency is at most n, so buckets work"
+hints:
+  - "First, how would you count each value?"
+  - "A frequency can never exceed n. What can you index by it?"
+traps:
+  java:
+    - "Boxing: compare Integer counts with equals() or compareTo, never =="
+  cpp:
+    - "priority_queue is a max-heap by default; flip the comparison to keep the smallest of k"
+signature:
+  name: topKFrequent
+  params: [{ name: nums, type: "int[]" }, { name: k, type: int }]
+  returns: "int[]"
+  compare: unordered
+approaches:
+  - id: sort
+    name: Count, then sort by frequency
+    idea: "Build a value-to-count map, sort the distinct values by count descending, take the first k."
+    time: "O(n log n)"
+    space: "O(n)"
+    preferWhen: "k is close to the number of distinct values"
+    files: { java: approaches/1-sort.java, cpp: approaches/1-sort.cpp }
+  - id: heap
+    name: Min-heap of size k
+    unlock: "You only need the k best, so keep a small heap instead of sorting everything."
+    idea: "Push (count, value) into a min-heap and pop whenever it grows past k; what remains is the answer."
+    time: "O(n log k)"
+    space: "O(n)"
+    preferWhen: "k is much smaller than the number of distinct values"
+    files: { java: approaches/2-heap.java, cpp: approaches/2-heap.cpp }
+  - id: bucket
+    name: Bucket by frequency
+    unlock: "Counts are bounded by n, so index buckets by count and read from the top."
+    idea: "Put each value in bucket[count]; walk buckets from n down to 1 collecting values until k are found."
+    time: "O(n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/3-bucket.java, cpp: approaches/3-bucket.cpp }

@@ -1,0 +1,8 @@
+concept: backtracking
+cards:
+  - {id: 1, type: basic, front: "What are the three steps inside a backtracking loop?", back: "Choose an option, explore recursively, then undo the choice."}
+  - {id: 2, type: trap, prompt: "What is wrong with adding the path to the results?", code: {java: "out.add(cur);", cpp: "out.push_back(cur);  // by value copy is fine in C++"}, answer: "In Java this stores a reference to the list you keep mutating. Add a copy: new ArrayList<>(cur)."}
+  - {id: 3, type: complexity, prompt: "Number of subsets of n items, and of permutations?", answer: "2^n subsets, n! permutations"}
+  - {id: 4, type: cloze, text: "To skip duplicate results, {{c1::sort the input}} and skip a value equal to the previous one at the same level."}
+  - {id: 5, type: basic, front: "How does pruning speed up backtracking?", back: "Reject a partial answer as soon as it breaks a constraint, instead of exploring its whole subtree."}
+  - {id: 6, type: basic, front: "N-Queens: how do you check attacked squares quickly?", back: "Keep sets for columns, r - c diagonals, and r + c anti-diagonals."}

@@ -1,0 +1,12 @@
+{
+  "cases": [
+    {"args": {"strs": ["flower", "flow", "flight"]}, "expected": "fl"},
+    {"args": {"strs": ["dog", "racecar", "car"]}, "expected": ""},
+    {"args": {"strs": ["a"]}, "expected": "a"},
+    {"args": {"strs": ["", ""]}, "expected": ""},
+    {"args": {"strs": ["abc", "abc", "abc"]}, "expected": "abc"},
+    {"args": {"strs": ["ab", "a"]}, "expected": "a"},
+    {"args": {"strs": ["interview", "internet", "interval", "intern"]}, "expected": "inter"},
+    {"args": {"strs": ["c", "acc", "ccc"]}, "expected": ""}
+  ]
+}

@@ -1,0 +1,42 @@
+id: merge-two-sorted-lists
+platform: leetcode
+lcNumber: 21
+title: Merge Two Sorted Lists
+url: https://leetcode.com/problems/merge-two-sorted-lists/
+difficulty: easy
+tier: 1
+topics: [linked-list]
+patterns: [two-pointers, linked-list-reversal]
+concepts: [linked-lists]
+insight: "Repeatedly attach the smaller head of the two lists to a tail pointer; a dummy node removes the empty-list special case."
+tells:
+  - "Combine two already sorted lists"
+  - "Splice nodes instead of copying values"
+hints:
+  - "Which of the two heads must come next in the result?"
+  - "What can you use so the first attached node needs no special handling?"
+traps:
+  both:
+    - "After one list runs out, attach the other remainder in one step"
+    - "Use <= so equal values keep the first list's node first (stable)"
+signature:
+  name: mergeTwoLists
+  params: [{ name: list1, type: ListNode }, { name: list2, type: ListNode }]
+  returns: ListNode
+  compare: exact
+approaches:
+  - id: iterative
+    name: Dummy head and tail pointer
+    unlock: "A dummy node means you never special-case the first node of the result."
+    idea: "Compare both heads, link the smaller one after tail, advance; finally link the leftover list."
+    time: "O(n + m)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/1-iterative.java, cpp: approaches/1-iterative.cpp }
+  - id: recursive
+    name: Recursion
+    idea: "Pick the smaller head, and set its next to the merge of the remaining nodes."
+    time: "O(n + m)"
+    space: "O(n + m)"
+    preferWhen: "lists are short and you want the shortest code"
+    files: { java: approaches/2-recursive.java, cpp: approaches/2-recursive.cpp }

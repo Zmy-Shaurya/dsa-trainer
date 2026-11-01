@@ -1,0 +1,43 @@
+id: binary-tree-level-order-traversal
+platform: leetcode
+lcNumber: 102
+title: Binary Tree Level Order Traversal
+url: https://leetcode.com/problems/binary-tree-level-order-traversal/
+difficulty: medium
+tier: 1
+topics: [tree, bfs]
+patterns: [tree-bfs]
+concepts: [tree-traversals, binary-trees]
+insight: "Use a queue; freeze its size at the start of each round so exactly one level is processed."
+tells:
+  - "Visit a tree level by level"
+  - "Group output by depth"
+hints:
+  - "Which structure visits nodes in first-in-first-out order?"
+  - "How do you know where one level ends and the next begins?"
+traps:
+  java:
+    - "Read queue.size() once before the inner loop; it changes as you add children"
+  both:
+    - "An empty tree returns an empty list, not a list holding an empty list"
+signature:
+  name: levelOrder
+  params: [{ name: root, type: TreeNode }]
+  returns: "int[][]"
+  compare: exact
+approaches:
+  - id: bfs
+    name: BFS with a queue
+    unlock: "A queue visits nodes in level order; the queue size at the round start is the level width."
+    idea: "Per round, pop exactly size nodes into one list and enqueue their children."
+    time: "O(n)"
+    space: "O(w)"
+    isOptimal: true
+    files: { java: approaches/1-bfs.java, cpp: approaches/1-bfs.cpp }
+  - id: dfs-depth
+    name: DFS carrying the depth
+    idea: "Recurse with the current depth and append each value to the list for that depth."
+    time: "O(n)"
+    space: "O(h)"
+    preferWhen: "you already have a recursive traversal and want to avoid a queue"
+    files: { java: approaches/2-dfs-depth.java, cpp: approaches/2-dfs-depth.cpp }

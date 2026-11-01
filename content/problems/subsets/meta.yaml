@@ -1,0 +1,53 @@
+id: subsets
+platform: leetcode
+lcNumber: 78
+title: Subsets
+url: https://leetcode.com/problems/subsets/
+difficulty: medium
+tier: 1
+topics: [backtracking, bit-manipulation]
+patterns: [backtracking-subsets]
+concepts: [backtracking]
+insight: "Each element is either in or out of a subset; explore both choices and record the path at every node."
+tells:
+  - "Generate every subset (power set)"
+  - "Distinct elements, any order of output"
+  - "2^n results are unavoidable"
+hints:
+  - "For each element, what two choices do you have?"
+  - "When should the current partial subset be added to the answer?"
+traps:
+  java:
+    - "Add new ArrayList<>(path), not path itself; the list keeps mutating"
+  cpp:
+    - "push_back(path) copies the vector; pop_back after recursing to undo the choice"
+  both:
+    - "The empty subset is part of the answer"
+signature:
+  name: subsets
+  params: [{ name: nums, type: "int[]" }]
+  returns: "int[][]"
+  compare: unordered-nested
+approaches:
+  - id: backtracking
+    name: Backtracking (choose, explore, undo)
+    idea: "Add the current path, then for each later element add it, recurse, and remove it."
+    time: "O(n * 2^n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/1-backtracking.java, cpp: approaches/1-backtracking.cpp }
+  - id: cascading
+    name: Iterative doubling
+    unlock: "Each new element doubles the answer: copy every existing subset and add the element."
+    idea: "Start with [[]]; for each number append it to a copy of every subset built so far."
+    time: "O(n * 2^n)"
+    space: "O(n * 2^n)"
+    files: { java: approaches/2-cascading.java, cpp: approaches/2-cascading.cpp }
+  - id: bitmask
+    name: Bitmask enumeration
+    unlock: "Subsets of n items correspond to the numbers 0 .. 2^n - 1: bit i says whether item i is in."
+    idea: "For each mask, collect nums[i] whose bit i is set."
+    time: "O(n * 2^n)"
+    space: "O(n * 2^n)"
+    preferWhen: "n is small (about 20 or less) and you want no recursion"
+    files: { java: approaches/3-bitmask.java, cpp: approaches/3-bitmask.cpp }

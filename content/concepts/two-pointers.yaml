@@ -1,0 +1,35 @@
+id: two-pointers
+title: Two Pointers
+track: arrays-strings
+order: 9
+prereqs: [arrays-strings]
+visualizers: [two-pointers-sorted-pair]
+coreProblems: [valid-palindrome, two-sum-ii-input-array-is-sorted, 3sum, container-with-most-water, trapping-rain-water]
+card:
+  idea: "Move two indices toward each other, or together, to skip work."
+  useWhen:
+    - "Sorted array and a pair or triple condition"
+    - "Palindrome or reverse-in-place check"
+    - "Merging or partitioning two ranges"
+  complexity:
+    time: "O(n) after sorting"
+    space: "O(1)"
+  template:
+    java: |
+      int l = 0, r = a.length - 1;
+      while (l < r) {
+          int sum = a[l] + a[r];
+          if (sum == target) return new int[]{l, r};
+          if (sum < target) l++; else r--;
+      }
+    cpp: |
+      int l = 0, r = (int)a.size() - 1;
+      while (l < r) {
+          int sum = a[l] + a[r];
+          if (sum == target) return {l, r};
+          if (sum < target) l++; else r--;
+      }
+  pitfalls:
+    - "It only works when moving a pointer provably can't skip an answer."
+    - "3Sum needs duplicate skipping on every pointer, not just the first."
+    - "Use l < r, not l <= r, unless a single element is a valid pair."

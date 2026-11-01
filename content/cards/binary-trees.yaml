@@ -1,0 +1,8 @@
+concept: binary-trees
+cards:
+  - {id: 1, type: basic, front: "What is the recursive shape of most binary tree problems?", back: "Handle null, solve left and right, then combine at the node."}
+  - {id: 2, type: code, prompt: "Maximum depth of a tree:", code: {java: "return 1 + Math.____(depth(n.left), depth(n.right));", cpp: "return 1 + ____(depth(n->left), depth(n->right));"}, answer: "max"}
+  - {id: 3, type: basic, front: "Diameter of a binary tree: what do you update at each node?", back: "The best answer with left height + right height, while returning 1 + max height to the parent."}
+  - {id: 4, type: complexity, prompt: "Time and space (recursion) of visiting every node of a tree of height h?", answer: "O(n) time, O(h) space"}
+  - {id: 5, type: basic, front: "Balanced Binary Tree: how to check in O(n)?", back: "Return height, using -1 as a sentinel for 'unbalanced' to bail out early."}
+  - {id: 6, type: trap, prompt: "When can recursion on a tree fail?", code: {java: "int h(TreeNode n) { return n == null ? 0 : 1 + Math.max(h(n.left), h(n.right)); }", cpp: "// same shape in C++"}, answer: "A skewed tree of 10^5 nodes has height 10^5 and can overflow the stack. Use an iterative traversal."}

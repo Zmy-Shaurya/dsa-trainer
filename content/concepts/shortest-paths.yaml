@@ -1,0 +1,42 @@
+id: shortest-paths
+title: Shortest Paths
+track: graphs
+order: 33
+prereqs: [bfs, heaps]
+visualizers: [dijkstra, bellman-ford]
+coreProblems: [network-delay-time, cheapest-flights-within-k-stops]
+card:
+  idea: "Relax edges outward from the source with a min-heap (Dijkstra)."
+  useWhen:
+    - "Weighted graph with non-negative weights"
+    - "Cheapest route or earliest arrival"
+    - "A step limit means Bellman-Ford over k rounds"
+  complexity:
+    time: "O((V + E) log V)"
+    space: "O(V + E)"
+  template:
+    java: |
+      long[] dist = new long[n];
+      Arrays.fill(dist, Long.MAX_VALUE); dist[src] = 0;
+      PriorityQueue<long[]> pq = new PriorityQueue<>((a, b) -> Long.compare(a[0], b[0]));
+      pq.offer(new long[]{0, src});
+      while (!pq.isEmpty()) {
+          long[] t = pq.poll(); int u = (int) t[1];
+          if (t[0] > dist[u]) continue;
+          for (int[] e : g.get(u))
+              if (dist[u] + e[1] < dist[e[0]]) pq.offer(new long[]{dist[e[0]] = dist[u] + e[1], e[0]});
+      }
+    cpp: |
+      vector<long long> dist(n, LLONG_MAX); dist[src] = 0;
+      priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
+      pq.push({0, src});
+      while (!pq.empty()) {
+          auto [d, u] = pq.top(); pq.pop();
+          if (d > dist[u]) continue;
+          for (auto [v, w] : g[u])
+              if (d + w < dist[v]) { dist[v] = d + w; pq.push({dist[v], v}); }
+      }
+  pitfalls:
+    - "Dijkstra breaks on negative edge weights."
+    - "Skip stale heap entries with the d > dist[u] check."
+    - "Use long for distances; sums of int weights overflow."

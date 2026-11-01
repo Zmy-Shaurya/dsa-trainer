@@ -1,0 +1,8 @@
+concept: tries
+cards:
+  - {id: 1, type: basic, front: "What does a trie store?", back: "Strings as paths of characters from the root, sharing common prefixes."}
+  - {id: 2, type: complexity, prompt: "Time to insert or search a word of length L?", answer: "O(L)"}
+  - {id: 3, type: basic, front: "Why mark an end-of-word flag on a node?", back: "A prefix of a stored word is not itself a word unless it is marked."}
+  - {id: 4, type: basic, front: "How do you search a pattern with '.' wildcards?", back: "DFS: on '.', try every child; otherwise follow the one matching child."}
+  - {id: 5, type: cloze, text: "In Word Search II, {{c1::prune}} trie branches that no longer lead to words to speed up the grid DFS."}
+  - {id: 6, type: basic, front: "Array children or hash map children?", back: "Array of 26 is fast for lowercase letters; a map saves memory for large alphabets."}

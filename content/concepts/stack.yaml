@@ -1,0 +1,35 @@
+id: stack
+title: Stack
+track: linear-ds
+order: 18
+prereqs: [arrays-strings]
+coreProblems: [valid-parentheses, min-stack, evaluate-reverse-polish-notation, implement-queue-using-stacks]
+card:
+  idea: "Last in, first out: the newest unmatched item is always on top."
+  useWhen:
+    - "Matching brackets or nested structure"
+    - "Undo, backtrack or evaluate postfix expressions"
+    - "You need the most recent item that satisfies a condition"
+  complexity:
+    time: "O(1) push and pop"
+    space: "O(n)"
+  template:
+    java: |
+      Deque<Character> st = new ArrayDeque<>();
+      for (char c : s.toCharArray()) {
+          if (c == '(') st.push(')');
+          else if (st.isEmpty() || st.pop() != c) return false;
+      }
+      return st.isEmpty();
+    cpp: |
+      stack<char> st;
+      for (char c : s) {
+          if (c == '(') st.push(')');
+          else if (st.empty() || st.top() != c) return false;
+          else st.pop();
+      }
+      return st.empty();
+  pitfalls:
+    - "Pop only after checking the stack is non-empty."
+    - "Java's Stack class is legacy; use ArrayDeque."
+    - "C++ pop() returns void; read top() first."

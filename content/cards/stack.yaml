@@ -1,0 +1,8 @@
+concept: stack
+cards:
+  - {id: 1, type: basic, front: "What does a stack guarantee?", back: "Last in, first out: the most recently added item is removed first."}
+  - {id: 2, type: basic, front: "Valid Parentheses: what do you push and what do you check on a closer?", back: "Push the expected closing bracket for each opener; on a closer, the stack must be non-empty and its top must match."}
+  - {id: 3, type: trap, prompt: "Which Java class should you avoid for a stack, and what to use?", code: {java: "Stack<Integer> st = new Stack<>();", cpp: "stack<int> st;  // st.pop() returns void"}, answer: "java.util.Stack is legacy and synchronized. Use ArrayDeque. In C++ read top() before pop()."}
+  - {id: 4, type: complexity, prompt: "Time of push, pop and peek?", answer: "O(1) each"}
+  - {id: 5, type: basic, front: "Min Stack: how to get getMin in O(1)?", back: "Keep a second stack (or store pairs) with the minimum so far at each depth."}
+  - {id: 6, type: cloze, text: "To evaluate Reverse Polish Notation, push numbers and on an operator {{c1::pop two operands}}, apply it, and push the result."}

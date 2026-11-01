@@ -1,0 +1,277 @@
+pages:
+  - id: binary-search
+    title: Binary search
+    concept: binary-search
+    when: "Sorted data, or a yes/no check that flips once over a numeric range."
+    pitfalls: ["Use lo + (hi - lo) / 2 to avoid overflow.", "Decide the invariant first: [lo, hi] closed or [lo, hi) half-open, and stick to it.", "On-answer needs a monotonic check, otherwise the search is wrong."]
+    problems: [binary-search, search-in-rotated-sorted-array, find-minimum-in-rotated-sorted-array, koko-eating-bananas]
+    variants:
+      - id: exact
+        title: Exact match
+        java: |
+          static int search(int[] a, int x) {
+              int lo = 0, hi = a.length - 1;
+              while (lo <= hi) {
+                  int mid = lo + (hi - lo) / 2;
+                  if (a[mid] == x) return mid;
+                  if (a[mid] < x) lo = mid + 1; else hi = mid - 1;
+              }
+              return -1;
+          }
+        cpp: |
+          int search(const vector<int>& a, int x) {
+              int lo = 0, hi = (int)a.size() - 1;
+              while (lo <= hi) {
+                  int mid = lo + (hi - lo) / 2;
+                  if (a[mid] == x) return mid;
+                  if (a[mid] < x) lo = mid + 1; else hi = mid - 1;
+              }
+              return -1;
+          }
+      - id: lower-bound
+        title: Lower bound (first index with a[i] >= x)
+        java: |
+          static int lowerBound(int[] a, int x) {
+              int lo = 0, hi = a.length;
+              while (lo < hi) {
+                  int mid = lo + (hi - lo) / 2;
+                  if (a[mid] < x) lo = mid + 1; else hi = mid;
+              }
+              return lo;                      // a.length when every element is smaller
+          }
+        cpp: |
+          int lowerBound(const vector<int>& a, int x) {
+              int lo = 0, hi = (int)a.size();
+              while (lo < hi) {
+                  int mid = lo + (hi - lo) / 2;
+                  if (a[mid] < x) lo = mid + 1; else hi = mid;
+              }
+              return lo;                      // same as lower_bound(a.begin(), a.end(), x) - a.begin()
+          }
+      - id: upper-bound
+        title: Upper bound (first index with a[i] > x)
+        java: |
+          static int upperBound(int[] a, int x) {
+              int lo = 0, hi = a.length;
+              while (lo < hi) {
+                  int mid = lo + (hi - lo) / 2;
+                  if (a[mid] <= x) lo = mid + 1; else hi = mid;
+              }
+              return lo;
+          }
+        cpp: |
+          int upperBound(const vector<int>& a, int x) {
+              int lo = 0, hi = (int)a.size();
+              while (lo < hi) {
+                  int mid = lo + (hi - lo) / 2;
+                  if (a[mid] <= x) lo = mid + 1; else hi = mid;
+              }
+              return lo;
+          }
+      - id: on-answer
+        title: On the answer (smallest value that passes a check)
+        java: |
+          static boolean feasible(int[] piles, int h, int speed) {
+              long hours = 0;
+              for (int p : piles) hours += (p + speed - 1) / speed;
+              return hours <= h;
+          }
+          static int minSpeed(int[] piles, int h) {
+              int lo = 1, hi = Arrays.stream(piles).max().getAsInt();
+              while (lo < hi) {
+                  int mid = lo + (hi - lo) / 2;
+                  if (feasible(piles, h, mid)) hi = mid; else lo = mid + 1;
+              }
+              return lo;
+          }
+        cpp: |
+          bool feasible(const vector<int>& piles, int h, int speed) {
+              long long hours = 0;
+              for (int p : piles) hours += (p + speed - 1) / speed;
+              return hours <= h;
+          }
+          int minSpeed(const vector<int>& piles, int h) {
+              int lo = 1, hi = *max_element(piles.begin(), piles.end());
+              while (lo < hi) {
+                  int mid = lo + (hi - lo) / 2;
+                  if (feasible(piles, h, mid)) hi = mid; else lo = mid + 1;
+              }
+              return lo;
+          }
+  - id: sliding-window
+    title: Sliding window
+    concept: sliding-window
+    when: "A contiguous range with a running summary: longest, shortest or best window."
+    pitfalls: ["Update the window state on both add and remove.", "Shrink with while, not if, when the window can be invalid by more than one step.", "Fixed windows start answering at index k - 1."]
+    problems: [best-time-to-buy-and-sell-stock, longest-substring-without-repeating-characters, longest-repeating-character-replacement, minimum-window-substring]
+    variants:
+      - id: fixed
+        title: Fixed size k
+        java: |
+          static int maxSumK(int[] a, int k) {
+              int sum = 0, best = Integer.MIN_VALUE;
+              for (int i = 0; i < a.length; i++) {
+                  sum += a[i];
+                  if (i >= k) sum -= a[i - k];
+                  if (i >= k - 1) best = Math.max(best, sum);
+              }
+              return best;
+          }
+        cpp: |
+          int maxSumK(const vector<int>& a, int k) {
+              int sum = 0, best = INT_MIN;
+              for (int i = 0; i < (int)a.size(); i++) {
+                  sum += a[i];
+                  if (i >= k) sum -= a[i - k];
+                  if (i >= k - 1) best = max(best, sum);
+              }
+              return best;
+          }
+      - id: variable
+        title: Variable size (longest without repeats)
+        java: |
+          static int longestUnique(String s) {
+              int[] last = new int[128];          // last index + 1 of each character
+              int best = 0, l = 0;
+              for (int r = 0; r < s.length(); r++) {
+                  char c = s.charAt(r);
+                  l = Math.max(l, last[c]);
+                  last[c] = r + 1;
+                  best = Math.max(best, r - l + 1);
+              }
+              return best;
+          }
+        cpp: |
+          int longestUnique(const string& s) {
+              int last[128] = {};                 // last index + 1 of each character
+              int best = 0, l = 0;
+              for (int r = 0; r < (int)s.size(); r++) {
+                  int c = s[r];
+                  l = max(l, last[c]);
+                  last[c] = r + 1;
+                  best = max(best, r - l + 1);
+              }
+              return best;
+          }
+  - id: two-pointers
+    title: Two pointers
+    concept: two-pointers
+    when: "Sorted input pairs, in-place compaction, or comparing from both ends."
+    pitfalls: ["Sort first when the input is not sorted, and say so.", "Skip duplicates after a match for unique results.", "Check l < r, not l <= r, when a pair must use two different positions."]
+    problems: [valid-palindrome, two-sum-ii-input-array-is-sorted, 3sum, container-with-most-water]
+    variants:
+      - id: opposite-ends
+        title: From both ends (pair with a target sum)
+        java: |
+          static int[] twoSumSorted(int[] a, int target) {
+              int l = 0, r = a.length - 1;
+              while (l < r) {
+                  int s = a[l] + a[r];
+                  if (s == target) return new int[]{l, r};
+                  if (s < target) l++; else r--;
+              }
+              return new int[]{-1, -1};
+          }
+        cpp: |
+          pair<int,int> twoSumSorted(const vector<int>& a, int target) {
+              int l = 0, r = (int)a.size() - 1;
+              while (l < r) {
+                  int s = a[l] + a[r];
+                  if (s == target) return {l, r};
+                  if (s < target) l++; else r--;
+              }
+              return {-1, -1};
+          }
+      - id: same-direction
+        title: Same direction (compact in place)
+        java: |
+          static int dedupe(int[] a) {            // a is sorted, returns the new length
+              int w = 0;
+              for (int r = 0; r < a.length; r++)
+                  if (w == 0 || a[r] != a[w - 1]) a[w++] = a[r];
+              return w;
+          }
+        cpp: |
+          int dedupe(vector<int>& a) {            // a is sorted, returns the new length
+              int w = 0;
+              for (int r = 0; r < (int)a.size(); r++)
+                  if (w == 0 || a[r] != a[w - 1]) a[w++] = a[r];
+              return w;
+          }
+  - id: prefix-sum
+    title: Prefix sums
+    concept: prefix-sums
+    when: "Many range-sum queries, or counting subarrays by a running total."
+    pitfalls: ["Make the array one longer so p[0] = 0.", "Use long when sums can pass 2^31.", "2D: add the two strips, subtract the overlap once."]
+    problems: [product-of-array-except-self, longest-consecutive-sequence, contains-duplicate]
+    variants:
+      - id: one-d
+        title: 1D
+        java: |
+          static long[] prefix(int[] a) {
+              long[] p = new long[a.length + 1];
+              for (int i = 0; i < a.length; i++) p[i + 1] = p[i] + a[i];
+              return p;                           // sum of a[l..r] = p[r + 1] - p[l]
+          }
+        cpp: |
+          vector<long long> prefix(const vector<int>& a) {
+              vector<long long> p(a.size() + 1, 0);
+              for (size_t i = 0; i < a.size(); i++) p[i + 1] = p[i] + a[i];
+              return p;                           // sum of a[l..r] = p[r + 1] - p[l]
+          }
+      - id: two-d
+        title: 2D
+        java: |
+          static long[][] prefix2d(int[][] g) {
+              int r = g.length, c = g[0].length;
+              long[][] p = new long[r + 1][c + 1];
+              for (int i = 0; i < r; i++)
+                  for (int j = 0; j < c; j++)
+                      p[i + 1][j + 1] = g[i][j] + p[i][j + 1] + p[i + 1][j] - p[i][j];
+              return p;
+          }
+          static long rect(long[][] p, int r1, int c1, int r2, int c2) {   // inclusive corners
+              return p[r2 + 1][c2 + 1] - p[r1][c2 + 1] - p[r2 + 1][c1] + p[r1][c1];
+          }
+        cpp: |
+          vector<vector<long long>> prefix2d(const vector<vector<int>>& g) {
+              int r = g.size(), c = g[0].size();
+              vector<vector<long long>> p(r + 1, vector<long long>(c + 1, 0));
+              for (int i = 0; i < r; i++)
+                  for (int j = 0; j < c; j++)
+                      p[i + 1][j + 1] = g[i][j] + p[i][j + 1] + p[i + 1][j] - p[i][j];
+              return p;
+          }
+          long long rect(const vector<vector<long long>>& p, int r1, int c1, int r2, int c2) {   // inclusive corners
+              return p[r2 + 1][c2 + 1] - p[r1][c2 + 1] - p[r2 + 1][c1] + p[r1][c1];
+          }
+  - id: monotonic-stack
+    title: Monotonic stack
+    concept: monotonic-stack
+    when: "Next or previous greater/smaller element, spans, and histogram areas."
+    pitfalls: ["Store indices, not values, so you can compute distances.", "Pick strict or non-strict comparison on purpose, it decides how ties behave.", "Process what is left on the stack after the loop if the problem needs it."]
+    problems: [daily-temperatures, largest-rectangle-in-histogram, car-fleet, valid-parentheses]
+    variants:
+      - id: next-greater
+        title: Next greater element
+        java: |
+          static int[] nextGreater(int[] a) {
+              int[] res = new int[a.length];
+              Arrays.fill(res, -1);
+              Deque<Integer> st = new ArrayDeque<>();     // indices, values decreasing
+              for (int i = 0; i < a.length; i++) {
+                  while (!st.isEmpty() && a[st.peek()] < a[i]) res[st.pop()] = i;
+                  st.push(i);
+              }
+              return res;
+          }
+        cpp: |
+          vector<int> nextGreater(const vector<int>& a) {
+              vector<int> res(a.size(), -1);
+              stack<int> st;                              // indices, values decreasing
+              for (int i = 0; i < (int)a.size(); i++) {
+                  while (!st.empty() && a[st.top()] < a[i]) { res[st.top()] = i; st.pop(); }
+                  st.push(i);
+              }
+              return res;
+          }

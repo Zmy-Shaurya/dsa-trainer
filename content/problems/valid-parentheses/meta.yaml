@@ -1,0 +1,45 @@
+id: valid-parentheses
+platform: leetcode
+lcNumber: 20
+title: Valid Parentheses
+url: https://leetcode.com/problems/valid-parentheses/
+difficulty: easy
+tier: 1
+topics: [strings, stack]
+patterns: [design-data-structure]
+concepts: [stack]
+insight: "The most recently opened bracket must close first, which is exactly last-in-first-out."
+tells:
+  - "Nested, matched pairs"
+  - "Latest opener must be closed first"
+hints:
+  - "Which opening bracket must the next closing bracket match?"
+  - "What structure gives you the most recent item first?"
+traps:
+  java:
+    - "Use ArrayDeque, not the legacy Stack class; check isEmpty() before pop()"
+  cpp:
+    - "Calling top() or pop() on an empty std::stack is undefined behaviour"
+  both:
+    - "A leftover opener at the end means invalid, even if no mismatch was found"
+signature:
+  name: isValid
+  params: [{ name: s, type: string }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: replace
+    name: Remove matched pairs repeatedly
+    idea: "Repeatedly delete '()', '[]' and '{}' from the string; valid iff nothing remains."
+    time: "O(n^2)"
+    space: "O(n)"
+    preferWhen: "you want a one-liner to sanity-check inputs"
+    files: { java: approaches/1-replace.java, cpp: approaches/1-replace.cpp }
+  - id: stack
+    name: Stack of open brackets
+    unlock: "Matching is nested, so only the latest unmatched opener matters: use a stack."
+    idea: "Push openers; on a closer, the stack top must be its partner. The stack must end empty."
+    time: "O(n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/2-stack.java, cpp: approaches/2-stack.cpp }

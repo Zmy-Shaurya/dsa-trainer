@@ -1,0 +1,40 @@
+id: is-subsequence
+platform: leetcode
+lcNumber: 392
+title: Is Subsequence
+url: https://leetcode.com/problems/is-subsequence/
+difficulty: easy
+tier: 1
+topics: [strings, two-pointers]
+patterns: [two-pointers]
+concepts: [two-pointers, arrays-strings]
+insight: "Scan t once, advancing a pointer in s whenever the characters match; s is a subsequence if the pointer reaches its end."
+tells:
+  - "Characters in order but not necessarily adjacent"
+  - "Delete some characters to get the other string"
+hints:
+  - "Which character of s are you waiting for?"
+  - "Do you ever need to go backwards in t?"
+traps:
+  both:
+    - "An empty s is a subsequence of every t"
+signature:
+  name: isSubsequence
+  params: [{ name: s, type: string }, { name: t, type: string }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: two-pointers
+    name: "Two pointers"
+    idea: "Advance i in s on each match while j walks t."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/1-two-pointers.java, cpp: approaches/1-two-pointers.cpp }
+  - id: find-next
+    name: "Jump to the next match"
+    idea: "For each character of s, search forward in t from the last match."
+    time: "O(n)"
+    space: "O(1)"
+    preferWhen: "you use the built-in search and want less bookkeeping"
+    files: { java: approaches/2-find-next.java, cpp: approaches/2-find-next.cpp }

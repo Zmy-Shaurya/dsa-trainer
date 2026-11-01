@@ -1,0 +1,50 @@
+id: coin-change
+platform: leetcode
+lcNumber: 322
+title: Coin Change
+url: https://leetcode.com/problems/coin-change/
+difficulty: medium
+tier: 1
+topics: [dp, arrays]
+patterns: [dp-knapsack, dp-1d]
+concepts: [dp-1d, dp-knapsack]
+insight: "Fewest coins for amount a is 1 plus the best over every coin c of the fewest for a - c; build up from 0."
+tells:
+  - "Minimum number of items to reach a total"
+  - "Unlimited supply of each coin"
+  - "Greedy by largest coin can fail"
+hints:
+  - "If the last coin used was c, what amount is left to make?"
+  - "Why does taking the biggest coin first not always work?"
+traps:
+  both:
+    - "Use amount + 1 as 'infinity'; Integer.MAX_VALUE + 1 overflows"
+    - "Skip coins larger than the current amount before indexing dp[a - coin]"
+signature:
+  name: coinChange
+  params: [{ name: coins, type: "int[]" }, { name: amount, type: int }]
+  returns: int
+  compare: exact
+approaches:
+  - id: brute
+    name: Recursive search
+    idea: "Try every coin for the remaining amount and take the best result; exponential."
+    time: "O(S^n)"
+    space: "O(S)"
+    preferWhen: "only to see the recurrence"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: memo
+    name: Top-down with memoization
+    unlock: "The same remaining amount recurs from many paths; cache the answer per amount."
+    idea: "Same recursion, but store the minimum coins for each remaining amount."
+    time: "O(S * n)"
+    space: "O(S)"
+    files: { java: approaches/2-memo.java, cpp: approaches/2-memo.cpp }
+  - id: bottom-up
+    name: Bottom-up table
+    unlock: "Fill amounts from 0 up so every sub-answer already exists when you need it."
+    idea: "dp[a] = 1 + min(dp[a - coin]) over coins that fit; dp[0] = 0; answer dp[amount] or -1."
+    time: "O(S * n)"
+    space: "O(S)"
+    isOptimal: true
+    files: { java: approaches/3-bottom-up.java, cpp: approaches/3-bottom-up.cpp }
