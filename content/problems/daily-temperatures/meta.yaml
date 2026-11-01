@@ -1,0 +1,41 @@
+id: daily-temperatures
+platform: leetcode
+lcNumber: 739
+title: Daily Temperatures
+url: https://leetcode.com/problems/daily-temperatures/
+difficulty: medium
+tier: 1
+topics: [stack, arrays]
+patterns: [monotonic-stack]
+concepts: [monotonic-stack, stack]
+insight: "Keep a stack of days still waiting for a warmer one; a warmer day resolves everything colder on top of the stack."
+tells:
+  - "Days until a warmer temperature"
+  - "Next greater element"
+hints:
+  - "Which earlier days are still waiting for an answer?"
+  - "In what order should they be resolved?"
+traps:
+  both:
+    - "Store indices, not temperatures, so you can compute the distance"
+signature:
+  name: dailyTemperatures
+  params: [{ name: temperatures, type: "int[]" }]
+  returns: int[]
+  compare: exact
+approaches:
+  - id: brute
+    name: "Scan ahead"
+    idea: "For each day, scan forward until a warmer day appears."
+    time: "O(n^2)"
+    space: "O(1) extra"
+    preferWhen: "n is small"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: monotonic-stack
+    name: "Monotonic stack"
+    unlock: "A warmer day answers every colder day still waiting, so a stack of waiting days stays sorted."
+    idea: "Pop waiting days colder than today and record the gap; push today."
+    time: "O(n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/2-monotonic-stack.java, cpp: approaches/2-monotonic-stack.cpp }

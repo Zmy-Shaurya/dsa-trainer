@@ -1,0 +1,40 @@
+id: longest-consecutive-sequence
+platform: leetcode
+lcNumber: 128
+title: Longest Consecutive Sequence
+url: https://leetcode.com/problems/longest-consecutive-sequence/
+difficulty: medium
+tier: 1
+topics: [arrays, hashing]
+patterns: [frequency-map]
+concepts: [hashing]
+insight: "Only start counting at a number with no predecessor in the set; every run is then walked exactly once."
+tells:
+  - "Longest run of consecutive integers in an unsorted array"
+  - "O(n) time is requested"
+hints:
+  - "How do you know a number begins a run?"
+  - "Why does that keep the total work linear?"
+traps:
+  both:
+    - "Duplicates must not extend a run"
+signature:
+  name: longestConsecutive
+  params: [{ name: nums, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: sort
+    name: "Sort and scan"
+    idea: "Sort, then count the length of each run of +1 steps, skipping duplicates."
+    time: "O(n log n)"
+    space: "O(1) extra"
+    files: { java: approaches/1-sort.java, cpp: approaches/1-sort.cpp }
+  - id: hashset
+    name: "Hash set, start only at run starts"
+    unlock: "A number with no x-1 in the set is the start of a run, so each run is walked once."
+    idea: "Put everything in a set; from each run start, count upward."
+    time: "O(n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/2-hashset.java, cpp: approaches/2-hashset.cpp }

@@ -5,6 +5,7 @@ import { LEARN_LINKS, SubNav } from '../components/SubNav';
 import { useContent, useJson } from '../content/loader';
 import type { TemplatePage } from '../content/types';
 import { useSettings } from '../db/hooks';
+import { Skeleton } from '../components/Skeleton';
 
 export default function Templates() {
   const { data: pages, error } = useJson<TemplatePage[]>('templates.json');
@@ -15,7 +16,7 @@ export default function Templates() {
   const side = both ?? showBothLanguages;
 
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!pages) return <p className="muted">Loading…</p>;
+  if (!pages) return <Skeleton />;
   const page = pages.find((p) => p.id === params.get('page')) ?? pages[0]!;
 
   return (

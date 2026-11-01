@@ -32,7 +32,7 @@ export default function Visualize() {
         if (!list.length) return null;
         return (
           <section key={cat}>
-            <h2>{TITLES[cat]}</h2>
+            <h2>{TITLES[cat]} <span className="count">{list.length}</span></h2>
             <div className="grid">
               {list.map((a) => (
                 <Link key={a.id} to={`/visualize/${a.id}`} className="card algo-card">
@@ -40,10 +40,10 @@ export default function Visualize() {
                   <span className="muted">{a.blurb}</span>
                   <span className="mono">{a.time} · {a.space}</span>
                   <span className="row">
-                    {a.modes.predict && <span className="chip">Predict</span>}
-                    {a.modes.drive && <span className="chip">Drive</span>}
-                    {challengeFor(a.id) && <span className="chip">Break it</span>}
-                    {a.modes.race && <span className="chip">Race</span>}
+                    {a.modes.predict && <span className="chip m-predict">Predict</span>}
+                    {a.modes.drive && <span className="chip m-drive">Drive</span>}
+                    {challengeFor(a.id) && <span className="chip m-break">Break it</span>}
+                    {a.modes.race && <span className="chip m-race">Race</span>}
                   </span>
                 </Link>
               ))}

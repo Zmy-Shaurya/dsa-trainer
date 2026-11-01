@@ -1,0 +1,40 @@
+id: jump-game
+platform: leetcode
+lcNumber: 55
+title: Jump Game
+url: https://leetcode.com/problems/jump-game/
+difficulty: medium
+tier: 1
+topics: [arrays, greedy]
+patterns: [greedy]
+concepts: [greedy]
+insight: "Track the furthest index reachable so far; if you ever stand beyond it, the end is unreachable."
+tells:
+  - "Each value is the maximum jump length"
+  - "Can you reach the last index?"
+hints:
+  - "What is the furthest you can get from the indices you have seen?"
+  - "When does that bound stop growing?"
+traps:
+  both:
+    - "A zero is only fatal when nothing before it can jump over it"
+signature:
+  name: canJump
+  params: [{ name: nums, type: "int[]" }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: dp-reach
+    name: "Reachability DP"
+    idea: "Mark index 0 reachable; from each reachable index mark everything it can jump to."
+    time: "O(n^2)"
+    space: "O(n)"
+    files: { java: approaches/1-dp-reach.java, cpp: approaches/1-dp-reach.cpp }
+  - id: greedy
+    name: "Furthest reach"
+    unlock: "Only the furthest reachable index matters, not which path got there."
+    idea: "Walk once, keeping the furthest index reachable; fail if i passes it."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-greedy.java, cpp: approaches/2-greedy.cpp }

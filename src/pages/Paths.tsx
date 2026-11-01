@@ -3,13 +3,14 @@ import { useContent } from '../content/loader';
 import { usePathStates } from '../db/usePaths';
 import { todayIndex } from '../domain/paths';
 import { useActivity } from '../db/useActivity';
+import { Skeleton } from '../components/Skeleton';
 
 export default function Paths() {
   const { index, error } = useContent();
   const states = usePathStates();
   const { today } = useActivity();
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!index) return <p className="muted">Loading…</p>;
+  if (!index) return <Skeleton />;
   const stateOf = (id: string) => states.find((s) => s.pathId === id);
   const label = (id: string, days: number) => {
     const s = stateOf(id);

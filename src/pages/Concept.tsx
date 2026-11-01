@@ -10,6 +10,7 @@ import { db } from '../db/schema';
 import { setSetting } from '../db/settings';
 import { getAlgo } from '../engine/algos';
 import { STATUS_LABEL } from './Practice';
+import { Skeleton } from '../components/Skeleton';
 
 const pct = (x: number | null) => (x === null ? '—' : `${Math.round(x * 100)}%`);
 const tagLabel = (t: string) => t.replace(/_/g, ' ');
@@ -27,7 +28,7 @@ export default function Concept() {
   useEffect(() => { if (map.ready && map.nodes.has(id)) void markViewed(id); }, [map.ready, id, map.nodes]);
 
   if (map.error) return <p className="error" role="alert">{map.error}</p>;
-  if (!map.ready) return <p className="muted">Loading…</p>;
+  if (!map.ready) return <Skeleton />;
   const node = map.nodes.get(id);
   if (!node) return <div className="card"><h1>Unknown concept</h1><p className="muted">"{id}" is not in the skill tree. <Link to="/tree">Back to the tree</Link></p></div>;
 

@@ -9,6 +9,7 @@ import {
   addProblems, createSheet, deleteSheet, exportSheetJson, importSheet, moveProblem, removeProblem, renameSheet, type CustomSheet,
 } from '../db/customSheets';
 import { db } from '../db/schema';
+import { Skeleton } from '../components/Skeleton';
 
 const bar = (solved: number, total: number) => (
   <progress value={solved} max={Math.max(total, 1)} aria-label={`${solved} of ${total} solved`} />
@@ -37,7 +38,7 @@ export default function Sheet() {
   const candidates = useMemo(() => (index?.problems ?? []).map((p) => ({ id: p.id, title: p.title, lcNumber: p.lcNumber })), [index]);
 
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!index) return <p className="muted">Loading…</p>;
+  if (!index) return <Skeleton />;
 
   const all: (SheetT | CustomSheet)[] = [...index.sheets, ...customs];
   const custom = customs.find((c) => c.id === sheetId);

@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { LEARN_LINKS, SubNav } from '../components/SubNav';
 import { useContent } from '../content/loader';
+import { Skeleton } from '../components/Skeleton';
 
 export default function Cheatsheets() {
   const { index, error } = useContent();
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!index) return <p className="muted">Loading…</p>;
+  if (!index) return <Skeleton />;
   return (
     <div className="stack">
       <SubNav links={LEARN_LINKS} />

@@ -1,0 +1,41 @@
+id: fibonacci-number
+platform: leetcode
+lcNumber: 509
+title: Fibonacci Number
+url: https://leetcode.com/problems/fibonacci-number/
+difficulty: easy
+tier: 1
+topics: [math, dp]
+patterns: [dp-1d]
+concepts: [recursion-basics, dp-1d]
+insight: "fib(n) only needs the previous two values, so carry two numbers forward instead of recomputing the whole tree."
+tells:
+  - "Each value is the sum of the previous two"
+  - "Plain recursion repeats the same subproblems"
+hints:
+  - "How many times does plain recursion compute fib(2)?"
+  - "Which values do you actually need to keep?"
+traps:
+  both:
+    - "Naive recursion is exponential: fine for n=30, hopeless for n=50"
+signature:
+  name: fib
+  params: [{ name: n, type: int }]
+  returns: int
+  compare: exact
+approaches:
+  - id: recursion
+    name: "Plain recursion"
+    idea: "Return fib(n-1) + fib(n-2) with base cases 0 and 1."
+    time: "O(2^n)"
+    space: "O(n)"
+    preferWhen: "you want to show the recurrence, n is tiny"
+    files: { java: approaches/1-recursion.java, cpp: approaches/1-recursion.cpp }
+  - id: two-variables
+    name: "Two rolling variables"
+    unlock: "Each step reads only the last two values, so the table collapses to two variables."
+    idea: "Keep a and b, then slide them forward n times."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-two-variables.java, cpp: approaches/2-two-variables.cpp }

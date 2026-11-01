@@ -90,6 +90,7 @@ export default function Today() {
   const items = plan?.items ?? [];
   const finished = items.filter((i) => i.done).length;
   const allDone = items.length > 0 && finished === items.length;
+  const upNext = items.find((i) => !i.done);
   const minutesLeft = Math.round(items.filter((i) => !i.done).reduce((a, i) => a + i.estMinutes, 0));
 
   const banners = useLiveQuery(async () => {
@@ -113,12 +114,12 @@ export default function Today() {
 
   return (
     <div className="stack">
-      <header className="row" style={{ justifyContent: 'space-between' }}>
+      <header className="page-head">
         <div>
           <h1>Today</h1>
           <p className="muted">{new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}</p>
         </div>
-        <p aria-label={`Streak: ${act.streak.streak} days`}>
+        <p className="streak" aria-label={`Streak: ${act.streak.streak} days`}>
           <strong>🔥 {act.streak.streak}</strong> day{act.streak.streak === 1 ? '' : 's'}
           {act.streak.freezes > 0 && <span className="chip" title="A banked freeze covers one missed day"> ❄ {act.streak.freezes}</span>}
         </p>
@@ -137,6 +138,17 @@ export default function Today() {
         </div>
       )}
 
+      {upNext && (
+        <section className="card hero upnext" aria-label="Up next">
+          <div>
+            <p className="eyebrow">Up next</p>
+            <h2>{upNext.title}</h2>
+            <p className="muted">{upNext.reason} · about {upNext.estMinutes} min</p>
+          </div>
+          <Link className="btn primary" to={linkOf(upNext)}>Start</Link>
+        </section>
+      )}
+
       {path.state && path.def && (() => {
         const late = overdueItems(path.def, path.state, today, path.auto).length;
         const day = Math.min(todayIndex(path.state, today), lastDay(path.def));
@@ -151,20 +163,14 @@ export default function Today() {
             <section className="card" aria-label="Active path">
               <h2>Path</h2>
               <p><Link to={`/paths/${encodeURIComponent(path.state.pathId)}`}>{path.def.name}</Link> · <strong>Day {day} of {lastDay(path.def)}</strong></p>
+              <progress value={day} max={lastDay(path.def)} aria-label={`Day ${day} of ${lastDay(path.def)}`} />
             </section>
           </>
         );
       })()}
 
-      <section className="card" aria-label="Weekly goals">
-        <h2>This week</h2>
-        <div className="rings">
-          <Ring value={act.week.solved} goal={s.weeklyGoal.problems} label="Problems solved" />
-          <Ring value={act.week.reviews} goal={s.weeklyGoal.reviews} label="Cards reviewed" />
-        </div>
-        {act.weekRun > 0 && <p className="muted">{act.weekRun} week{act.weekRun === 1 ? '' : 's'} in a row meeting your goal.</p>}
-      </section>
-
+      <div className="today-grid">
+        <div className="stack">
       <section className="card" aria-label="Today's plan">
         <div className="row" style={{ justifyContent: 'space-between' }}>
           <h2>Plan</h2>
@@ -199,6 +205,17 @@ export default function Today() {
         <p className="muted">Your plan is fixed for the day. Changing the budget rebuilds it and keeps finished items.</p>
       </section>
 
+        </div>
+        <div className="stack">
+      <section className="card" aria-label="Weekly goals">
+        <h2>This week</h2>
+        <div className="rings">
+          <Ring value={act.week.solved} goal={s.weeklyGoal.problems} label="Problems solved" />
+          <Ring value={act.week.reviews} goal={s.weeklyGoal.reviews} label="Cards reviewed" />
+        </div>
+        {act.weekRun > 0 && <p className="muted">{act.weekRun} week{act.weekRun === 1 ? '' : 's'} in a row meeting your goal.</p>}
+      </section>
+
       <section className="card" aria-label="Cards due">
         <h2>Cards</h2>
         <p><strong>{dueNow}</strong> due · <strong>{queue.length - dueNow}</strong> new · <strong>{done.reviews}</strong> reviewed today</p>
@@ -215,6 +232,9 @@ export default function Today() {
           <Link className="btn" to="/progress">See progress</Link>
         </div>
       </section>
+
+        </div>
+      </div>
 
       <section className="card" aria-label="Activity">
         <h2>Activity</h2>

@@ -1,0 +1,13 @@
+{
+  "cases": [
+    {"args": {"s": "abab"}, "expected": true},
+    {"args": {"s": "aba"}, "expected": false},
+    {"args": {"s": "abcabcabcabc"}, "expected": true},
+    {"args": {"s": "a"}, "expected": false},
+    {"args": {"s": "aa"}, "expected": true},
+    {"args": {"s": "ab"}, "expected": false},
+    {"args": {"s": "abaababaab"}, "expected": true},
+    {"args": {"s": "zzzzzz"}, "expected": true},
+    {"args": {"s": "abcabd"}, "expected": false}
+  ]
+}

@@ -1,0 +1,41 @@
+id: count-primes
+platform: leetcode
+lcNumber: 204
+title: Count Primes
+url: https://leetcode.com/problems/count-primes/
+difficulty: medium
+tier: 1
+topics: [math]
+patterns: [math-number-theory]
+concepts: [math-basics]
+insight: "Instead of testing each number, cross out the multiples of every prime; whatever survives is prime."
+tells:
+  - "Count primes strictly below n"
+  - "n can be in the millions"
+hints:
+  - "Which numbers can you rule out as soon as you meet a prime p?"
+  - "Where can the crossing-out start for p?"
+traps:
+  both:
+    - "Primes are strictly less than n; n = 0, 1, 2 all give 0"
+signature:
+  name: countPrimes
+  params: [{ name: n, type: int }]
+  returns: int
+  compare: exact
+approaches:
+  - id: trial
+    name: "Trial division"
+    idea: "Test each k by dividing by 2 up to sqrt(k)."
+    time: "O(n sqrt n)"
+    space: "O(1)"
+    preferWhen: "n is small and you want no extra memory"
+    files: { java: approaches/1-trial.java, cpp: approaches/1-trial.cpp }
+  - id: sieve
+    name: "Sieve of Eratosthenes"
+    unlock: "Every multiple of a prime is composite, and crossing out starts at p*p."
+    idea: "Mark multiples of each prime from p*p upward; count the unmarked."
+    time: "O(n log log n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/2-sieve.java, cpp: approaches/2-sieve.cpp }

@@ -1,0 +1,40 @@
+id: reverse-integer
+platform: leetcode
+lcNumber: 7
+title: Reverse Integer
+url: https://leetcode.com/problems/reverse-integer/
+difficulty: medium
+tier: 1
+topics: [math]
+patterns: [math-number-theory]
+concepts: [math-basics]
+insight: "Pop digits with % 10 and push them with * 10, and stop before the 32-bit range overflows."
+tells:
+  - "Reverse the digits of a signed 32-bit integer"
+  - "Return 0 if the result does not fit"
+hints:
+  - "How do you take off the last digit?"
+  - "When do you check for overflow, before or after?"
+traps:
+  both:
+    - "Check overflow before multiplying; the negative limit is one larger than the positive"
+signature:
+  name: reverse
+  params: [{ name: x, type: int }]
+  returns: int
+  compare: exact
+approaches:
+  - id: long-check
+    name: "Widen to long"
+    idea: "Build the reverse in a 64-bit value and compare it with the int range."
+    time: "O(log x)"
+    space: "O(1)"
+    files: { java: approaches/1-long-check.java, cpp: approaches/1-long-check.cpp }
+  - id: pre-check
+    name: "Check before each push"
+    unlock: "Compare against MAX/10 before multiplying, so no wider type is needed."
+    idea: "Return 0 if r is already beyond the point where r*10 + d could overflow."
+    time: "O(log x)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-pre-check.java, cpp: approaches/2-pre-check.cpp }

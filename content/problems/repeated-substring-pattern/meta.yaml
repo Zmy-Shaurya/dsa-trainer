@@ -1,0 +1,40 @@
+id: repeated-substring-pattern
+platform: leetcode
+lcNumber: 459
+title: Repeated Substring Pattern
+url: https://leetcode.com/problems/repeated-substring-pattern/
+difficulty: easy
+tier: 1
+topics: [strings]
+patterns: [math-number-theory]
+concepts: [strings-advanced, arrays-strings]
+insight: "If s is made of a repeated block, s appears inside s+s at an offset other than 0 and n."
+tells:
+  - "Can s be built by repeating a shorter string?"
+  - "The block length must divide n"
+hints:
+  - "Which block lengths are even possible?"
+  - "What happens if you glue two copies of s together?"
+traps:
+  both:
+    - "A one-character string cannot be a repeat of a shorter block"
+signature:
+  name: repeatedSubstringPattern
+  params: [{ name: s, type: string }]
+  returns: boolean
+  compare: exact
+approaches:
+  - id: divisors
+    name: "Try each block length"
+    idea: "For every k dividing n, check that s equals its first k characters repeated."
+    time: "O(n * d(n))"
+    space: "O(n)"
+    files: { java: approaches/1-divisors.java, cpp: approaches/1-divisors.cpp }
+  - id: doubling
+    name: "Search in s + s"
+    unlock: "Rotating a periodic string by its block length gives the same string back."
+    idea: "Look for s inside (s + s) with the first and last characters removed."
+    time: "O(n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/2-doubling.java, cpp: approaches/2-doubling.cpp }

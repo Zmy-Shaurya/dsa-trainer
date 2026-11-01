@@ -1,0 +1,40 @@
+id: evaluate-reverse-polish-notation
+platform: leetcode
+lcNumber: 150
+title: Evaluate Reverse Polish Notation
+url: https://leetcode.com/problems/evaluate-reverse-polish-notation/
+difficulty: medium
+tier: 1
+topics: [stack]
+patterns: [monotonic-stack]
+concepts: [stack]
+insight: "Push numbers; on an operator pop two, apply it, and push the result. The stack always holds the pending values."
+tells:
+  - "Operators come after their operands"
+  - "Evaluate without parentheses"
+hints:
+  - "What do you need when you meet an operator?"
+  - "Which operand comes first when you pop two?"
+traps:
+  both:
+    - "Pop the right operand first; division truncates toward zero"
+signature:
+  name: evalRPN
+  params: [{ name: tokens, type: "string[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: stack
+    name: "Stack of values"
+    idea: "Push numbers, pop two on an operator and push the result."
+    time: "O(n)"
+    space: "O(n)"
+    files: { java: approaches/1-stack.java, cpp: approaches/1-stack.cpp }
+  - id: array-stack
+    name: "Array as the stack"
+    unlock: "The stack never grows past the token count, so a plain array and a top index are enough."
+    idea: "Use an int array and a top pointer instead of a stack object."
+    time: "O(n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/2-array-stack.java, cpp: approaches/2-array-stack.cpp }

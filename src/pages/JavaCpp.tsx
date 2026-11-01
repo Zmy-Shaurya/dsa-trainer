@@ -7,6 +7,7 @@ import { useSettings } from '../db/hooks';
 import { recordQuizAnswer } from '../db/quiz';
 import { dayKey } from '../domain/dates';
 import { mulberry32, trapOfTheDay, trapQuiz } from '../domain/quiz';
+import { Skeleton } from '../components/Skeleton';
 
 const CATEGORY_LABEL: Record<GuideCategory, string> = {
   collections: 'Collections', strings: 'Strings', numbers: 'Numbers and overflow', sorting: 'Sorting and comparators',
@@ -76,7 +77,7 @@ export default function JavaCpp() {
   const [both, setBoth] = useState<boolean | undefined>(undefined);
   const side = both ?? s.showBothLanguages;
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!cards) return <p className="muted">Loading…</p>;
+  if (!cards) return <Skeleton />;
 
   const today = trapOfTheDay(cards, dayKey(new Date(), s.dayRolloverHour));
   const shown = cards.filter((c) => cat === 'all' || c.category === cat);

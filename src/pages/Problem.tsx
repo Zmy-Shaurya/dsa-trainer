@@ -13,6 +13,7 @@ import { setSetting } from '../db/settings';
 import { logAttempt, MISTAKE_TAGS, saveInsight, setConfidence, setStatus, toggleStar, type MistakeTag } from '../db/progress';
 import type { Confidence, SolveMode, Status } from '../db/types';
 import { CONF_LABEL, STATUS_LABEL } from './Practice';
+import { Skeleton } from '../components/Skeleton';
 
 const stripHidden = (code: string) => code.replace(/\/\/ @hide-start[\s\S]*?\/\/ @hide-end\n?/g, '');
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
@@ -164,9 +165,9 @@ export default function Problem() {
   }, [problem, settings.language, settings.showBothLanguages]);
 
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!index) return <p className="muted">Loading…</p>;
+  if (!index) return <Skeleton />;
   if (!summary) return <div className="card"><h1>Unknown problem</h1><p className="muted">"{id}" is not in the content index.</p></div>;
-  if (summary.hasApproaches && !full) return <p className="muted">Loading…</p>;
+  if (summary.hasApproaches && !full) return <Skeleton />;
   if (full?.error) return <p className="error" role="alert">{full.error}</p>;
 
   const status = progress?.status ?? 'not_started';

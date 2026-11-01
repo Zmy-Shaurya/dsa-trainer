@@ -5,6 +5,7 @@ import { useAuthoredCards, useContent } from '../content/loader';
 import { createUserCard, deleteCards, isHidden, setSuspended, type CardRecord } from '../db/cards';
 import { db } from '../db/schema';
 import { viewOf } from './Review';
+import { Skeleton } from '../components/Skeleton';
 
 const STATE = ['New', 'Learning', 'Review', 'Relearning'];
 
@@ -42,7 +43,7 @@ export default function Browse() {
   }, [cards, authored, params]);
 
   if (error || cardErr) return <p className="error" role="alert">{error ?? cardErr}</p>;
-  if (!index || !authored) return <p className="muted">Loading…</p>;
+  if (!index || !authored) return <Skeleton />;
 
   const ids = [...picked];
   const removable = ids.filter((id) => cards.find((c) => c.id === id)?.source !== 'authored');

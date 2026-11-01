@@ -5,8 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DSA Studio</title>
     <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="icon" href="./icon-192.png" />
-    <meta name="theme-color" content="#141414" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
+    <meta name="description" content="DSA Studio: a local-first workstation for learning data structures and algorithms in Java and C++." />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f2f4f0" />
+    <script>
+      // Apply the saved theme before first paint so dark mode does not flash light.
+      (function () {
+        try {
+          var t = localStorage.getItem('dsa-theme') || 'system';
+          var dark = t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

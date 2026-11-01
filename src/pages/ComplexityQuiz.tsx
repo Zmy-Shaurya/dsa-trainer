@@ -9,6 +9,7 @@ import { db } from '../db/schema';
 import { useSettings } from '../db/hooks';
 import { recordQuizAnswer } from '../db/quiz';
 import { answerFor, gradeComplexity, mulberry32, pickComplexity, type Attempt } from '../domain/quiz';
+import { Skeleton } from '../components/Skeleton';
 
 const TOPIC_LABEL: Record<string, string> = {
   loops: 'Loops', recursion: 'Recursion', amortised: 'Amortised', strings: 'Strings', 'data-structures': 'Data structures', 'language-traps': 'Language traps',
@@ -65,7 +66,7 @@ export default function ComplexityQuiz() {
   }, [auto, items, history, pool.length]);
 
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!items || !history) return <p className="muted">Loading…</p>;
+  if (!items || !history) return <Skeleton />;
 
   const item = session?.queue[session.i];
 

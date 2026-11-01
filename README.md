@@ -94,6 +94,14 @@ npm run typecheck && npm run lint && npm test && npm run content:validate && npm
 - A bad address (`#/nope`, `#/paths/none`) now shows a plain "not found" message instead of a framework error; a crash in a page shows a "your data is safe" screen.
 - `CONTRIBUTING.md` explains the problem folder format and the validate / verify workflow for adding batches of about 20.
 
+## UI refresh
+
+- Press `Ctrl/Cmd + K` anywhere to search pages, problems, concepts and visualizers; press `?` for the keyboard shortcut list. Today shows an "Up next" card for the single best next action. Phase 10 batch 2 adds 13 more verified problems (54 total).
+- New look: one teal accent on a green-tinted stone palette, with a matching dark theme (all colors are tokens in `src/theme/tokens.css`). Geist and JetBrains Mono are bundled through npm, so they work offline, and icons come from Phosphor.
+- Layout: a glass sidebar with icons (icon-only on tablets, a scrolling tab bar on phones), a sticky blurred top bar, a two-column Today, a focused column for review sessions, and skeleton screens while pages load.
+- Smaller things: the saved theme is applied before first paint (no light flash in dark mode), pages open scrolled to the top, unknown addresses show a not-found page, and the PWA icon and favicon match the new brand.
+- Reduced-motion settings still switch every animation off.
+
 ## Assumptions
 - Project lives at the repo root (no `dsa-studio/` subfolder).
 - `content:verify` needs JDK 17+ and g++ (found via PATH, `JAVAC`/`GXX`, or the usual Windows install dirs).
@@ -138,6 +146,9 @@ npm run typecheck && npm run lint && npm test && npm run content:validate && npm
 - Compare exists only where a problem approach names a `visualizer`: Two Sum and Binary Search so far. Other problems need brute-force visualizers first (Phase 10 content work).
 - Race gives the same array to every contestant; counting sort only accepts 0..15, so a race that includes it rejects other values with that message.
 - Compare and Race count steps, not time, and different kinds of steps (a comparison and a hash insert) are weighted equally as one op each.
-- Phase 10 is only started: 41 of the ~500 planned problems are authored (the PRD target is tier 1 about 150, tier 2 about 200, tier 3 about 150). The remaining batches, the Striver, Babbar and Grind sheets and their equivalence mappings are not done; `CONTRIBUTING.md` is the recipe for continuing.
+- Phase 10 is only started: 54 of the ~500 planned problems are authored (the PRD target is tier 1 about 150, tier 2 about 200, tier 3 about 150). The remaining batches, the Striver, Babbar and Grind sheets and their equivalence mappings are not done; `CONTRIBUTING.md` is the recipe for continuing.
 - The accessibility check was a scripted audit of names, labels, headings and landmarks across the main routes in a browser; axe was not installed and no screen-reader pass was done. The only unlabeled control is the hidden file input on Data.
 - No bundle changes were needed: every page is already a lazy chunk and the main chunk is about 80 kB gzipped. The longest list is Browse (170 problems), which is not virtualised.
+- The UI refresh changed styling and markup only; behaviour, routes and data are untouched. It was checked in a browser by hand at desktop, tablet and phone widths in both themes, plus a scripted check for horizontal overflow and console errors on every route.
+- The contrast audit was scripted and covered text on the main pages; the SVG visualizer colors and the colorblind palette were not re-measured after the palette change.
+- The theme choice is mirrored into `localStorage` (key `dsa-theme`) only so the page can paint in the right theme; the real setting still lives in IndexedDB.

@@ -11,6 +11,7 @@ import { setStatus } from '../db/progress';
 import { db } from '../db/schema';
 import { defaultWindow } from '../domain/companies';
 import { GEN_MAX_PROBLEMS, generateCompanyPath } from '../domain/paths';
+import { Skeleton } from '../components/Skeleton';
 
 export default function Company() {
   const id = useParams().id ?? '';
@@ -51,7 +52,7 @@ export default function Company() {
     }).sort((a, b) => (b.freq ?? -1) - (a.freq ?? -1) || a.id.localeCompare(b.id));
   }, [data, win, byId, canon]);
 
-  if (loading || !index) return <p className="muted">Loading…</p>;
+  if (loading || !index) return <Skeleton />;
   if (!data || !win) return <p>No company "{id}" on this device. <Link to="/companies">Back to Companies</Link></p>;
 
   const done = rows.filter((r) => solved.has(r.id)).length;

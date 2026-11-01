@@ -15,6 +15,7 @@ import { countByState, forecast, retentionRate, reviewsPerDay } from '../domain/
 import { dayKey } from '../domain/dates';
 import { toView, type CardView } from '../domain/cardView';
 import type { Rating } from '../domain/srs';
+import { Skeleton } from '../components/Skeleton';
 
 export function viewOf(c: CardRecord, authored: Map<string, AuthoredCard> | undefined): CardView | null {
   return c.source === 'authored' ? (authored?.has(c.id) ? toView(authored.get(c.id)!) : null) : toView(c);
@@ -134,7 +135,7 @@ function Run({ session, setSession, authored }: {
   if (!card || !view) return <p className="muted">Loading card…</p>;
 
   return (
-    <>
+    <div className="session">
       <div className="row">
         <progress value={session.i} max={total} aria-label="Session progress" />
         <span className="muted">{session.i + 1} / {total}{session.cram && ' · cram'}</span>
@@ -161,7 +162,7 @@ function Run({ session, setSession, authored }: {
           view.type === 'cloze' ? { type: 'cloze', clozeText: authored.get(card.id)?.text ?? '' } : { type: 'basic', front: view.question, back: view.answer },
         )}>Copy to my cards</button>}
       </p>
-    </>
+    </div>
   );
 }
 
@@ -205,7 +206,7 @@ export default function Review() {
   const dueCount = queue.filter((id) => (cards.find((c) => c.id === id)?.state ?? 0) !== 0).length;
 
   if (error || cardErr) return <p className="error" role="alert">{error ?? cardErr}</p>;
-  if (!index || !authored) return <p className="muted">Loading…</p>;
+  if (!index || !authored) return <Skeleton />;
   if (session) return <><h1>Review</h1><Run session={session} setSession={setSession} authored={authored} /></>;
 
   const cram = cards.filter((c) => c.conceptId === concept && !c.suspended).map((c) => c.id);
@@ -213,8 +214,12 @@ export default function Review() {
   return (
     <>
       <h1>Review</h1>
-      <div className="card">
-        <p><strong>{dueCount}</strong> due · <strong>{queue.length - dueCount}</strong> new today · {inDeck} cards in your deck</p>
+      <div className="card hero">
+        <div className="stats" aria-label={`${dueCount} due, ${queue.length - dueCount} new today, ${inDeck} cards in your deck`}>
+          <div className="stat"><b>{dueCount}</b><span>due</span></div>
+          <div className="stat"><b>{queue.length - dueCount}</b><span>new today</span></div>
+          <div className="stat"><b>{inDeck}</b><span>in your deck</span></div>
+        </div>
         {queue.length > 0 ? (
           <button className="btn primary" onClick={() => setSession({ ids: queue, i: 0, cram: false, done: 0 })}>Start session</button>
         ) : (

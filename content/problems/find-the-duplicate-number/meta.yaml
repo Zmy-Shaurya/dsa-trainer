@@ -1,0 +1,41 @@
+id: find-the-duplicate-number
+platform: leetcode
+lcNumber: 287
+title: Find the Duplicate Number
+url: https://leetcode.com/problems/find-the-duplicate-number/
+difficulty: medium
+tier: 1
+topics: [arrays, two-pointers]
+patterns: [fast-slow-pointers]
+concepts: [two-pointers, hashing]
+insight: "Treat each value as a pointer to an index: a repeated value means two indices point to the same place, so the walk has a cycle that starts at the duplicate."
+tells:
+  - "n+1 numbers in the range 1..n"
+  - "Do not modify the array, use O(1) extra space"
+hints:
+  - "If every value is a 'next' pointer, what does a repeat create?"
+  - "How do you find where a cycle begins?"
+traps:
+  both:
+    - "The duplicate may appear more than twice"
+signature:
+  name: findDuplicate
+  params: [{ name: nums, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: hashset
+    name: "Hash set"
+    idea: "Return the first value seen twice."
+    time: "O(n)"
+    space: "O(n)"
+    preferWhen: "the extra space is fine"
+    files: { java: approaches/1-hashset.java, cpp: approaches/1-hashset.cpp }
+  - id: floyd
+    name: "Floyd's cycle detection"
+    unlock: "Index i points to nums[i], so a duplicate value is a node with two incoming edges: the cycle entrance."
+    idea: "Find the meeting point, then restart one pointer from 0 and step both once at a time."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-floyd.java, cpp: approaches/2-floyd.cpp }

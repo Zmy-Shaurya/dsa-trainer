@@ -5,6 +5,8 @@ import { router } from './routes';
 import { bootstrapMeta } from './db/settings';
 import { folderSyncSupported, startAutoSync } from './db/folderSync';
 import { persistOnFirstAction, registerSW } from './pwa';
+import '@fontsource-variable/geist';
+import '@fontsource-variable/jetbrains-mono';
 import './theme/tokens.css';
 import './theme/global.css';
 

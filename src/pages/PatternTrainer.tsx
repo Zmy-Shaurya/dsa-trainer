@@ -7,6 +7,7 @@ import type { PatternItem } from '../content/types';
 import { db } from '../db/schema';
 import { recordQuizAnswer } from '../db/quiz';
 import { mulberry32, pickPatterns, prettyPattern, TEMPLATE_OF, type PatternDrill } from '../domain/quiz';
+import { Skeleton } from '../components/Skeleton';
 
 type Mode = 'drill' | 'weak' | 'timed';
 const MODES: Record<Mode, { label: string; count: number; blurb: string }> = {
@@ -97,7 +98,7 @@ export default function PatternTrainer() {
   }, [history, items]);
 
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!items || !history) return <p className="muted">Loading…</p>;
+  if (!items || !history) return <Skeleton />;
 
   if (session && !cur) {
     const right = session.results.filter(Boolean).length;

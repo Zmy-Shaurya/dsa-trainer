@@ -8,6 +8,7 @@ import { autoCards } from '../db/cards';
 import { addProblems } from '../db/customSheets';
 import { bulkUpdate, setConfidence, setStatus, toggleStar } from '../db/progress';
 import type { Confidence, ProgressRecord, Status } from '../db/types';
+import { Skeleton } from '../components/Skeleton';
 
 export const STATUS_LABEL: Record<Status, string> = { not_started: 'Not started', attempted: 'Attempted', solved: 'Solved' };
 export const CONF_LABEL: Record<Confidence, string> = { cleared: 'Cleared', need_review: 'Need review', dont_understand: "Don't understand" };
@@ -108,7 +109,7 @@ export default function Practice() {
   }, [rows, cursor, pmap, nav]);
 
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!index) return <p className="muted">Loading…</p>;
+  if (!index) return <Skeleton />;
 
   const th = (key: SortKey, label: string) => (
     <th aria-sort={sort.key === key ? (sort.dir === 1 ? 'ascending' : 'descending') : 'none'}>

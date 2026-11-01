@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { TRACKS, TRACK_LABEL, useConceptMap, type ConceptNode } from '../content/useConceptMap';
 import type { NodeState } from '../domain/mastery';
+import { Skeleton } from '../components/Skeleton';
 
 const R = 26;
 const PAD = 60;
@@ -88,7 +89,7 @@ export default function Tree() {
   };
 
   if (map.error) return <p className="error" role="alert">{map.error}</p>;
-  if (!map.ready) return <p className="muted">Loading…</p>;
+  if (!map.ready) return <Skeleton />;
 
   const dimmed = (n: ConceptNode) => tracks.size > 0 && !tracks.has(n.concept.track);
   const info = map.nodes.get(hover ?? focus ?? map.next ?? '');

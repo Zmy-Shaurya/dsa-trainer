@@ -1,0 +1,40 @@
+id: counting-bits
+platform: leetcode
+lcNumber: 338
+title: Counting Bits
+url: https://leetcode.com/problems/counting-bits/
+difficulty: easy
+tier: 1
+topics: [bit-manipulation, dp]
+patterns: [bit-manipulation, dp-1d]
+concepts: [bit-manipulation, dp-1d]
+insight: "i has the same bits as i>>1 plus its lowest bit, so every answer reuses an earlier one."
+tells:
+  - "Set-bit count for every number from 0 to n"
+  - "Linear time is expected"
+hints:
+  - "How does i relate to i >> 1?"
+  - "What does the last bit add?"
+traps:
+  both:
+    - "Counting each number from scratch costs O(n log n)"
+signature:
+  name: countBits
+  params: [{ name: n, type: int }]
+  returns: int[]
+  compare: exact
+approaches:
+  - id: kernighan
+    name: "Count each number"
+    idea: "Clear the lowest set bit repeatedly for each i."
+    time: "O(n log n)"
+    space: "O(1) extra"
+    files: { java: approaches/1-kernighan.java, cpp: approaches/1-kernighan.cpp }
+  - id: dp-shift
+    name: "DP on i >> 1"
+    unlock: "Dropping the last bit gives a smaller number whose count we already have."
+    idea: "res[i] = res[i >> 1] + (i & 1)."
+    time: "O(n)"
+    space: "O(1) extra"
+    isOptimal: true
+    files: { java: approaches/2-dp-shift.java, cpp: approaches/2-dp-shift.cpp }

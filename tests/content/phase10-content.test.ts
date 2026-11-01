@@ -6,6 +6,10 @@ import { loadProblems } from '../../scripts/content-lib';
 const BATCH = [
   'missing-number', 'single-number', 'majority-element', 'maximum-subarray', 'product-of-array-except-self', 'plus-one',
   'happy-number', 'is-subsequence', 'longest-common-prefix', 'number-of-1-bits', 'power-of-two',
+  // batch 2
+  'fibonacci-number', 'min-cost-climbing-stairs', 'counting-bits', 'reverse-integer', 'count-primes',
+  'two-sum-ii-input-array-is-sorted', 'jump-game', 'daily-temperatures', 'find-the-duplicate-number',
+  'subarray-sum-equals-k', 'longest-consecutive-sequence', 'repeated-substring-pattern', 'evaluate-reverse-polish-notation',
 ];
 
 describe('Phase 10 batch 1', () => {

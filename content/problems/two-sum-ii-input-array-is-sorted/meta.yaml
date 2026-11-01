@@ -1,0 +1,40 @@
+id: two-sum-ii-input-array-is-sorted
+platform: leetcode
+lcNumber: 167
+title: Two Sum II - Input Array Is Sorted
+url: https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+difficulty: medium
+tier: 1
+topics: [arrays, two-pointers]
+patterns: [two-pointers]
+concepts: [two-pointers]
+insight: "With a sorted array, a pair that is too small needs a bigger left value and one that is too large needs a smaller right value."
+tells:
+  - "Sorted input, find a pair with a given sum"
+  - "Constant extra space"
+hints:
+  - "What do the two ends add up to?"
+  - "Which end should move when the sum is too big?"
+traps:
+  both:
+    - "Return 1-indexed positions, smaller index first"
+signature:
+  name: twoSum
+  params: [{ name: numbers, type: "int[]" }, { name: target, type: int }]
+  returns: int[]
+  compare: exact
+approaches:
+  - id: binary-search
+    name: "Binary search for the partner"
+    idea: "For each i, binary-search target - numbers[i] to its right."
+    time: "O(n log n)"
+    space: "O(1)"
+    files: { java: approaches/1-binary-search.java, cpp: approaches/1-binary-search.cpp }
+  - id: two-pointers
+    name: "Two pointers from the ends"
+    unlock: "Sortedness tells you which pointer to move after each comparison."
+    idea: "Start at both ends; move left up if the sum is small, right down if it is large."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-two-pointers.java, cpp: approaches/2-two-pointers.cpp }

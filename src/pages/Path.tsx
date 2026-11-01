@@ -8,6 +8,7 @@ import { useActivePath, useAuto, usePathDef, usePathStates } from '../db/usePath
 import {
   compress, isComplete, itemMinutes, itemsOf, lastDay, overdueItems, pathProgress, todayIndex, type CompressResult, type PathItem,
 } from '../domain/paths';
+import { Skeleton } from '../components/Skeleton';
 
 export default function PathPage() {
   const id = useParams().id ?? '';
@@ -27,7 +28,7 @@ export default function PathPage() {
   const titleOf = (pid: string) => byId.get(pid)?.title ?? def?.info?.[pid]?.title ?? pid;
   const items = useMemo(() => (def ? itemsOf(def, state) : []), [def, state]);
   if (error) return <p className="error" role="alert">No learning path "{id}" on this device. <Link to="/paths">Back to Paths</Link></p>;
-  if (!def || !index) return <p className="muted">Loading…</p>;
+  if (!def || !index) return <Skeleton />;
 
   const idx = state ? todayIndex(state, today) : 0;
   const total = lastDay(def);

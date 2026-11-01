@@ -9,6 +9,7 @@ import { db } from '../db/schema';
 import { buildCompanies, defaultWindow, validateCompany, type BuildReport } from '../domain/companies';
 import { sheetProblemIds } from '../domain/sheets';
 import { readSources } from './companies/readSources';
+import { Skeleton } from '../components/Skeleton';
 
 interface Pending extends BuildReport {
   jsonCompanies: CompanyData[];
@@ -111,7 +112,7 @@ export default function Companies() {
   }, [entries]);
 
   const solved = useMemo(() => new Set(progress.filter((p) => p.status === 'solved').map((p) => p.problemId)), [progress]);
-  if (!index || !entries) return <p className="muted">Loading…</p>;
+  if (!index || !entries) return <Skeleton />;
   const data = new Map<string, CompanyData>([...bundled, ...(imported ?? []).map((c) => [c.id, c] as const)]);
   const shown = entries.filter((e) => e.name.toLowerCase().includes(q.trim().toLowerCase()));
 

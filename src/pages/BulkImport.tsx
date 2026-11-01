@@ -6,6 +6,7 @@ import { Matcher, parseBulk, type MatchResult } from '../domain/matching';
 import { clearUnmatched, commitImport, loadUnmatched, saveUnmatched, undoAvailable, undoLastImport } from '../db/bulkImport';
 import { db } from '../db/schema';
 import type { Confidence } from '../db/types';
+import { Skeleton } from '../components/Skeleton';
 
 export default function BulkImport() {
   const { index, error, byId, canon } = useContent();
@@ -28,7 +29,7 @@ export default function BulkImport() {
   }, [text, index, canon]);
 
   if (error) return <p className="error" role="alert">{error}</p>;
-  if (!index) return <p className="muted">Loading…</p>;
+  if (!index) return <Skeleton />;
 
   const usable = rows.flatMap((r, i) => (r.id && (r.m.status === 'matched' || accept.has(i)) ? [{ ...r, i }] : []));
   const fresh = usable.filter((r) => !solved.has(r.id!));

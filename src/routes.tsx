@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { createHashRouter, Link, type RouteObject } from 'react-router-dom';
 import { Shell } from './components/Shell';
+import { Skeleton } from './components/Skeleton';
 
 const Placeholder = lazy(() => import('./pages/Placeholder'));
 const Data = lazy(() => import('./pages/Data'));
@@ -37,7 +38,7 @@ const PLACEHOLDERS: [path: string, title: string][] = [
   ['settings', 'Settings'],
 ];
 
-const wrap = (el: React.ReactNode) => <Suspense fallback={<p className="muted">Loading…</p>}>{el}</Suspense>;
+const wrap = (el: React.ReactNode) => <Suspense fallback={<Skeleton />}>{el}</Suspense>;
 
 const children: RouteObject[] = [
   { index: true, element: wrap(<Today />) },

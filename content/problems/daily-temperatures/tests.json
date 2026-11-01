@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {"args": {"temperatures": [73, 74, 75, 71, 69, 72, 76, 73]}, "expected": [1, 1, 4, 2, 1, 1, 0, 0]},
+    {"args": {"temperatures": [30, 40, 50, 60]}, "expected": [1, 1, 1, 0]},
+    {"args": {"temperatures": [30, 60, 90]}, "expected": [1, 1, 0]},
+    {"args": {"temperatures": [50]}, "expected": [0]},
+    {"args": {"temperatures": [90, 80, 70]}, "expected": [0, 0, 0]},
+    {"args": {"temperatures": [55, 55, 55]}, "expected": [0, 0, 0]},
+    {"args": {"temperatures": [70, 71, 70, 71, 72, 69, 100]}, "expected": [1, 3, 1, 1, 2, 1, 0]}
+  ]
+}

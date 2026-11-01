@@ -3,6 +3,7 @@ import { Markdown } from '../components/Markdown';
 import { LEARN_LINKS, SubNav } from '../components/SubNav';
 import { useJson } from '../content/loader';
 import type { Cheatsheet } from '../content/types';
+import { Skeleton } from '../components/Skeleton';
 
 export default function CheatsheetView() {
   const { id = '' } = useParams();
@@ -15,7 +16,7 @@ export default function CheatsheetView() {
       </div>
     );
   }
-  if (!data) return <p className="muted">Loading…</p>;
+  if (!data) return <Skeleton />;
   return (
     <div className="stack">
       <SubNav links={LEARN_LINKS} />

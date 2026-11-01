@@ -1,0 +1,13 @@
+{
+  "cases": [
+    {"args": {"nums": [2, 3, 1, 1, 4]}, "expected": true},
+    {"args": {"nums": [3, 2, 1, 0, 4]}, "expected": false},
+    {"args": {"nums": [0]}, "expected": true},
+    {"args": {"nums": [1]}, "expected": true},
+    {"args": {"nums": [0, 1]}, "expected": false},
+    {"args": {"nums": [2, 0, 0]}, "expected": true},
+    {"args": {"nums": [1, 1, 1, 1, 0]}, "expected": true},
+    {"args": {"nums": [5, 0, 0, 0, 0, 0]}, "expected": true},
+    {"args": {"nums": [1, 0, 1, 0]}, "expected": false}
+  ]
+}

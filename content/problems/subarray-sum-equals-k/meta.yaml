@@ -1,0 +1,41 @@
+id: subarray-sum-equals-k
+platform: leetcode
+lcNumber: 560
+title: Subarray Sum Equals K
+url: https://leetcode.com/problems/subarray-sum-equals-k/
+difficulty: medium
+tier: 1
+topics: [arrays, hashing, prefix-sums]
+patterns: [prefix-sum, frequency-map]
+concepts: [prefix-sums, hashing]
+insight: "A subarray ending here sums to k exactly when an earlier prefix equals (current prefix - k), so count prefixes in a map."
+tells:
+  - "Count contiguous subarrays with a given sum"
+  - "Negative numbers rule out a sliding window"
+hints:
+  - "How is a subarray sum the difference of two prefix sums?"
+  - "What should you store as you scan?"
+traps:
+  both:
+    - "Seed the map with prefix 0 so subarrays starting at index 0 count"
+signature:
+  name: subarraySum
+  params: [{ name: nums, type: "int[]" }, { name: k, type: int }]
+  returns: int
+  compare: exact
+approaches:
+  - id: brute
+    name: "Every subarray"
+    idea: "Extend each start index and count the windows that hit k."
+    time: "O(n^2)"
+    space: "O(1)"
+    preferWhen: "n is small"
+    files: { java: approaches/1-brute.java, cpp: approaches/1-brute.cpp }
+  - id: prefix-map
+    name: "Prefix sums in a hash map"
+    unlock: "sum(i..j) = prefix[j] - prefix[i-1], so look up prefix - k."
+    idea: "Keep counts of prefix sums seen; add count[prefix - k] at each step."
+    time: "O(n)"
+    space: "O(n)"
+    isOptimal: true
+    files: { java: approaches/2-prefix-map.java, cpp: approaches/2-prefix-map.cpp }

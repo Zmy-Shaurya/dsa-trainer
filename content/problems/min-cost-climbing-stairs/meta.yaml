@@ -1,0 +1,40 @@
+id: min-cost-climbing-stairs
+platform: leetcode
+lcNumber: 746
+title: Min Cost Climbing Stairs
+url: https://leetcode.com/problems/min-cost-climbing-stairs/
+difficulty: easy
+tier: 1
+topics: [dp, arrays]
+patterns: [dp-1d]
+concepts: [dp-1d]
+insight: "The cheapest way to stand on step i comes from step i-1 or i-2, so build the answer one step at a time."
+tells:
+  - "Climb one or two steps and pay the cost of the step you leave"
+  - "Minimum total cost to reach the top"
+hints:
+  - "Where can you have come from to reach step i?"
+  - "The top is one past the last step."
+traps:
+  both:
+    - "You may start on step 0 or step 1, and finish past the last step"
+signature:
+  name: minCostClimbingStairs
+  params: [{ name: cost, type: "int[]" }]
+  returns: int
+  compare: exact
+approaches:
+  - id: dp-array
+    name: "DP array"
+    idea: "dp[i] is the cheapest cost to stand on step i; the answer is dp[n]."
+    time: "O(n)"
+    space: "O(n)"
+    files: { java: approaches/1-dp-array.java, cpp: approaches/1-dp-array.cpp }
+  - id: rolling
+    name: "Two rolling values"
+    unlock: "dp[i] reads only dp[i-1] and dp[i-2]."
+    idea: "Keep the last two costs and update them in place."
+    time: "O(n)"
+    space: "O(1)"
+    isOptimal: true
+    files: { java: approaches/2-rolling.java, cpp: approaches/2-rolling.cpp }
